@@ -8,7 +8,7 @@
 <style>
 @font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations")}
 @font-face{font-family:"Roboto Mono";font-weight:100 700;font-display:swap;src:url(../fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations")}
-:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#343434;--red:#E0412F;--pink:#F0648A;--salmon:#E8785E;--taupe:#4A443F;--rose:#D9536A;--paper:#1B1B1B;--tint:#151517;--lamp:#ECECEC;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
+:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#343434;--red:#E0412F;--pink:#E3495F;--salmon:#E8785E;--taupe:#4A443F;--rose:#D9536A;--paper:#1B1B1B;--tint:#151517;--lamp:#ECECEC;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font:400 15px/1.5 var(--f);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .app{display:grid;grid-template-columns:420px minmax(0,1fr);height:100vh;height:100dvh}
@@ -137,7 +137,7 @@ input[type=range]{accent-color:var(--lamp)}
 .map{background:#1B1B1B}
 .cmp .safe .lab,.cmp .safe b{color:var(--pink)!important;text-shadow:none}
 .why li::before{color:var(--pink)}
-.legend .red{background:linear-gradient(transparent 0 4px,#F0648A 4px 9px,transparent 9px)!important}
+.legend .red{background:linear-gradient(transparent 0 4px,#E3495F 4px 9px,transparent 9px)!important}
 .legend .rose{background:#E0412F!important}
 .legend .litst{background:linear-gradient(transparent 0 5px,#EFE6D8 5px 7px,transparent 7px)!important}
 .legend .darkst{background:radial-gradient(circle,rgba(239,230,216,.6) 1px,transparent 1.4px) 0 50%/5px 13px repeat-x!important}
@@ -451,7 +451,7 @@ function setupMap(){
   const ax=G.V[A][0],ay=G.V[A][1];let dmax=1;G.E.forEach(e=>{const v=G.V[e[0]];dmax=Math.max(dmax,Math.hypot(v[0]-ax,v[1]-ay))});
   const NB=14,bins=[0,1].map(()=>Array.from({length:NB},()=>[])),dark=[];
   G.E.forEach(e=>{const v=G.V[e[0]],k=Math.min(NB-1,Math.floor(Math.hypot(v[0]-ax,v[1]-ay)/dmax*NB));if(e[3]>=.99)bins[0][k].push(epath(e));else if(e[3]>=.8)bins[1][k].push(epath(e));else dark.push(epath(e))});
-  const lamps=bins.map((bb,c)=>bb.map((b,k)=>b.length?`<path class="lamp" stroke-width="${c?1:1.3}" stroke-opacity="${c?.5:.95}" style="animation-delay:${(.2+k*.1).toFixed(2)}s" d="${b.join("")}"/>`:"").join("")).join("");
+  const lamps=bins.map((bb,c)=>bb.map((b,k)=>b.length?`<path class="lamp" stroke-width="${c?1:1.2}" stroke-opacity="${c?.22:.42}" style="animation-delay:${(.2+k*.1).toFixed(2)}s" d="${b.join("")}"/>`:"").join("")).join("");
   const canal=G.E.filter(e=>/canal/i.test(e[10]));
   const act=(G.act||[]).map(([x,y,w])=>{const r=2+w*2.4;return `M${(x-r).toFixed(0)} ${(-y-r).toFixed(0)}h${2*r}v${2*r}h${-2*r}z`}).join("");
   const grid=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)grid.push(`M${x} ${FR[1]}V${FR[1]+FR[3]}`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)grid.push(`M${FR[0]} ${y}H${FR[0]+FR[2]}`);
@@ -460,14 +460,14 @@ function setupMap(){
     <pattern id="wdots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2" fill="#fff"/></pattern>
     <clipPath id="clip"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"/></clipPath></defs>
   <g id="world"><g clip-path="url(#clip)">
-  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#4A443F"/>
-  <path d="${pk}" fill="url(#forest)" stroke="none"/>
+  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#3D3834"/>
+  <path d="${pk}" fill="url(#forest)" fill-opacity=".55" stroke="none"/>
   
-  <path d="${canal.map(epath).join("")}" fill="none" stroke="#C4C4C2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="${grid.join("")}" stroke="#ffffff" stroke-opacity=".12" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
-  <path d="${dark.join("")}" fill="none" stroke="#EFE6D8" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="0.01 5" stroke-linecap="round" style="vector-effect:non-scaling-stroke"/>
+  <path d="${canal.map(epath).join("")}" fill="none" stroke="#C4C4C2" stroke-opacity=".38" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="${grid.join("")}" stroke="#ffffff" stroke-opacity=".07" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
+  <path d="${dark.join("")}" fill="none" stroke="#EFE6D8" stroke-opacity=".18" stroke-width="1.4" stroke-dasharray="0.01 5" stroke-linecap="round" style="vector-effect:non-scaling-stroke"/>
   <g id="lit" fill="none" stroke="#EFE6D8" stroke-linecap="round" stroke-linejoin="round">${lamps}</g>
-  <path id="actp" d="${act}" fill="#E0412F" fill-opacity=".85"/>
+  <path id="actp" d="${act}" fill="#E0412F" fill-opacity=".45"/>
   </g>
   <g id="lensg"></g><g id="cityg"></g><g id="routes"></g></g>
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${tick.join("")}" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/>
@@ -519,7 +519,7 @@ function drawMarks(){
   let frl="";if(FR){for(let x=Math.ceil(FR[0]/500)*500;x<FR[0]+FR[2]-60;x+=500)frl+=fl(x,FR[1]-20*s,(G.origin[1]+x/G.kx).toFixed(3)+"°","middle");for(let y=Math.ceil(FR[1]/500)*500;y<FR[1]+FR[3]-40;y+=500)frl+=`<text transform="translate(${FR[0]-20*s} ${y}) rotate(-90) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#9A9590" text-anchor="middle">${(G.origin[0]-y/G.ky).toFixed(3)}°</text>`}
   drawCalls(s);
   const lab=Object.entries(G.stations).filter(([n])=>!/Waterbus|Cruises|^London King's Cross$|^Euston$|^St Pancras International$/.test(n)).filter(([n,p])=>[A,B].every(v=>Math.hypot(G.V[v][0]-p[0],G.V[v][1]-p[1])>60*s)).map(([n,p])=>`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="3" fill="#fff"/><text x="8" y="4" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="600" letter-spacing=".05em" fill="#fff">${n.replace("London ","").toUpperCase()}</text></g>`).join("");
-  $("#marks").innerHTML=frl+lab+m(A,"A","#ECECEC","#0B0B0C")+m(B,"B","#F0648A","#1B1B1B");
+  $("#marks").innerHTML=frl+lab+m(A,"A","#ECECEC","#0B0B0C")+m(B,"B","#E3495F","#1B1B1B");
 }
 function toMap(e){const r=svg.getBoundingClientRect(),s=Math.max(vb[2]/r.width,vb[3]/r.height),ox=vb[0]+(vb[2]-r.width*s)/2,oy=vb[1]+(vb[3]-r.height*s)/2;return [ox+(e.clientX-r.left)*s,-(oy+(e.clientY-r.top)*s)]}
 function zoom(f,c){const cx=c?c[0]:vb[0]+vb[2]/2,cy=c?-c[1]:vb[1]+vb[3]/2;const w=Math.min(base[2]*1.5,Math.max(250,vb[2]*f)),k=w/vb[2];vb=[cx-(cx-vb[0])*k,cy-(cy-vb[1])*k,vb[2]*k,vb[3]*k];setVB()}
@@ -533,7 +533,7 @@ function draw(){
   if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-dasharray="0.01 6.5" stroke-linecap="round"/>`;
   res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="${WALKERS[i].col}" stroke-opacity="${focus===null?.9:focus===i?1:.15}" stroke-width="${focus===i?3.5:2.2}" vector-effect="non-scaling-stroke"/>`});
   if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#FFFFFF" stroke-width="3.5" vector-effect="non-scaling-stroke"/>`;
-  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#F0648A" stroke-width="${focus===null?5.5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#E3495F" stroke-width="${focus===null?5.5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
   drawMarks();
 }
