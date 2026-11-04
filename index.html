@@ -298,6 +298,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-pic.wide{aspect-ratio:16/10}
 .k-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .k-dots{position:absolute;inset:0;background-image:radial-gradient(#111 1.4px,transparent 1.6px);background-size:9px 9px}
+.k-info~.k-dots,.k-dots:has(+.k-info){background-image:radial-gradient(#c9c9c9 1.2px,transparent 1.4px);background-size:11px 11px}
 .k-pic{border:1px solid var(--ink)}
 .k-cap{display:grid;grid-template-columns:44px minmax(0,1fr);gap:2px 8px}
 .k-no{font-size:13px;color:var(--red);grid-row:span 2;padding-top:6px}
@@ -332,6 +333,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-pic img.col{opacity:0;transition:opacity .4s ease}
 .k-wc:hover .k-pic img.col,.k-row:hover .k-pic img.col,.k-pc:hover .k-pic img.col,.k-fx-i:hover img.col{opacity:1}
 .k-box{border:1px solid var(--ink);padding:26px;background-image:radial-gradient(#cfcfcf 1.2px,transparent 1.4px);background-size:11px 11px;gap:18px}
+.k-info{position:absolute;inset:0;padding:clamp(14px,2.2vw,28px);display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.k-info>span{background:#fff;align-self:flex-start}
+.k-info .k-bq{font-size:clamp(18px,1.9vw,30px)}.k-info .k-bd{font-size:clamp(13px,1.05vw,16px)}
+.pv-img .k-info{gap:24px;padding:clamp(20px,3vw,44px)}.pv-img .k-info .k-bq{font-size:clamp(28px,3.2vw,48px);line-height:1.12}.pv-img .k-info .k-bd{font-size:18px}
+.k-rail .k-info .k-bq,.k-grid .k-info .k-bq{font-size:clamp(17px,1.6vw,24px)}
 .k-box>span{background:#fff;justify-self:start}
 .k-box .k-more{margin-top:auto}
 .k-bq{font-family:var(--f-display);font-size:clamp(24px,2.4vw,36px);line-height:1.2;letter-spacing:-.02em;font-weight:300;border-left:2px solid var(--red);padding-left:18px}
@@ -611,7 +617,8 @@ const FR={"Archive map":"archive_1.jpg","Agent discussion":"discussion_1.jpg","L
 const CAT={"nine-acts":"ai","turin-machine":"ai","unseen-city":"ai","under-common-care":"arch","mind-the-gap":"arch","the-bus":"film","interview-dimitris":"film"};
 let demo=0,qi=0,filt="all";
 const num=p=>p.n.replace("W","");
-const ht=(p,cls="")=>p&&p.thumb?`<img src="${IMG+(cls==="lg"&&p.id==="turin-machine"?"w02_lg.png":p.thumb)}" alt="" loading="lazy">${p.col?`<img class="col" src="${IMG+p.col}" alt="" loading="lazy">`:""}`:`<span class="k-dots" aria-hidden="true"></span>`;
+const UC_INFO=`<span class="k-info"><span class="f-k dark">03 · 2026 · Thesis · Theory Report Prize</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span></span>`;
+const ht=(p,cls="")=>p&&p.id==="unseen-city"?`<span class="k-dots" aria-hidden="true"></span>${UC_INFO}`:p&&p.thumb?`<img src="${IMG+(cls==="lg"&&p.id==="turin-machine"?"w02_lg.png":p.thumb)}" alt="" loading="lazy">${p.col?`<img class="col" src="${IMG+p.col}" alt="" loading="lazy">`:""}`:`<span class="k-dots" aria-hidden="true"></span>`;
 const sh=(n,t,right="")=>`<div class="k-sh"><span class="k-n">${n}</span><h2>${t}</h2><span class="k-r">${right}</span></div>`;
 function wcard(p,i){return `<a class="k-wc" href="#${p.id}" data-i="${i}" data-cat="${CAT[p.id]}"><span class="k-pic">${ht(p)}</span><span class="k-cap"><span class="k-no">${num(p)}</span><span class="k-tt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)} · ${p.y}</span></span></a>`}
 function demoFrame(){const [t,u]=DEMOS[demo];return CAN_EMBED?`<iframe src="${u}" title="${esc(t)}" loading="lazy" allow="fullscreen"></iframe>`:`<a class="k-fb" href="${u}" target="_blank" rel="noopener"><img src="${IMG}lab/${FR[t]}" alt=""><span class="btn">Open live ↗</span></a>`}
@@ -754,7 +761,7 @@ function projectV(p){
   </div>`;
   return `<article class="pv">
     <div class="pv-top">
-      <div class="pv-fig"><div class="pv-img">${p.col?`<img src="${IMG+p.col}" alt="${esc(p.cap||p.t)}">`:`<span class="k-dots" aria-hidden="true"></span>`}</div>${p.col&&p.cap?`<p class="pv-cap">${esc(p.cap)}</p>`:""}</div>
+      <div class="pv-fig"><div class="pv-img">${p.id==="unseen-city"?`<span class="k-dots" aria-hidden="true"></span>${UC_INFO}`:p.col?`<img src="${IMG+p.col}" alt="${esc(p.cap||p.t)}">`:`<span class="k-dots" aria-hidden="true"></span>`}</div>${p.col&&p.cap?`<p class="pv-cap">${esc(p.cap)}</p>`:""}</div>
       <div><p class="pv-k">${num(p)} · ${p.y} · ${esc(p.kind)}</p><h1 class="pv-t">${esc(p.t)}</h1><p class="pv-l">${esc(p.lede)}</p>${meta}</div>
     </div>
     ${DETAIL[p.id]?DETAIL[p.id]():""}
