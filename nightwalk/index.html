@@ -144,6 +144,8 @@ input[type=range]{accent-color:var(--lamp)}
 .go{background:var(--pink);color:#1B1B1B}
 .calls .tl{display:flex;align-items:center;gap:8px}.calls .nb{display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid #fff;color:#fff;font-size:10.5px}
 .home{display:inline-block;font:500 15px var(--f);color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}.home:hover{color:var(--pink);border-color:var(--pink)}
+.lsw{display:inline-block;width:22px;margin-right:9px;vertical-align:middle}
+#layers button{background:transparent;color:var(--muted);border-color:#444}#layers button.on{background:transparent;color:var(--ink);border-color:var(--ink)}#layers button:not(.on) .lsw{opacity:.35}
 </style>
 </head>
 <body>
@@ -204,7 +206,7 @@ input[type=range]{accent-color:var(--lamp)}
     <div class="big4" id="cstats"></div>
   </section>
   <section>
-    <p class="lab">Map layer</p>
+    <p class="lab">Map layers · tap to show or hide</p>
     <div class="chips col" id="layers"></div>
     <p class="note" id="layerNote" style="margin-top:10px"></p>
   </section>
@@ -245,7 +247,7 @@ const WALKERS=[
  {id:"alone",col:"#8A7A70",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
 const PRESETS=[["Camden Market","Granary Square"],["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
-let need=-1,mode="route",city=null,layer="avoid",fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
+let need=-1,mode="route",city=null,layers=new Set(["detour","safety","corr","avoid"]),fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
 const K=3;
 
 fetch("graph.json").then(r=>r.json()).then(g=>{G=g;init()});
@@ -277,7 +279,7 @@ function init(){
   const NEEDS=[[-1,"Safest for anyone"],[0,"Quickly, after a late shift"],[1,"Somewhere new to me"],[2,"With a pram or step-free"],[3,"Alone after a night out"]];
   $("#needs").innerHTML=NEEDS.map(([i,l])=>`<button type="button" data-need="${i}" class="${i===need?"on":""}">${l}</button>`).join("");
   $("#needs").onclick=e=>{const b=e.target.closest("[data-need]");if(!b)return;need=+b.dataset.need;document.querySelectorAll("#needs button").forEach(x=>x.classList.toggle("on",x===b));res.SA=stats(mainR());summary();table();draw()};
-  document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("[data-mode]");if(!b)return;mode=b.dataset.mode;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));$("#modeRoute").hidden=mode!=="route";$("#modeCity").hidden=mode!=="city";if(mode==="city"&&!city)fetch("city.json").then(r=>r.json()).then(c=>{city=c;renderCity()});else{renderCity();draw()}};
+  document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("[data-mode]");if(!b)return;mode=b.dataset.mode;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));$("#modeRoute").hidden=mode!=="route";$("#modeCity").hidden=mode!=="city";if(mode==="city"&&!city)fetch("city.json").then(r=>r.json()).then(c=>{city=c;renderCity()});else{renderCity();if(mode==="route")summary();draw()}};
   $("#neg").ontoggle=draw;
   setupMap();setupNav();run();
   if(location.hash==="#city")document.querySelector('[data-mode="city"]').click();
@@ -358,9 +360,13 @@ function renderCity(){
   if(!city)return;const st=city.stats;
   $("#cstats").innerHTML=`<div><b>+${st.extra_min} min</b><span>average cost of the safe route (${st.extra_pct}% longer)</span></div><div><b>${st.under3}%</b><span>of trips: the safe route costs 3 min or less</span></div><div><b>${st.lit_short}→${st.lit_safe}%</b><span>of the walk on lit streets</span></div><div><b>${st.und_short}→${st.und_safe}%</b><span>of trips pass an underpass</span></div>`;
   const L=[["avoid","Streets the safe route avoids"],["corr","Safe corridors"],["safety","How each street scores"],["detour","Where safety costs time"]];
-  $("#layers").innerHTML=L.map(([k,l])=>`<button type="button" data-layer="${k}" class="${k===layer?"on":""}">${l}</button>`).join("");
-  $("#layers").onclick=e=>{const b=e.target.closest("[data-layer]");if(!b)return;layer=b.dataset.layer;fixOn=-1;renderCity()};
-  $("#layerNote").textContent={avoid:"Salmon streets are used by the shortest route but avoided by the safe one. The thicker the line, the more trips it affects.",corr:"Black streets carry the most safe routes. These are the corridors to protect: keep them lit, open and staffed.",safety:"Every street's average score across the five criteria. Red is weakest, black is strongest.",detour:"Each dot is a starting point. The bigger the dot, the more extra minutes the safe route costs from there."}[layer];
+  const SW={avoid:"background:#E8785E;height:4px",corr:"background:#EFE6D8;height:4px",safety:"background:linear-gradient(90deg,#E3495F 50%,#9A9590 50%);height:2px",detour:"background:radial-gradient(circle,#fff 1.3px,transparent 1.6px) 0 0/5px 5px;height:12px;border-radius:50%;width:12px"};
+  $("#layers").innerHTML=`<button type="button" data-layer="all" class="${layers.size===4?"on":""}">All together</button>`+L.map(([k,l])=>`<button type="button" data-layer="${k}" class="${layers.has(k)?"on":""}"><i class="lsw" style="${SW[k]}"></i>${l}</button>`).join("");
+  $("#layers").onclick=e=>{const b=e.target.closest("[data-layer]");if(!b)return;const k=b.dataset.layer;
+    if(k==="all")layers=new Set(["detour","safety","corr","avoid"]);else if(layers.size===4)layers=new Set([k]);else{layers.has(k)?layers.delete(k):layers.add(k);if(!layers.size)layers=new Set(["detour","safety","corr","avoid"])}
+    fixOn=-1;renderCity()};
+  const NOTE={avoid:"Salmon: streets the shortest route uses but the safe one avoids. Thicker means more trips.",corr:"Cream: the safe corridors, the streets most safe routes use. Keep them lit, open and staffed.",safety:"Thin pink: streets that score weakest on the five criteria. Thin grey: the strongest.",detour:"White dotted circles: starting points where safety costs the most extra minutes."};
+  $("#layerNote").innerHTML=[...layers].map(k=>NOTE[k]).join("<br>");
   $("#fix").innerHTML=city.fix.map((f,i)=>`<li data-fix="${i}" class="${i===fixOn?"on":""}"><b>${f.name}</b><em>${f.pct}%</em><span>${f.why.join(", ")} · avoided in ${f.trips} of ${st.trips} trips</span></li>`).join("");
   $("#fix").onclick=e=>{const li=e.target.closest("[data-fix]");if(!li)return;fixOn=+li.dataset.fix===fixOn?-1:+li.dataset.fix;renderCity();if(fixOn>=0)zoomTo(city.fix[fixOn].ids)};
   draw();
@@ -370,10 +376,10 @@ const epath=e=>"M"+[G.V[e[0]],...e[11],G.V[e[1]]].map(p=>p[0].toFixed(0)+" "+(-p
 function drawCity(){
   const g=$("#cityg");if(mode!=="city"||!city){g.innerHTML="";return}
   let h="";
-  if(layer==="avoid"){const bins=[[.06,.2,1.5],[.2,.45,3],[.45,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.avoid[i]>=lo&&city.avoid[i]<hi).map(epath).join("")}" fill="none" stroke="#E8785E" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
-  if(layer==="corr"){const bins=[[.08,.25,1.5],[.25,.5,3],[.5,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.safe[i]>=lo&&city.safe[i]<hi).map(epath).join("")}" fill="none" stroke="#ECECEC" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
-  if(layer==="safety"){const sc=e=>(e[3]+e[4]+e[5]+e[6]+e[7])/5;h+=`<path d="${G.E.filter(e=>sc(e)<.55).map(epath).join("")}" fill="none" stroke="#E8382D" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="${G.E.filter(e=>sc(e)>=.75).map(epath).join("")}" fill="none" stroke="#ECECEC" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`}
-  if(layer==="detour")h+=city.detour.map(([x,y,d])=>`<circle cx="${x}" cy="${-y}" r="${12+Math.max(0,d)*18}" fill="url(#wdots)" fill-opacity=".9"/>`).join("");
+  if(layers.has("safety")){const sc=e=>(e[3]+e[4]+e[5]+e[6]+e[7])/5;h+=`<path d="${G.E.filter(e=>sc(e)<.55).map(epath).join("")}" fill="none" stroke="#E3495F" stroke-opacity=".7" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="${G.E.filter(e=>sc(e)>=.75).map(epath).join("")}" fill="none" stroke="#9A9590" stroke-opacity=".7" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`}
+  if(layers.has("corr")){const bins=[[.08,.25,1.5],[.25,.5,3],[.5,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.safe[i]>=lo&&city.safe[i]<hi).map(epath).join("")}" fill="none" stroke="#EFE6D8" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
+  if(layers.has("avoid")){const bins=[[.06,.2,1.5],[.2,.45,3],[.45,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.avoid[i]>=lo&&city.avoid[i]<hi).map(epath).join("")}" fill="none" stroke="#E8785E" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
+  if(layers.has("detour"))h+=city.detour.map(([x,y,d])=>`<circle cx="${x}" cy="${-y}" r="${12+Math.max(0,d)*18}" fill="url(#wdots)" fill-opacity=".9"/>`).join("");
   if(fixOn>=0)h+=`<path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#E3241B" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
 }
@@ -475,7 +481,7 @@ function setupMap(){
   <path id="actp" d="${act}" fill="#E0412F" fill-opacity=".45"/>
   <rect id="veil" x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#0E0D0C" fill-opacity=".58" mask="url(#spot)"/>
   </g>
-  <g id="lensg"></g><g id="cityg"></g><g id="routes"></g></g>
+  <g id="lensg"></g><g id="cityg" clip-path="url(#clip)"></g><g id="routes"></g></g>
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${tick.join("")}" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/>
   <g id="marks"></g><g id="calls"></g><g id="meg"></g>`;
   setVB();
@@ -539,7 +545,7 @@ const pathOf=r=>{if(!r)return"";let d="",cur=A;for(const i of r){const e=G.E[i];
 function draw(){
   const g=$("#routes");let h="";drawCity();
   $("#lit").style.opacity=mode==="city"?.25:1;$("#actp").style.opacity=mode==="city"?.3:1;
-  if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";$("#calls").innerHTML="";document.querySelector(".legend").style.visibility="hidden";return}
+  if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";$("#calls").innerHTML="";$("#holes").innerHTML="";$("#headTxt").innerHTML=`${city?city.stats.trips.toLocaleString("en-GB"):"2,560"} simulated walks, all on one map. <span class="r">Where the safe way costs time, and which streets to fix.</span>`;document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
   const showW=true;$("#wleg").style.display=showW?"flex":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
   if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-dasharray="0.01 6.5" stroke-linecap="round"/>`;
