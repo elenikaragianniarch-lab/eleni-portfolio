@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Eleni Karagianni</title>
 <meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. AI agents, data pipelines and 3D systems that read cities.">
-<link rel="preload" href="fonts/bricolage-grotesque-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/bricolage-grotesque-latin-standard-normal.woff2) format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-display:swap;font-weight:200 800;src:url(fonts/bricolage-grotesque-latin-ext-standard-normal.woff2) format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Inter Tight";font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter Tight";font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/inter-tight-latin-ext-wght-normal.woff2) format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Inter Tight";font-style:normal;font-display:swap;font-weight:100 900;src:url(fonts/inter-tight-greek-wght-normal.woff2) format("woff2-variations");unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF}
 @font-face{font-family:"Roboto Mono";font-style:normal;font-display:swap;font-weight:100 700;src:url(fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Roboto Mono";font-style:normal;font-display:swap;font-weight:100 700;src:url(fonts/roboto-mono-latin-ext-wght-normal.woff2) format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"Roboto Mono";font-style:normal;font-display:swap;font-weight:100 700;src:url(fonts/roboto-mono-greek-wght-normal.woff2) format("woff2-variations");unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF}
@@ -231,8 +232,8 @@ footer{padding-block:18px 30px;font-size:12px;color:var(--muted);border-top:1.5p
 
 
 /* ===== v4: Bricolage Grotesque for type, Roboto Mono for labels, halftone dots, red accent ===== */
-:root{--red:#E3241B;--f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;--f-text:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;--muted:#6B6B6B;--hair:#DEDEDE;--gut:max(20px,env(safe-area-inset-left,0px))}
-body{font:400 16px/1.55 var(--f-text);font-optical-sizing:auto;overflow-x:hidden}
+:root{--red:#E3241B;--f-display:"Inter Tight","Helvetica Neue",Arial,sans-serif;--f-text:"Inter Tight","Helvetica Neue",Arial,sans-serif;--muted:#6B6B6B;--hair:#DEDEDE;--gut:max(20px,env(safe-area-inset-left,0px))}
+body{font:400 16px/1.55 var(--f-text);overflow-x:hidden}
 ::selection{background:var(--red);color:#fff}
 .wrap{max-width:none;padding-left:var(--gut);padding-right:var(--gut)}
 .lab,.f-k,.pv-k,.meta .r>span:first-child,.k-no,.k-kd,.k-ht,.k-n,.k-hint,.ctrl2,.k-tabs,.dn,.dy,.metric,.node .sc,.nums span,.k-nums span,.seq span,.btn,.copy,.k-copy,.k-under,.k-yr,.card2 .tag2,.th-bar{font-family:var(--f-mono)}
@@ -262,7 +263,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-hero>*{position:relative;z-index:1;min-width:0}
 #dots{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .k-ht{display:flex;justify-content:space-between;gap:16px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.k-name{align-self:center;margin:0;font-size:clamp(64px,19.5vw,300px);line-height:.84;font-weight:230;letter-spacing:-.045em;display:flex;flex-direction:column}
+.k-name{align-self:center;margin:0;font-size:clamp(64px,19.5vw,300px);line-height:.84;font-weight:200;letter-spacing:-.05em;display:flex;flex-direction:column}
 .k-name .w{display:block;white-space:nowrap}
 .k-name .ch{display:inline-block;transition:font-variation-settings .35s cubic-bezier(.2,.8,.2,1),color .3s}
 .k-name .ch.hot{color:var(--red)}
@@ -295,7 +296,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-wc{text-decoration:none;display:grid;gap:14px;align-content:start;min-width:0}
 .k-pic{position:relative;display:block;aspect-ratio:1/1;background:#fff;overflow:hidden}
 .k-pic.wide{aspect-ratio:16/10}
-.k-pic canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.k-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.k-dots{position:absolute;inset:0;background-image:radial-gradient(#111 1.4px,transparent 1.6px);background-size:9px 9px}
+.k-pic{border:1px solid var(--ink)}
 .k-cap{display:grid;grid-template-columns:44px minmax(0,1fr);gap:2px 8px}
 .k-no{font-size:13px;color:var(--red);grid-row:span 2;padding-top:6px}
 .k-tt{font-family:var(--f-display);font-size:28px;line-height:1.08;letter-spacing:-.025em;font-weight:400}
@@ -308,7 +311,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-nums div{border-top:1px solid var(--ink);padding-top:12px}
 .k-nums b{display:block;font-family:var(--f-display);font-weight:250;font-size:clamp(44px,5vw,76px);line-height:.95;letter-spacing:-.04em}
 .k-nums span{font-size:12px;color:var(--muted)}
-.k-fx-i{display:block}.k-fx-i canvas{position:static;width:100%;aspect-ratio:1/1}
+.k-fx-i{display:block;position:relative;aspect-ratio:1/1;border:1px solid var(--ink);overflow:hidden}.k-fx-i img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .k-try{margin-top:64px;display:grid;gap:14px}
 .k-tryh{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
 .k-tryh .lab{margin:0}
@@ -390,7 +393,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .pv{padding-block:34px 40px}
 .pv-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
 .pv-img{position:sticky;top:90px;aspect-ratio:1/1;overflow:hidden;background:#fff}
-.pv-img canvas{position:absolute;inset:0;width:100%;height:100%}
+.pv-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.pv-img{border:1px solid var(--ink)}
 .pv-k{font-size:12px;color:var(--red);letter-spacing:.07em;text-transform:uppercase}
 .pv-t{font-family:var(--f-display);font-weight:300;font-size:clamp(48px,6vw,96px);line-height:.92;letter-spacing:-.045em;margin:14px 0 0;text-wrap:balance}
 .pv-l{font-family:var(--f-display);font-size:clamp(20px,1.9vw,26px);line-height:1.3;letter-spacing:-.015em;font-weight:330;margin-top:22px}
@@ -600,7 +603,7 @@ const FR={"Archive map":"archive_1.jpg","Agent discussion":"discussion_1.jpg","L
 const CAT={"nine-acts":"ai","turin-machine":"ai","unseen-city":"ai","under-common-care":"arch","mind-the-gap":"arch","the-bus":"film","interview-dimitris":"film"};
 let demo=0,qi=0,filt="all";
 const num=p=>p.n.replace("W","");
-const ht=(p,cls="")=>`<canvas class="ht2 ${cls}" ${p&&p.col?`data-src="${IMG+p.col}"`:""} data-seed="${p?+num(p):7}" aria-hidden="true"></canvas>`;
+const ht=(p,cls="")=>p&&p.thumb?`<img src="${IMG+(cls==="lg"&&p.id==="turin-machine"?"w02_lg.png":p.thumb)}" alt="" loading="lazy">`:`<span class="k-dots" aria-hidden="true"></span>`;
 const sh=(n,t,right="")=>`<div class="k-sh"><span class="k-n">${n}</span><h2>${t}</h2><span class="k-r">${right}</span></div>`;
 function wcard(p,i){return `<a class="k-wc" href="#${p.id}" data-i="${i}" data-cat="${CAT[p.id]}"><span class="k-pic">${ht(p)}</span><span class="k-cap"><span class="k-no">${num(p)}</span><span class="k-tt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)} · ${p.y}</span></span></a>`}
 function demoFrame(){const [t,u]=DEMOS[demo];return CAN_EMBED?`<iframe src="${u}" title="${esc(t)}" loading="lazy" allow="fullscreen"></iframe>`:`<a class="k-fb" href="${u}" target="_blank" rel="noopener"><img src="${IMG}lab/${FR[t]}" alt=""><span class="btn">Open live ↗</span></a>`}
@@ -649,7 +652,7 @@ function stage(){
   <section class="k-s">
     ${sh("03","Language, form and the city")}
     <div class="k-pair">
-      <a class="k-pc" href="#${tu.id}"><span class="k-pic wide">${ht(tu)}</span><span class="f-k dark">${tu.y} · ${esc(tu.kind)}</span><span class="k-pt">${esc(tu.t)}</span><span>${esc(tu.lede)}</span><span class="k-more">See the pipeline →</span></a>
+      <a class="k-pc" href="#${tu.id}"><span class="k-pic wide">${ht(tu,"lg")}</span><span class="f-k dark">${tu.y} · ${esc(tu.kind)}</span><span class="k-pt">${esc(tu.t)}</span><span>${esc(tu.lede)}</span><span class="k-more">See the pipeline →</span></a>
       <a class="k-pc" href="#${uc.id}"><span class="k-pic wide">${ht(uc)}<span class="k-pq">"Every system that measures a city has already decided what doesn't count."</span></span><span class="f-k dark">${uc.y} · Thesis · Theory Report Prize</span><span class="k-pt">${esc(uc.t)}</span><span>A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span><span class="k-more">Read the argument →</span></a>
     </div>
   </section>
@@ -688,7 +691,7 @@ function aboutPage(){return `<section class="k-pg">
       <p class="k-body">I build working systems: archives, agents and pipelines that turn data into images, films and spaces. Most of my work asks how places are lived, seen and remembered, and by whom. I've co-taught a Bartlett workshop on agents that disagree, worked on an AI safety startup, and drawn real buildings in Athens.</p>
       <p class="k-body"><b>Open to roles in applied AI, computational design and creative technology in London.</b></p>
     </div>
-    <span class="k-pic">${ht(null,"gen")}</span>
+    <span class="k-pic">${ht(null)}</span>
   </div>
   <div class="k-cv">
     <div><p class="lab">Experience</p>
@@ -838,9 +841,7 @@ function drawDots(){
   raf=0;const c=$("#dots"); if(!c)return; const r=c.getBoundingClientRect(),dpr=Math.min(2,devicePixelRatio||1);
   if(c.width!==Math.round(r.width*dpr)||c.height!==Math.round(r.height*dpr)){c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr)}
   const g=c.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,r.width,r.height);
-  const step=16,R=190;g.fillStyle="#CFCFCF";g.beginPath();const red=[];
-  for(let y=step/2;y<r.height;y+=step)for(let x=step/2;x<r.width;x+=step){const d=Math.hypot(x-mx,y-my);if(d<R){const k=1-d/R;red.push(x+(x-mx)*k*.18,y+(y-my)*k*.18,1+4.2*k*k);continue}g.moveTo(x+1,y);g.arc(x,y,1,0,6.2832)}
-  g.fill();g.fillStyle="#E3241B";g.beginPath();for(let i=0;i<red.length;i+=3){g.moveTo(red[i]+red[i+2],red[i+1]);g.arc(red[i],red[i+1],red[i+2],0,6.2832)}g.fill();
+  const step=18;for(let y=step/2;y<r.height;y+=step)for(let x=step/2;x<r.width;x+=step){const d=Math.hypot(x-mx,y-my);const s2=d<150?1+2.2*(1-d/150):1;g.fillStyle=d<150?"rgba(227,36,27,"+(0.25+0.6*(1-d/150)).toFixed(2)+")":"#D6D6D6";g.beginPath();g.arc(x,y,s2,0,6.283);g.fill()}
 }
 function queueDots(){if(!raf)raf=requestAnimationFrame(drawDots)}
 
@@ -852,7 +853,7 @@ function nameMount(){
   nameMeasure();
 }
 function nameMeasure(){L=[...document.querySelectorAll("#nm .ch")].map(el=>{el.style.fontVariationSettings="";const r=el.getBoundingClientRect();return {el,x:r.left+r.width/2+scrollX,y:r.top+r.height/2+scrollY}})}
-function nameTick(){for(const l of L){const d=Math.hypot(l.x-scrollX-PX,l.y-scrollY-PY),k=Math.max(0,1-d/360);const w=230+570*k*k;l.el.style.fontVariationSettings=`"wght" ${w.toFixed(0)}`;l.el.classList.toggle("hot",k>.72)}}
+function nameTick(){for(const l of L){const d=Math.hypot(l.x-scrollX-PX,l.y-scrollY-PY),k=Math.max(0,1-d/360);const w=200+400*k*k;l.el.style.fontVariationSettings=`"wght" ${w.toFixed(0)}`;l.el.classList.toggle("hot",k>.72)}}
 
 function tickClock(){const t=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"}).format(new Date());document.querySelectorAll(".clk").forEach(el=>el.textContent=t)}
 setInterval(tickClock,10000);
@@ -872,7 +873,7 @@ function renderView(h){
   document.title=p?`${p.t} · Eleni Karagianni`:pg?pg[0].toUpperCase()+pg.slice(1)+" · Eleni Karagianni":"Eleni Karagianni · AI agents, computational design";
   k=1;drawSeq();tickClock();window.scrollTo(0,0);
   if(h==="contact")setTimeout(()=>$("#contact").scrollIntoView(),40);
-  requestAnimationFrame(()=>{htMount();nameMount();queueDots();railMark()});
+  requestAnimationFrame(()=>{nameMount();queueDots();railMark()});
 }
 document.addEventListener("click",async e=>{
   if(dragged&&e.target.closest("#rail")){e.preventDefault();dragged=false;return}
@@ -898,9 +899,9 @@ document.addEventListener("keydown",e=>{
 document.addEventListener("pointermove",e=>{
   PX=e.clientX;PY=e.clientY;
   const c=$("#dots");if(c){const r=c.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;queueDots()}
-  if(!htRaf)htRaf=requestAnimationFrame(()=>{htTick();nameTick()});
+  if(!htRaf)htRaf=requestAnimationFrame(()=>{htRaf=0;nameTick()});
 },{passive:true});
-let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{HT.forEach(htPrep);nameMeasure();queueDots();railMark()},150)});
+let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{nameMeasure();queueDots();railMark()},150)});
 window.addEventListener("hashchange",route);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{nameMeasure();railMark()});
 route();
