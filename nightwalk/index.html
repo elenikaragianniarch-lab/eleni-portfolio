@@ -189,7 +189,7 @@ const WALKERS=[
  {id:"pram",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
  {id:"alone",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
-const PRESETS=[["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
+const PRESETS=[["Camden Market","Granary Square"],["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
 let need=-1,mode="route",city=null,layer="avoid",fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
 const K=3;
 
@@ -197,7 +197,7 @@ fetch("graph.json").then(r=>r.json()).then(g=>{G=g;init()});
 
 function init(){
   const P=(lat,lon)=>[(lon-G.origin[1])*G.kx,(lat-G.origin[0])*G.ky];
-  G.stations["Granary Square"]=P(51.5354,-0.1253);
+  Object.assign(G.stations,{"Granary Square":P(51.5354,-0.1253),"Coal Drops Yard":P(51.5368,-0.1262),"Camden Market":P(51.5413,-0.1458),"British Library":P(51.5299,-0.1275),"Camley Street Natural Park":P(51.5357,-0.1289),"Regent's Park (Gloucester Gate)":P(51.5371,-0.1478),"Camden Square":P(51.5436,-0.1325),"Somers Town":P(51.5330,-0.1335)});
   const names=Object.keys(G.stations).filter(n=>!/Waterbus|Cruises|^London King's Cross$|^Euston$/.test(n)).sort();
   for(const s of ["#selA","#selB"])$(s).innerHTML=names.map(n=>`<option>${n}</option>`).join("");
   adj=G.V.map(()=>[]);G.E.forEach((e,i)=>{adj[e[0]].push(i);adj[e[1]].push(i)});
@@ -258,7 +258,7 @@ function run(){
   // candidates: each walker's own route + shared-priority blends (always step-free, so they work for everyone)
   const mean=[0,1,2,3,4].map(k=>WALKERS.reduce((s,w)=>s+w.w[k],0)/WALKERS.length), mx=[0,1,2,3,4].map(k=>Math.max(...WALKERS.map(w=>w.w[k])));
   const cands=[...own.map((r,i)=>({r,label:WALKERS[i].name.split(",")[0]+"'s own route"}))];
-  for(const [w,t,l] of [[mean,2,"shared priorities"],[mx,2.4,"everyone's top priorities"],[mean,1.5,"shared priorities, shorter"],[mx,3.2,"everyone's top priorities, longer"]])cands.push({r:dijkstra(e=>ecost(e,w,t,true)),label:l});
+  for(const [w,t,l] of [[mean,2,"a route built from their shared priorities"],[mx,2.4,"a route built from everyone's top priorities"],[mean,1.5,"a shorter route built from their shared priorities"],[mx,3.2,"a longer route built from everyone's top priorities"]])cands.push({r:dijkstra(e=>ecost(e,w,t,true)),label:l});
   const best=WALKERS.map((w,i)=>routeCost(own[i],w));
   const seen=new Set();for(const c of cands){const k=c.r?c.r.join(","):"";if(!c.r||seen.has(k))c.r=null;else seen.add(k)}
   let pick=null;
@@ -329,7 +329,7 @@ function chat(){
     if(w.step&&o)t=(r<.03?t:t)+(A2.steps?"":" And it's step-free.");
     return `<div class="msg"><span class="n">${w.name.split(",")[0]}</span><span>${t}</span></div>`}).join("");
   const worst=Math.max(...p.reg);
-  $("#chat").innerHTML=lines+`<div class="msg final"><span class="n">Agreed</span><span>${p.label[0].toUpperCase()+p.label.slice(1)}. No one gives up more than ${Math.round(worst*100)}% of their ideal: ${(n=>n>1?`the lowest of ${n} different routes considered.`:"because all four found the same route.")(res.cands.filter(c=>c.r).length)} Compared with the shortest route: ${Math.round(A2.min-res.S0.min)} min longer, ${pct(A2.lit)} lit instead of ${pct(res.S0.lit)}, ${A2.tun} underpass${A2.tun===1?"":"es"} instead of ${res.S0.tun}.</span></div>`;
+  $("#chat").innerHTML=lines+`<div class="msg final"><span class="n">Agreed</span><span>They pick ${p.label}. No one gives up more than ${Math.round(worst*100)}% of their ideal: ${(n=>n>1?`the lowest of ${n} different routes considered.`:"because all four found the same route.")(res.cands.filter(c=>c.r).length)} Compared with the shortest route: ${Math.round(A2.min-res.S0.min)} min longer, ${pct(A2.lit)} lit instead of ${pct(res.S0.lit)}, ${A2.tun} underpass${A2.tun===1?"":"es"} instead of ${res.S0.tun}.</span></div>`;
 }
 
 /* ---------- navigation: GPS, turn-by-turn, preview ---------- */
