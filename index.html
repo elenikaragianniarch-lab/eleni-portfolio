@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. AI agents, data pipelines and 3D systems that read cities.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Eleni Karagianni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap">
+<style>
+/* Layout: a working index, like a film studio's directory. Black on white, one wide heavy face for names, a typewriter face for everything else.
+   Deliberately single-theme (black and white print look), so colours are set explicitly. */
+:root{
+  --paper:#FFFFFF; --ink:#111111; --muted:#5A5A5A; --rule:#111111; --hair:#D4D4D4; --tint:#F3F3F1; --dot:#111111;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"Roboto Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:300 14px/1.6 var(--f-mono);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lab{font-weight:500;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px;margin:0 0 14px}
+.b{font-weight:500}
+.up{text-transform:uppercase;letter-spacing:.03em}
+.muted{color:var(--muted)}
+hr{border:0;border-top:1.5px solid var(--rule);margin:0}
+p{margin:0}
+
+/* header */
+header.top{padding-block:22px 0}
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1.5px solid var(--rule)}
+.bar a{text-decoration:none}
+.bar .home{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:15px;letter-spacing:.01em;text-transform:uppercase}
+.bar nav{display:flex;gap:18px;font-size:13px}
+.bar nav a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* hero */
+.hero{padding-block:44px 36px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:end}
+.name{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(40px,8.4vw,104px);line-height:.92;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.lede{font-size:clamp(16px,1.7vw,19px);line-height:1.5;max-width:40ch;margin-top:26px;text-wrap:pretty}
+.side p{font-size:13px}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+
+/* index */
+.works{padding-block:30px 40px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 22px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{text-decoration:none;display:grid;gap:9px;min-width:0}
+.thumb{position:relative;aspect-ratio:1/1;max-width:100%;background:var(--tint);overflow:hidden}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+.thumb img.col{opacity:0}
+.card:hover .thumb img.col,.card:focus-visible .thumb img.col{opacity:1}
+.thumb.dots{background-color:var(--paper);background-image:radial-gradient(var(--dot) 1.4px,transparent 1.6px);background-size:9px 9px}
+.thumb.dots span{position:absolute;left:10px;bottom:8px;background:var(--paper);font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:22px;line-height:1;padding:4px 6px}
+.cap{font-size:12.5px;line-height:1.45}
+.cap .t{font-weight:500;text-transform:uppercase;letter-spacing:.02em}
+.card:hover .cap .t{text-decoration:underline;text-underline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:2px;color:var(--muted)}
+
+/* list strip under index */
+.stack{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;padding-block:28px 40px}
+@media (max-width:760px){.stack{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stack p{font-size:13px}
+
+/* project page */
+.proj{padding-block:28px 60px}
+.back{font-size:13px;text-decoration:none;display:inline-block;margin-bottom:22px}
+.back:hover{text-decoration:underline;text-underline-offset:4px}
+.ptitle{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(30px,5.6vw,66px);line-height:.95;margin:6px 0 0;text-wrap:balance}
+.pmeta{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:16px;font-size:13px}
+.plede{font-size:clamp(16px,1.6vw,19px);line-height:1.5;max-width:52ch;margin-top:22px;text-wrap:pretty}
+.builders{margin-top:30px;border:1.5px solid var(--rule);display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.builders>div{padding:16px 18px;border-right:1px solid var(--hair);min-width:0}
+.builders>div:last-child{border-right:0}
+.builders .lab{margin-bottom:8px;text-decoration:none;font-size:11.5px}
+.builders p,.builders li{font-size:13px}
+.builders ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+@media (max-width:860px){.builders{grid-template-columns:repeat(2,minmax(0,1fr))}.builders>div:nth-child(2){border-right:0}.builders>div:nth-child(-n+2){border-bottom:1px solid var(--hair)}}
+@media (max-width:480px){.builders{grid-template-columns:1fr}.builders>div{border-right:0;border-bottom:1px solid var(--hair)}.builders>div:last-child{border-bottom:0}}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;font:500 12.5px var(--f-mono);text-decoration:none;border:1.5px solid var(--ink);padding:6px 11px;background:var(--ink);color:var(--paper);letter-spacing:.02em}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.btn:hover{background:var(--paper);color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.off{border-style:dashed;background:var(--paper);color:var(--muted);cursor:default}
+.hero-img{margin:34px 0 0}
+.hero-img img{width:100%;display:block;max-height:640px;object-fit:cover}
+.hero-img figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.sec{margin-top:46px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px}
+@media (max-width:760px){.sec{grid-template-columns:1fr;gap:6px}}
+.sec .body{max-width:70ch;min-width:0}
+.sec .body p+p{margin-top:12px}
+.sec ul.pts{margin:0;padding-left:18px;display:grid;gap:8px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;border-top:1px solid var(--hair);padding-top:16px}
+.nums b{display:block;font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.nums span{font-size:12.5px;color:var(--muted)}
+
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(5,minmax(0,1fr) auto);grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:stretch}
+.pipe .step{border:1.5px solid var(--ink);padding:10px 12px;font-size:12.5px;min-width:0}
+.pipe .step b{display:block;font-weight:500;text-transform:uppercase;letter-spacing:.02em;font-size:11.5px;margin-bottom:3px}
+.pipe .arr{align-self:center;padding:0 6px;font-weight:500}
+@media (max-width:760px){.pipe{display:flex;flex-direction:column}.pipe .arr{transform:rotate(90deg);align-self:flex-start;padding:2px 14px}}
+
+/* findings chart */
+.chart{display:grid;gap:14px}
+.metric .mh{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;margin-bottom:5px}
+.metric .row{display:grid;grid-template-columns:62px minmax(0,1fr) 54px;gap:8px;align-items:center;font-size:12px}
+.metric .track{height:12px;background:var(--tint);position:relative}
+.metric .fill{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.metric .fill.norm{background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px)}
+.metric .v{text-align:right;font-variant-numeric:tabular-nums}
+
+/* agents */
+.agents{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--hair);border-left:1px solid var(--hair)}
+.agents div{border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:12px 14px;font-size:12.5px;min-width:0}
+.agents div b{display:block;font-weight:500;text-transform:uppercase;font-size:12px;letter-spacing:.02em}
+@media (max-width:640px){.agents{grid-template-columns:1fr}}
+
+/* contradiction path */
+.path{display:grid;gap:0}
+.node{display:grid;grid-template-columns:44px minmax(0,1fr) 120px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair);font-size:13px}
+.node:first-child{border-top:1px solid var(--hair)}
+.node .i{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:18px}
+.node .sc{display:grid;gap:3px;font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.node .bar2{height:6px;background:var(--tint);position:relative}
+.node .bar2 i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.quote{font-size:clamp(17px,2vw,22px);line-height:1.45;border-left:3px solid var(--ink);padding:4px 0 4px 18px;max-width:46ch}
+
+/* words */
+.seq{display:flex;flex-wrap:wrap;gap:6px}
+.seq span{border:1.5px solid var(--ink);padding:3px 8px;font-size:12.5px}
+.seq span.on{background:var(--ink);color:var(--paper)}
+.behav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.behav div{border-top:1.5px solid var(--ink);padding-top:8px;font-size:12.5px}
+@media (max-width:560px){.behav{grid-template-columns:1fr}}
+
+/* about */
+.about{padding-block:40px 30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:28px}
+@media (max-width:860px){.about{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.about{grid-template-columns:1fr}}
+.about .item{margin-bottom:12px;font-size:13px}
+.about .intro{font-size:15px;line-height:1.6;grid-column:1/-1;max-width:62ch}
+.contact{padding-block:30px 60px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+@media (max-width:640px){.contact{grid-template-columns:1fr}}
+.contact .big{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:clamp(20px,3.6vw,40px);line-height:1.05;text-transform:uppercase;user-select:all;overflow-wrap:anywhere}
+.copy{font:500 12.5px var(--f-mono);border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:6px 11px;cursor:pointer}
+footer{padding-block:18px 30px;font-size:12px;color:var(--muted);border-top:1.5px solid var(--rule)}
+
+/* intro */
+.opener{padding-block:46px 40px;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:36px;align-items:end}
+@media (max-width:820px){.opener{grid-template-columns:1fr}}
+.claim{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(34px,5.6vw,76px);line-height:.95;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.intro-side p{font-size:14px}
+/* featured: inverted band */
+.feature{background:var(--ink);color:var(--paper);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.f-in{padding-block:40px 44px;display:grid;gap:28px}
+.f-k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;opacity:.8}
+.f-k.dark{opacity:1;color:var(--muted)}
+.f-t{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(30px,5vw,64px);line-height:.95;margin:8px 0 0;text-wrap:balance}
+.f-l{font-size:clamp(15px,1.5vw,18px);line-height:1.5;max-width:56ch;margin-top:16px}
+.f-live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.f-live{grid-template-columns:1fr}}
+.lv{border:1.5px solid var(--paper);background:var(--ink);min-width:0;display:flex;flex-direction:column}
+.lv-bar{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1.5px solid var(--paper);font-size:12px}
+.lv-bar a{margin-left:auto;text-decoration:none}
+.lv-dot{width:8px;height:8px;border-radius:50%;background:#3BD16F;box-shadow:0 0 0 3px rgba(59,209,111,.25)}
+.lv-url{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv iframe{width:100%;height:380px;border:0;background:#fff;display:block}
+.lv-prev{position:relative;display:grid;place-items:center;height:300px;text-decoration:none;background-color:var(--ink);background-image:radial-gradient(rgba(255,255,255,.55) 1.3px,transparent 1.5px);background-size:10px 10px;overflow:hidden}
+.lv-prev img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lv-go{position:relative;background:var(--paper);color:var(--ink);font-weight:500;font-size:13px;padding:9px 14px;border:1.5px solid var(--paper)}
+.lv-prev:hover .lv-go{background:var(--ink);color:var(--paper)}
+.lv-cap{padding:12px 12px 14px;font-size:13px;border-top:1.5px solid var(--paper)}
+.f-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;border-top:1px solid rgba(255,255,255,.35);padding-top:18px}
+@media (max-width:640px){.f-nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.f-nums b{display:block;font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:28px;line-height:1}
+.f-nums span{font-size:12.5px;opacity:.8}
+.btn.inv{background:var(--paper);color:var(--ink);border-color:var(--paper);justify-self:start}
+.btn.inv:hover{background:var(--ink);color:var(--paper)}
+/* pair */
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;padding-block:40px}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.big-card{text-decoration:none;border:1.5px solid var(--ink);padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.big-card:hover .more{text-decoration:underline;text-underline-offset:4px}
+.bc-img{aspect-ratio:16/10;overflow:hidden;margin:-18px -18px 6px;border-bottom:1.5px solid var(--ink)}
+.bc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.bc-t{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(22px,2.6vw,32px);line-height:1;margin:0}
+.big-card p{font-size:13.5px}
+.big-card .pull{font-size:clamp(18px,2vw,24px);line-height:1.35;border-left:3px solid var(--ink);padding-left:14px;margin-block:8px}
+.big-card.text{background-image:radial-gradient(var(--hair) 1.2px,transparent 1.4px);background-size:10px 10px}
+.big-card.text>*{background:var(--paper)}
+.more{margin-top:auto;font-weight:500;font-size:13px}
+/* directory list */
+.also{padding-block:6px 30px}
+.dir{border-top:1.5px solid var(--ink)}
+.dir-row{display:grid;grid-template-columns:64px 44px minmax(0,1.3fr) minmax(0,1fr) 80px;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--hair);text-decoration:none;font-size:13.5px;align-items:baseline}
+.dir-row:hover{background:var(--tint)}
+.dn{color:var(--muted)} .dt{font-weight:500;text-transform:uppercase;letter-spacing:.02em} .dk{color:var(--muted)} .dy{text-align:right}
+@media (max-width:560px){.dir-row{grid-template-columns:56px 36px minmax(0,1fr) 56px}.dk{display:none}}
+
+.ht{position:relative;overflow:hidden}
+.ht img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+.ht img.col{opacity:0}
+.big-card:hover .ht img.col,.f-img:hover img.col,.f-img:focus-visible img.col,.dir-row:hover .thumb img.col{opacity:1}
+.f-top{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:end}
+@media (max-width:760px){.f-top{grid-template-columns:1fr}}
+.f-img{display:block;aspect-ratio:1/1;max-width:100%;border:1.5px solid var(--paper)}
+.dthumb .thumb{width:64px}
+.dthumb .thumb.dots span{font-size:11px;left:4px;bottom:4px;padding:2px 3px}
+@media (max-width:560px){.dthumb .thumb{width:56px}}
+@media (prefers-reduced-motion:reduce){.thumb img,.ht img{transition:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="bar">
+      <a class="home" href="#">Eleni Karagianni</a>
+      <nav aria-label="Main"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    </div>
+  </header>
+
+  <main id="view"></main>
+
+  <footer>Eleni Karagianni · London · Architectural engineer and computational designer · 2026</footer>
+</div>
+
+<script>
+const IMG="img/";
+const P=[
+ {id:"nine-acts",n:"W01",t:"Nine Acts of Ostranenie",y:"2026",kind:"Multi-agent AI · archive · 3D",with:"with Ruijia Zheng",award:"Best Computation Prize, Bartlett UD · Hon. Mention, SCI-Arc Playing Models 2026",
+  thumb:"w01.png",col:"c01.jpg",cap:"One of the rooms the agents built: the photography exhibition.",
+  lede:"Nine AI agents read Rotterdam through its books, photographs and films, disagree about what they find, and build that disagreement into rooms in Blender.",
+  b:{does:"Agents with different, partial views of one archive argue over a site and design spaces live in 3D.",
+     stack:["Python, pandas, SQLite","CLIP, SOM, UMAP","IsolationForest + LOF","Qwen3.6-27B, local","Tool use, memory, MCP","Blender, Plotly, Vercel"],
+     scale:["177,241 archive items","9 agents, 10 tools","14 river-edge sites","~100 runs"],
+     links:[["Live archive ↗","https://nine-acts-archive-map.vercel.app"],["Agent discussion ↗","https://vercel-step4-discussion.vercel.app"],["Process blog ↗","https://eleni-rae.tumblr.com"]],code:"Repository coming soon"}},
+ {id:"turin-machine",n:"W02",t:"Turin Machine",y:"2025",kind:"AI characters · language → form · 3D print",with:"Individual project",award:"",
+  thumb:"w02.png",col:"c02.jpg",cap:"Spatial assembly built from the project's 42-word vocabulary.",
+  lede:"Two AI characters, Nietzsche and Franco, the blind detective from The Cat o' Nine Tails, walk Turin and talk. Their words become a 42-word vocabulary that builds space sentence by sentence.",
+  b:{does:"Turns conversations between two persona agents into a spatial vocabulary that drives parametric 3D form.",
+     stack:["Python, scraping","GPT-4o mini (API)","TF-IDF, CLIP, SOM","Audio segmentation","Blender Geometry Nodes","3D printing, DaVinci"],
+     scale:["~3,200 dataset items","30 sound fragments","23 locations","42 words, 3 behaviours"],
+     links:[["Process blog ↗","https://eleni-karagiannii.tumblr.com"]],code:"Repository coming soon"}},
+ {id:"unseen-city",n:"W03",t:"The Unseen City",y:"2026",kind:"Thesis · AI and the city",with:"Supervisor: Elizabeth Selby",award:"Theory Report Prize, Bartlett UD (the programme's single thesis prize)",
+  lede:"Every system that measures a city has already decided what doesn't count. My thesis calls this the politics of noise, and asks for AI that declares its point of view instead of claiming to be neutral."},
+ {id:"under-common-care",n:"W04",t:"Under Common Care",y:"2025",kind:"Adaptive reuse · collective housing",with:"with Paschalina Iliadou · Diploma project, Volos",award:"",
+  lede:"A network of shared housing made from the abandoned buildings of Gazi Street in Volos, treating vacancy as a resource rather than a problem."},
+ {id:"mind-the-gap",n:"W05",t:"Mind the Gap",y:"2023",kind:"Urban gaps · scaffolding",with:"with Katerina Aggelaki and Paschalina Iliadou · Thessaloniki",award:"",
+  lede:"We mapped the gaps between Thessaloniki's buildings. Residents' own improvised staircases became a scaffolding system that plugs into them."},
+ {id:"the-bus",n:"W06",t:"The Bus",y:"2023",kind:"Short film · 3′24″",with:"Director, camera (with Aikaterini Angelaki), editor",award:"",
+  thumb:"w03.png",col:"c03.jpg",cap:"Still from The Bus (Το Λεωφορείο).",
+  lede:"A young woman misses her bus home after a night out and walks alone, more and more afraid she is being followed. Was it all in her head?"},
+ {id:"interview-dimitris",n:"W07",t:"Interview with Dimitris",y:"2023",kind:"Documentary · 3′",with:"Direction, camera, edit, web",award:"",
+  thumb:"w04.png",col:"c04.jpg",cap:"Villa Koutarelia, Volos.",
+  lede:"A portrait of Dimitris, a photographer living at Villa Koutarelia in Volos, and of the house itself, shortly before it closed."}
+];
+
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function thumb(p){
+  if(p.thumb) return `<div class="thumb"><img src="${IMG+p.thumb}" alt="" loading="lazy"><img class="col" src="${IMG+p.col}" alt="" loading="lazy"></div>`;
+  return `<div class="thumb dots" aria-hidden="true"><span>${p.n}</span></div>`;
+}
+
+const CAN_EMBED=/^https?:$/.test(location.protocol)&&!/claude|anthropic/i.test(location.hostname);
+function live(title,url,desc,shot){
+  const host=url.replace(/^https?:\/\//,"");
+  const body=CAN_EMBED?`<iframe src="${url}" title="${esc(title)}" loading="lazy"></iframe>`
+    :`<a class="lv-prev${shot?" shot":""}" href="${url}" target="_blank" rel="noopener">${shot?`<img src="${IMG+shot}" alt="">`:""}<span class="lv-go">Open live ↗</span></a>`;
+  return `<div class="lv"><div class="lv-bar"><span class="lv-dot" aria-hidden="true"></span><span class="lv-url">${host}</span><a href="${url}" target="_blank" rel="noopener">↗</a></div>${body}<div class="lv-cap"><p class="b up">${esc(title)}</p><p>${esc(desc)}</p></div></div>`;
+}
+function home(){
+  const na=P[0],tu=P[1],uc=P[2],rest=P.slice(3);
+  return `
+  <section class="opener">
+    <h1 class="claim">I build AI agents that read cities and design space.</h1>
+    <div class="intro-side">
+      <p>Eleni Karagianni. Architectural engineer and computational designer in London. MArch Urban Design, the Bartlett, UCL.</p>
+      <p class="b" style="margin-top:10px">Open to roles in applied AI, computational design and creative technology.</p>
+      <div class="btns" style="margin-top:16px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#contact">Contact</a></div>
+    </div>
+  </section>
+
+  <section class="feature" id="work" aria-labelledby="h-feat">
+    <div class="f-in">
+      <div class="f-top"><div class="f-head">
+        <p class="f-k">Featured · W01 · 2026 · Best Computation Prize, Bartlett</p>
+        <h2 class="f-t" id="h-feat">Nine Acts of Ostranenie</h2>
+        <p class="f-l">${esc(na.lede)}</p>
+      </div><a class="f-img ht" href="#nine-acts" aria-label="Nine Acts project"><img src="${IMG+na.thumb}" alt="" loading="lazy"><img class="col" src="${IMG+na.col}" alt="" loading="lazy"></a></div>
+      <div class="f-live">
+        ${live("Live archive","https://nine-acts-archive-map.vercel.app","Search 177,241 books, photos and film stills about Rotterdam, ranked by how unusual each item is.")}
+        ${live("Agent discussion","https://vercel-step4-discussion.vercel.app","A real 22-turn debate between the nine agents, every claim linked to its evidence.")}
+      </div>
+      <div class="f-nums">
+        <div><b>177,241</b><span>archive items</span></div>
+        <div><b>9</b><span>agents, one local open model</span></div>
+        <div><b>~100</b><span>runs with a human in the loop</span></div>
+        <div><b>MCP</b><span>agents design live in Blender</span></div>
+      </div>
+      <a class="btn inv" href="#nine-acts">How it works →</a>
+    </div>
+  </section>
+
+  <section class="pair">
+    <a class="big-card" href="#${tu.id}">
+      <div class="bc-img ht"><img src="${IMG}w02_lg.png" alt="" loading="lazy"><img class="col" src="${IMG+tu.col}" alt="${esc(tu.cap)}" loading="lazy"></div>
+      <p class="f-k dark">${tu.n} · ${tu.y} · ${esc(tu.kind)}</p>
+      <h3 class="bc-t">${esc(tu.t)}</h3>
+      <p>${esc(tu.lede)}</p>
+      <span class="more">See the pipeline →</span>
+    </a>
+    <a class="big-card text" href="#${uc.id}">
+      <p class="f-k dark">${uc.n} · ${uc.y} · Thesis · Theory Report Prize</p>
+      <h3 class="bc-t">${esc(uc.t)}</h3>
+      <p class="pull">"Every system that measures a city has already decided what doesn't count."</p>
+      <p>A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</p>
+      <span class="more">Read the argument →</span>
+    </a>
+  </section>
+
+  <section class="also" aria-labelledby="h-also">
+    <p class="lab" id="h-also">Also: architecture and film</p>
+    <div class="dir">${rest.map(p=>`<a class="dir-row" href="#${p.id}"><span class="dthumb">${thumb(p)}</span><span class="dn">${p.n}</span><span class="dt">${esc(p.t)}</span><span class="dk">${esc(p.kind)}</span><span class="dy">${p.y} →</span></a>`).join("")}</div>
+  </section>
+
+  <section class="stack" aria-label="What I work with">
+    <div><p class="lab">Agents</p><p>Multi-agent systems, tool use, memory, MCP, local open models, human in the loop</p></div>
+    <div><p class="lab">Data & ML</p><p>Python, scraping, pandas, CLIP, SOM, UMAP, anomaly detection, NLP</p></div>
+    <div><p class="lab">3D & space</p><p>Blender, Geometry Nodes, Rhino, Revit, TouchDesigner, 3D printing</p></div>
+    <div><p class="lab">Image & film</p><p>Drawing, Photoshop, Illustrator, InDesign, Premiere, DaVinci</p></div>
+  </section>
+  <hr>
+  ${aboutBlock()}`;
+}
+
+function aboutBlock(){
+  return `
+  <section class="about" id="about" aria-labelledby="h-about">
+    <p class="lab" id="h-about" style="grid-column:1/-1;margin:0">About</p>
+    <p class="intro">I'm an architectural engineer from Greece, licensed with the Technical Chamber of Greece, and I've just finished the MArch in Urban Design at the Bartlett. I build working systems: archives, agents and pipelines that turn data into images, films and spaces. Most of my work asks how places are lived, seen and remembered, and by whom.</p>
+    <div>
+      <p class="lab">Experience</p>
+      <div class="item"><p class="b up">Workshop tutor</p><p>Bartlett B-Pro · Oct 2026</p><p class="muted">Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</p></div>
+      <div class="item"><p class="b up">Team member</p><p>LOvMe.ai · 2023–25</p><p class="muted">AI safety startup: research, user interviews, urban-safety advice.</p></div>
+      <div class="item"><p class="b up">Architectural designer</p><p>Urban Soul Project, Athens · 2023</p><p class="muted">Drawing sets for 5+ projects at once, incl. PwC's Athens campus.</p></div>
+      <div class="item"><p class="b up">Architectural designer</p><p>Angelos Koukoulis · 2023–24</p><p class="muted">Converting existing buildings into homes; worked with engineers and clients.</p></div>
+    </div>
+    <div>
+      <p class="lab">Education</p>
+      <div class="item"><p class="b">MArch Urban Design</p><p>The Bartlett, UCL · 2025–26</p></div>
+      <div class="item"><p class="b">Architectural Engineering</p><p>Integrated Master's, University of Thessaly · 2020–25</p><p class="muted">Top of class</p></div>
+    </div>
+    <div>
+      <p class="lab">Recognition</p>
+      <div class="item"><p>Best Computation Prize, Bartlett UD 2026</p></div>
+      <div class="item"><p>Theory Report Prize, Bartlett UD 2026</p></div>
+      <div class="item"><p>Honorable Mention, Playing Models 2026, SCI-Arc</p></div>
+      <div class="item"><p>IKY Award, Greece</p></div>
+    </div>
+  </section>
+  <hr>
+  <section class="contact" id="contact" aria-labelledby="h-contact">
+    <div>
+      <p class="lab" id="h-contact">Contact</p>
+      <p class="big" id="mail">eleni.karagianni.arch@gmail.com</p>
+      <div class="btns" style="margin-top:14px">
+        <a class="btn ghost" href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn ghost" href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+    </div>
+    <button class="copy" id="copymail" type="button">Copy email</button>
+  </section>`;
+}
+
+function builders(b){
+  return `<div class="builders" aria-label="For builders">
+    <div><p class="lab">What it does</p><p>${esc(b.does)}</p></div>
+    <div><p class="lab">Stack</p><ul>${b.stack.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>
+    <div><p class="lab">Scale</p><ul>${b.scale.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>
+    <div><p class="lab">Try it</p><div class="btns">${b.links.map(([l,u],i)=>`<a class="btn${i?" ghost":""}" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}<span class="btn off">${esc(b.code)}</span></div></div>
+  </div>`;
+}
+
+function sec(label,html){return `<section class="sec"><p class="lab">${label}</p><div class="body">${html}</div></section>`}
+
+const DETAIL={
+"nine-acts":()=>`
+  ${sec("The system",`<div class="pipe">
+    <div class="step"><b>Archive</b>177,241 texts, photos, film stills and subtitles about Rotterdam, scraped into one table</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Scoring</b>CLIP embeddings, SOMs, IsolationForest + LOF, and a taste model trained on our own picks</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Agents</b>Nine agents on one local open model, each with its own access, thresholds, tools and memory</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Discussion</b>Reactions, retrievals, proposals and argument, with deletions tracked</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Blender via MCP</b>The agents place, shape and furnish rooms live in 3D</div>
+  </div>`)}
+  ${sec("The nine agents",`<p style="margin-bottom:14px">Same model, nine situated readings. The agents differ in what they can see and how they judge it, not just in their prompts. The aim is to keep difference active, not to reach consensus.</p>
+  <div class="agents">
+    <div><b>Normal Literature</b>Reads for the expected</div><div><b>Normal Photography</b>Reads for the expected</div><div><b>Normal Films</b>Reads for the expected</div>
+    <div><b>Odd Literature</b>Reads for the strange</div><div><b>Odd Photography</b>Reads for the strange</div><div><b>Odd Films</b>Reads for the strange</div>
+    <div><b>The Curator</b>Asks the human "Is this strange to you, right now?" and recalibrates</div><div><b>The Contradiction Walker</b>Finds where the evidence disagrees with itself</div><div><b>The Blindspot</b>Looks for what the archive leaves out</div>
+  </div>
+  <div class="btns" style="margin-top:14px"><a class="btn" href="https://vercel-step4-discussion.vercel.app" target="_blank" rel="noopener">Read a real 22-turn discussion ↗</a></div>`)}
+  ${sec("A real correction",`<p class="quote">"The label 'street photograph' is factually incorrect. This is a harbor scene."</p>
+  <p style="margin-top:14px">In the harbour-yard run, five agents placed 39 elements over 22 turns. The Contradiction Walker's correction of "street" to "quay" moved the tallest element to the water's edge. Every proposal traces back to the evidence and argument behind it.</p>`)}
+  ${sec("What odd images do to language",`<p style="margin-bottom:16px">We had Claude describe 6,000 photographs and compared the language used for ordinary and odd images. Odd images made description work harder. These findings shaped the agents' voices.</p>
+  <div class="chart">${[
+    ["Verbs per description","+65% (p < 0.001)",9.15,15.12,16,v=>v.toFixed(2)],
+    ["Spatial vagueness index","near / around / toward",0.209,0.251,.3,v=>v.toFixed(3)],
+    ["Negations per description","2.5×",0.02,0.05,.06,v=>v.toFixed(2)],
+    ["Strong, specific verbs","odd images use fewer",54.4,48.1,60,v=>v.toFixed(1)+"%"]
+  ].map(([h,s,a,b,max,f])=>`<div class="metric"><div class="mh"><span class="b">${h}</span><span class="muted">${s}</span></div>
+    <div class="row"><span>Ordinary</span><div class="track"><i class="fill norm" style="width:${a/max*100}%"></i></div><span class="v">${f(a)}</span></div>
+    <div class="row"><span>Odd</span><div class="track"><i class="fill" style="width:${b/max*100}%"></i></div><span class="v">${f(b)}</span></div></div>`).join("")}
+  </div>`)}
+  ${sec("A contradiction path",`<p style="margin-bottom:14px">The archive links items that are structurally related but semantically distant. One real path, with each item's anomaly score:</p>
+  <div class="path">${[
+    ["Spiegel van Nederland (1959), film still",.71],["De Brug, Joris Ivens (1928)",.68],["Undated Flickr street photograph",.79],["De Stille, subtitle fragment",.91],["IMDb stills",.74]
+  ].map(([t,s],i)=>`<div class="node"><span class="i">${i+1}</span><span>${t}</span><span class="sc"><span>anomaly ${s.toFixed(2)}</span><span class="bar2"><i style="width:${s*100}%"></i></span></span></div>`).join("")}</div>
+  <div class="btns" style="margin-top:14px"><a class="btn" href="https://nine-acts-archive-map.vercel.app" target="_blank" rel="noopener">Search the live archive ↗</a></div>`)}
+  ${sec("In numbers",`<div class="nums"><div><b>177,241</b><span>items in one table</span></div><div><b>9</b><span>agents, 10 tools</span></div><div><b>~100</b><span>runs</span></div><div><b>14</b><span>sites on the Maas</span></div><div><b>39</b><span>elements in one run</span></div></div>`)}
+  ${sec("Then",`<p>The project became a workshop. At Bartlett B-Pro in October 2026, Ruijia Zheng and I taught Designing with Disagreement: 23 students built their own opposing agents.</p>`)}`,
+
+"turin-machine":()=>`
+  ${sec("The pipeline",`<div class="pipe">
+    <div class="step"><b>Datasets</b>2,054 industrial buildings, 205 British Pathé films, 958 films shot in Turin, a recorded 2-hour walk</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Two agents</b>Nietzsche and Franco walk 23 locations and talk, grounded in the datasets</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Extraction</b>TF-IDF over the dialogues gives a 42-word vocabulary</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Geometry</b>Each word drives density, fragmentation and continuity in Geometry Nodes</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Output</b>3D-printed word assemblies, renders and a 3-minute film</div>
+  </div>`)}
+  ${sec("Two ways of seeing",`<div class="behav" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+    <div><p class="b up">Franco</p><p>The blind detective. Reads the city through sound, touch and uncertainty.</p></div>
+    <div><p class="b up">Nietzsche</p><p>The philosopher, who lived in Turin. Reads it through concepts, critique and feeling.</p></div></div>`)}
+  ${sec("Words with behaviours",`<p style="margin-bottom:14px">The 42 words fall into three behaviours, each with a different effect on the form.</p>
+  <div class="behav"><div><p class="b up">Soft</p><p>Low density, continuous</p></div><div><p class="b up">Medium</p><p>Balanced, partly broken</p></div><div><p class="b up">Chaotic</p><p>Dense, fragmented</p></div></div>`)}
+  ${sec("A sentence, built",`<p style="margin-bottom:12px">"The monumental industry hum feels tired; as brick and stones become unforgiving under the sun." Each word adds a layer to the space. Step through it:</p>
+  <div class="seq" id="seq"></div>
+  <div class="btns" style="margin-top:12px"><button class="copy" id="seqnext" type="button">Add next word</button><button class="copy" id="seqreset" type="button">Reset</button></div>`)}
+  ${sec("Judgement",`<p>A visual clustering of all the images (SOM) was technically sound but spatially flat, so I pivoted to a language-driven method. The dropped branch is documented on the blog.</p>`)}`,
+
+"unseen-city":()=>`
+  ${sec("The argument",`<ul class="pts">
+    <li>Cities are governed by making them readable, and every reading leaves something out.</li>
+    <li>What falls below a system's threshold gets built around as if it wasn't there. I call this the politics of noise. The threshold is always a decision.</li>
+    <li>Instead of neutral machines, design systems that declare their partial point of view, and keep humans responsible.</li></ul>`)}
+  ${sec("Tested on",`<p><span class="b">MIT's Streetscore:</span> 208,738 comparisons by 7,872 people, about a million street views scored. Its scores track income and fail on unusual scenes.</p>
+  <p><span class="b">My own Nine Acts:</span> including an honest critique of it. The agents who argued most also built tallest.</p>`)}
+  ${sec("Why it matters",`<p>Building AI and thinking critically about it are usually separate jobs. This thesis is the second half of Nine Acts: what dataset choices, thresholds and evaluation do to a city.</p>`)}`,
+
+"under-common-care":()=>`
+  ${sec("The project",`<ul class="pts">
+    <li>Six strategies, set by each building's age: a 1930s building reorganised for public use, a 1940s warehouse frame kept as the base for four storeys of housing, post-war buildings renovated with shared rooms and added floors, and a new building on an empty plot.</li>
+    <li>Plans at 1:100 for a home for single-parent families, 56 m² and 70 m² flats, and a flat shared by two families.</li>
+    <li>Shared programmes: a goods-exchange shop, café, gyms and an open-air cinema.</li></ul>`)}
+  ${sec("Themes",`<p>Adaptive reuse, collective housing, urban commons, intergenerational living, circular economy, care.</p>`)}`,
+
+"mind-the-gap":()=>`
+  ${sec("The project",`<p>The gaps between buildings were mapped across the city. Residents had already filled some with improvised stairs, so we turned that habit into a scaffolding system that attaches to the gaps and carries five programmes: cinema, library, playground, workspace and kitchen. The library is developed in plans, elevation and section.</p>`)}`,
+
+"the-bus":()=>`
+  ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Pantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
+  <div class="btns" style="margin-top:14px"><a class="btn" href="https://youtu.be/ZQ0DikdlK14" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`)}`,
+
+"interview-dimitris":()=>`
+  ${sec("The film",`<p>Made for Residential Practices: The Gift, with Prof. Zissis Kotionis at the University of Thessaly. The brief: record a home as a biography of its people and things, then give something back. My gift to Dimitris was a website of his film photographs.</p>
+  <div class="btns" style="margin-top:14px"><span class="btn off">Video link coming soon</span></div>`)}`
+};
+
+function project(p){
+  const img=p.col?`<figure class="hero-img"><img src="${IMG+p.col}" alt="${esc(p.cap)}"><figcaption>${esc(p.cap)}</figcaption></figure>`:"";
+  return `<article class="proj">
+    <a class="back" href="#work">← All works</a>
+    <p class="lab" style="text-decoration:none;margin:0">${p.n} · ${p.y}</p>
+    <h1 class="ptitle">${esc(p.t)}</h1>
+    <div class="pmeta"><span>${esc(p.kind)}</span><span class="muted">${esc(p.with)}</span>${p.award?`<span class="b">${esc(p.award)}</span>`:""}</div>
+    <p class="plede">${esc(p.lede)}</p>
+    ${p.b?builders(p.b):""}
+    ${img}
+    ${DETAIL[p.id]?DETAIL[p.id]():""}
+    ${next(p)}
+  </article><hr>${aboutBlock()}`;
+}
+function next(p){const i=P.indexOf(p),q=P[(i+1)%P.length];return `<section class="sec" style="margin-top:56px"><p class="lab">Next</p><div class="body"><a class="back" style="margin:0;font-size:15px" href="#${q.id}">${q.n} ${esc(q.t)} →</a></div></section>`}
+
+const WORDS=["the","monumental","industry","hum","feels","tired","brick","stones","unforgiving","sun"];
+let k=1;
+function drawSeq(){const el=$("#seq");if(!el)return;el.innerHTML=WORDS.map((w,i)=>`<span class="${i<k?"on":""}">${w}</span>`).join("")}
+
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  const p=P.find(x=>x.id===h);
+  $("#view").innerHTML=p?project(p):home();
+  document.title=p?`${p.t} · Eleni Karagianni`:"Eleni Karagianni";
+  k=1;drawSeq();
+  if(p){window.scrollTo(0,0)}else if(h){const t=document.getElementById(h);if(t)t.scrollIntoView()}else{window.scrollTo(0,0)}
+}
+document.addEventListener("click",async e=>{
+  if(e.target.id==="seqnext"){k=Math.min(WORDS.length,k+1);drawSeq()}
+  if(e.target.id==="seqreset"){k=1;drawSeq()}
+  if(e.target.id==="copymail"){const b=e.target;try{await navigator.clipboard.writeText($("#mail").textContent);b.textContent="Copied"}catch(err){const r=document.createRange();r.selectNodeContents($("#mail"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected"}setTimeout(()=>b.textContent="Copy email",1800)}
+});
+window.addEventListener("hashchange",route);
+route();
+</script>
+
+</body>
+</html>
