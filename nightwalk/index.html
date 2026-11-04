@@ -142,6 +142,7 @@ input[type=range]{accent-color:var(--lamp)}
 .legend .litst{background:linear-gradient(transparent 0 5px,#EFE6D8 5px 7px,transparent 7px)!important}
 .legend .darkst{background:radial-gradient(circle,rgba(239,230,216,.6) 1px,transparent 1.4px) 0 50%/5px 13px repeat-x!important}
 .go{background:var(--pink);color:#1B1B1B}
+.calls .tl{display:flex;align-items:center;gap:8px}.calls .nb{display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid #fff;color:#fff;font-size:10.5px}
 </style>
 </head>
 <body>
@@ -169,7 +170,7 @@ input[type=range]{accent-color:var(--lamp)}
       <div class="c safe"><span class="lab">Safest</span><b id="tSafe">–</b><span id="lSafe"></span></div>
       <div class="c"><span class="lab">Shortest</span><b id="tShort">–</b><span id="lShort"></span></div>
     </div>
-    <ol class="calls" id="callList"></ol>
+    <p class="lab" id="callHead" style="margin:18px 0 0">Risks on the short way</p><ol class="calls" id="callList"></ol>
     <ul class="why" id="why"></ul>
     <div class="row" style="margin-top:16px"><button type="button" class="go" id="startNav">Start walking</button><button type="button" class="btn" id="preview">▶ Preview the walk</button></div>
   </section>
@@ -225,7 +226,7 @@ input[type=range]{accent-color:var(--lamp)}
   <div class="lens" id="lens"></div>
   <div class="zoom"><button type="button" id="zin" aria-label="Zoom in">+</button><button type="button" id="zout" aria-label="Zoom out">−</button></div>
   <svg id="svg" aria-label="Map of King's Cross to Camden"></svg>
-  <div class="legend"><div><span class="sw red"></span>Safest route</div><div><span class="sw dash"></span>Shortest route</div><div><span class="sw litst"></span>Lit street</div><div><span class="sw darkst"></span>Dark street</div><div><span class="sw rose"></span>Open at night</div><div><span class="sw canal"></span>Canal</div><div><span class="sw park"></span>Park</div><div><span class="sw box"></span>Why they split</div><div id="lensleg" style="display:none"></div><div id="wleg" style="display:none"></div></div><div><span class="s"></span>Shortest route</div></div>
+  <div class="legend"><div><span class="sw red"></span>Safest route</div><div><span class="sw dash"></span>Shortest route</div><div><span class="sw litst"></span>Lit street</div><div><span class="sw darkst"></span>Dark street</div><div><span class="sw rose"></span>Open at night</div><div><span class="sw canal"></span>Canal</div><div><span class="sw park"></span>Park</div><div><span class="sw box"></span>Risk on the short way</div><div id="lensleg" style="display:none"></div><div id="wleg" style="display:none"></div></div><div><span class="s"></span>Shortest route</div></div>
   <div class="hint" style="bottom:78px">Scroll to zoom · drag to move</div>
   <div class="hint" style="pointer-events:auto;display:block;font-size:10px;bottom:52px">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit">OpenStreetMap</a> contributors · police.uk (OGL)</div>
   <div class="tip" id="tip"></div>
@@ -345,7 +346,8 @@ function summary(){
     li.push(["minus",dm>0?`Costs ${dm} more minute${dm===1?"":"s"} of walking.`:"Takes no longer than the shortest route."]);
   }
   CALLS=callouts();
-  $("#callList").innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+70;return `<li><p class="tl">${c.name}</p><svg class="inset" viewBox="${cx-h*1.25} ${cy-h} ${h*2.5} ${h*2}" preserveAspectRatio="xMidYMid slice"><use href="#world"/></svg><p class="td">${c.detail[0].toUpperCase()+c.detail.slice(1)}. The safe route avoids it.</p></li>`}).join("");
+  $("#callHead").style.display=CALLS.length?"":"none";
+  $("#callList").innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+70;return `<li><p class="tl"><span class="nb">${k+1}</span>${c.name}</p><svg class="inset" viewBox="${cx-h*1.25} ${cy-h} ${h*2.5} ${h*2}" preserveAspectRatio="xMidYMid slice"><use href="#world"/></svg><p class="td">${c.detail[0].toUpperCase()+c.detail.slice(1)}. The safe route avoids it.</p></li>`}).join("");
   const dm2=Math.round(a.min-s.min),c0=CALLS.slice().sort((x,y)=>y.sev-x.sev)[0];
   $("#headTxt").innerHTML=!c0?"Here the quick way is also the safe way.":`The quick way ${c0.unlit>=30?`follows ${/^(Path|Underpass)/.test(c0.name)?"an unlit "+c0.name.replace(/^(Path|Underpass)/,m=>m.toLowerCase()):"the unlit "+c0.name}`:`goes through ${c0.tun} underpass${c0.tun>1?"es":""}`}. <span class="r">The safe way stays on lit streets${dm2>0?`, ${dm2} min longer`:""}.</span>`;
   $("#why").innerHTML=li.map(([c,t])=>`<li class="${c}">${t}</li>`).join("");
@@ -458,6 +460,7 @@ function setupMap(){
   const tick=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)tick.push(`M${x} ${FR[1]}v-10`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)tick.push(`M${FR[0]} ${y}h-10`);
   svg.innerHTML=`<defs><pattern id="forest" width="15" height="15" patternUnits="userSpaceOnUse"><rect width="15" height="15" fill="#3B302A"/><circle cx="7.5" cy="7.5" r="3.6" fill="#8C5A3C"/><circle cx="7.5" cy="7.5" r="1.5" fill="#D4975F"/></pattern>
     <pattern id="wdots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2" fill="#fff"/></pattern>
+    <mask id="spot" maskUnits="userSpaceOnUse" x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#fff"/><g id="holes"></g></mask>
     <clipPath id="clip"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"/></clipPath></defs>
   <g id="world"><g clip-path="url(#clip)">
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#3D3834"/>
@@ -468,10 +471,11 @@ function setupMap(){
   <path d="${dark.join("")}" fill="none" stroke="#EFE6D8" stroke-opacity=".18" stroke-width="1.4" stroke-dasharray="0.01 5" stroke-linecap="round" style="vector-effect:non-scaling-stroke"/>
   <g id="lit" fill="none" stroke="#EFE6D8" stroke-linecap="round" stroke-linejoin="round">${lamps}</g>
   <path id="actp" d="${act}" fill="#E0412F" fill-opacity=".45"/>
+  <rect id="veil" x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#0E0D0C" fill-opacity=".58" mask="url(#spot)"/>
   </g>
   <g id="lensg"></g><g id="cityg"></g><g id="routes"></g></g>
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${tick.join("")}" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/>
-  <g id="calls"></g><g id="marks"></g><g id="meg"></g>`;
+  <g id="marks"></g><g id="calls"></g><g id="meg"></g>`;
   setVB();
   let drag=null,moved=false;
   svg.addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,v:[...vb]};moved=false;svg.setPointerCapture(e.pointerId)});
@@ -507,11 +511,15 @@ function callouts(){
       const bits=[];if(o.unlit>=30)bits.push(`unlit for ${Math.round(o.unlit/10)*10} m`);if(o.tun>1)bits.push(`${o.tun} underpasses`);o.detail=bits.join(", ")||o.detail;return out},[]);
 }
 function drawCalls(s){
-  const g=$("#calls");if(!g)return;if(mode==="city"){g.innerHTML="";return}
-  g.innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+40,hs=Math.max(h,36*s),t=10*s;
+  const g=$("#calls");if(!g)return;if(mode==="city"){g.innerHTML="";$("#holes").innerHTML="";return}
+  const geo=c=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+40;return [cx,cy,Math.max(h,36*s)]};
+  $("#holes").innerHTML=CALLS.map(c=>{const [cx,cy,hs]=geo(c);return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="#000"/>`}).join("");
+  g.innerHTML=CALLS.map((c,k)=>{const [cx,cy,hs]=geo(c),t=10*s;
     const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>`M${cx+a*hs} ${cy+b*hs+(-b)*t}V${cy+b*hs}H${cx+a*hs+(-a)*t}`).join("");
     return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="${corners}" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"/>
-    <g transform="translate(${cx} ${cy-hs}) scale(${s})"><circle r="4.5" fill="#fff"/><text x="12" y="-8" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" fill="#E8785E" letter-spacing=".05em">${c.name.toUpperCase()}</text></g>`}).join("");
+    <g transform="translate(${cx-hs} ${cy-hs}) scale(${s})"><rect x="-1" y="-44" width="${Math.max(c.name.length*7.4,c.detail.length*6.4+100)+36}" height="44" fill="#141312" fill-opacity=".92"/><rect x="8" y="-36" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.2"/><text x="18" y="-21.5" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="11" font-weight="700" fill="#fff">${k+1}</text>
+      <text x="38" y="-27" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" fill="#E8785E" letter-spacing=".05em">${c.name.toUpperCase()}</text>
+      <text x="38" y="-12" font-family="Roboto Mono, monospace" font-size="10" fill="#CFC8BF">Risk on the short way: ${c.detail}</text></g>`}).join("");
 }
 function drawMarks(){
   const s=px(),m=(v,l,c,tc)=>{const p=G.V[v];return `<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="13" fill="${c}"/><text y="4.5" text-anchor="middle" fill="${tc}" font-family="Roboto Mono, monospace" font-size="12" font-weight="600">${l}</text></g>`};
