@@ -35,3 +35,8 @@ Eleni approved this version. Change only on her request. Checkpoint: git tag `ni
 
 ## Portfolio
 - Thumbnail img/w08.png: halftone (12 px grid, offset rows), grey dot field, light streets, bold black safe route. Hover img/c08.jpg: the dark taupe map.
+
+## Fix the city tab (added 4 Nov 2026)
+- Third tab. Same palette: problem streets salmon #E8785E, the selected fix in sage #A3B58C when "After" is on; numbered white squares on the map.
+- Side panel: four headline numbers, ranked "What to fix first" list (problem chips, share of quick walks, +walks made safe, £ cost), proposal card with Before/After street section (diagram), design moves, impact table, partners; toolkit; print button.
+- Data: fixes.json from fix.py (re-scores the 2,560 simulated walks with each street improved; "safe enough" = ≥90% lit, no dark underpass, <10% hidden).

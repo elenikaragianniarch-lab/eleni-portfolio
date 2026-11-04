@@ -146,6 +146,17 @@ input[type=range]{accent-color:var(--lamp)}
 .home{display:inline-block;font:500 15px var(--f);color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}.home:hover{color:var(--pink);border-color:var(--pink)}
 .lsw{display:inline-block;width:22px;margin-right:9px;vertical-align:middle}
 #layers button{background:transparent;color:var(--muted);border-color:#444}#layers button.on{background:transparent;color:var(--ink);border-color:var(--ink)}#layers button:not(.on) .lsw{opacity:.35}
+.fixl{margin:0;padding:0;list-style:none;display:grid;gap:0}
+.fixl li{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--hair);cursor:pointer}
+.fixl li .n{display:grid;place-items:center;width:20px;height:20px;border:1px solid #fff;font:700 11px var(--m)}
+.fixl li.on .n{background:#fff;color:#1B1B1B}.fixl li b{font-weight:600;font-size:15px}.fixl li.on b{color:var(--salmon)}
+.fixl .ch{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}.fixl .ch i{font:400 10.5px var(--m);font-style:normal;border:1px solid #555;padding:1px 6px;color:#CFC8BF}
+.fixl .im{display:block;font:400 11.5px var(--m);color:var(--muted)}.fixl .im strong{color:#A3B58C;font-weight:600}
+.ba{display:flex;gap:0;margin:8px 0 10px}.ba button{font:400 12px var(--m);background:none;border:1px solid #555;color:var(--muted);padding:5px 14px;cursor:pointer}.ba button.on{border-color:var(--ink);color:var(--ink)}
+.secsvg{width:100%;height:auto;display:block}.secsvg .sl{font:400 9px var(--m);letter-spacing:.06em;fill:#9A9590}
+.mv{list-style:none;margin:12px 0;padding:0;display:grid;gap:6px}.mv li{font-size:14px;display:grid;grid-template-columns:92px 1fr;gap:8px}.mv b{padding-top:3px;font:600 11px var(--m);text-transform:uppercase;color:#A3B58C;letter-spacing:.04em}
+.kit{width:100%;border-collapse:collapse;font-size:13px}.kit td{padding:6px 0;border-bottom:1px solid var(--hair);vertical-align:top;text-align:left}.kit td:first-child{width:118px;color:var(--muted);font:400 11px var(--m);text-transform:uppercase;padding-top:8px}
+@media print{body{background:#fff;color:#111}.map,.tabs,#modeRoute,#modeCity,.home,details,.lede,h1,#printP{display:none!important}.app{display:block;height:auto}aside{overflow:visible;border:0}#modeFix{display:block!important}*{color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
@@ -155,7 +166,7 @@ input[type=range]{accent-color:var(--lamp)}
   <p class="lab" style="margin-top:18px">Prototype · 2026</p>
   <h1>Night Walk</h1>
   <p class="lede">Safest, not shortest. Map apps send you the quickest way home. Night Walk finds the way that stays lit, busy and open, and tells you what it costs in minutes.</p>
-  <div class="tabs" role="tablist"><button type="button" class="on" data-mode="route" role="tab">Find my route</button><button type="button" data-mode="city" role="tab">City map</button></div>
+  <div class="tabs" role="tablist"><button type="button" class="on" data-mode="route" role="tab">Find my route</button><button type="button" data-mode="city" role="tab">City map</button><button type="button" data-mode="fix" role="tab">Fix the city</button></div>
 
   <div id="modeRoute">
   <section>
@@ -197,6 +208,25 @@ input[type=range]{accent-color:var(--lamp)}
     <label class="tog"><input type="checkbox" id="stepfree"> Step-free only</label>
     <div class="row" style="margin-top:10px"><button class="btn" id="reset" type="button">Reset</button><span class="note">Your route is drawn in solid white.</span></div>
   </details>
+  </div>
+
+  <div id="modeFix" hidden>
+  <section>
+    <p class="lab">From avoiding streets to fixing them</p>
+    <p class="lede" style="font-size:15px">Safety apps send women around the dark street. Nobody fixes it. This tab finds the streets that make the quick way home unsafe, tests a fix for each on 2,560 simulated walks, and turns the best ones into proposals.</p>
+    <div class="big4" id="fstats"></div>
+  </section>
+  <section>
+    <p class="lab">What to fix first</p>
+    <ol class="fixl" id="fixl"></ol>
+  </section>
+  <section id="props"></section>
+  <section>
+    <p class="lab">Toolkit</p>
+    <table class="kit"><tr><td>Unlit</td><td>Warm, even light at face height; lit façades; amber, low-level light by water</td></tr><tr><td>Underpass</td><td>Light and paint it, mirrors at both ends, open views through, or a surface crossing instead</td></tr><tr><td>Nobody around</td><td>Late ground-floor uses, kiosks, night markets, staffed help points</td></tr><tr><td>Hidden</td><td>Clear sightlines, trimmed planting, no blind corners, a second way out</td></tr><tr><td>Steps</td><td>A ramp or lift alongside</td></tr></table>
+    <p class="note" style="margin-top:10px">Impact is measured on simulated walks, not real footfall. A walk counts as "safe enough" when at least 90% is lit, with no dark underpass and no hidden stretch.</p>
+    <div class="row" style="margin-top:14px"><button class="btn" id="printP" type="button">Print the proposals</button></div>
+  </section>
   </div>
 
   <div id="modeCity" hidden>
@@ -247,7 +277,7 @@ const WALKERS=[
  {id:"alone",col:"#8A7A70",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
 const PRESETS=[["Camden Market","Granary Square"],["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
-let need=-1,mode="route",city=null,layers=new Set(["detour","safety","corr","avoid"]),fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
+let FX=null,fixSel=0,fixAfter=false,need=-1,mode="route",city=null,layers=new Set(["detour","safety","corr","avoid"]),fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
 const K=3;
 
 fetch("graph.json").then(r=>r.json()).then(g=>{G=g;init()});
@@ -279,7 +309,7 @@ function init(){
   const NEEDS=[[-1,"Safest for anyone"],[0,"Quickly, after a late shift"],[1,"Somewhere new to me"],[2,"With a pram or step-free"],[3,"Alone after a night out"]];
   $("#needs").innerHTML=NEEDS.map(([i,l])=>`<button type="button" data-need="${i}" class="${i===need?"on":""}">${l}</button>`).join("");
   $("#needs").onclick=e=>{const b=e.target.closest("[data-need]");if(!b)return;need=+b.dataset.need;document.querySelectorAll("#needs button").forEach(x=>x.classList.toggle("on",x===b));res.SA=stats(mainR());summary();table();draw()};
-  document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("[data-mode]");if(!b)return;mode=b.dataset.mode;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));$("#modeRoute").hidden=mode!=="route";$("#modeCity").hidden=mode!=="city";if(mode==="city"&&!city)fetch("city.json").then(r=>r.json()).then(c=>{city=c;renderCity()});else{renderCity();if(mode==="route")summary();draw()}};
+  document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("[data-mode]");if(!b)return;mode=b.dataset.mode;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));$("#modeRoute").hidden=mode!=="route";$("#modeCity").hidden=mode!=="city";$("#modeFix").hidden=mode!=="fix";if(mode==="city"&&!city)fetch("city.json").then(r=>r.json()).then(c=>{city=c;renderCity()});else if(mode==="fix"&&!FX)fetch("fixes.json").then(r=>r.json()).then(f=>{FX=f;renderFix();draw()});else{renderCity();if(mode==="route")summary();if(mode==="fix")renderFix();draw()}};
   $("#neg").ontoggle=draw;
   setupMap();setupNav();run();
   if(location.hash==="#city")document.querySelector('[data-mode="city"]').click();
@@ -448,6 +478,54 @@ function setupNav(){
     navigator.geolocation.getCurrentPosition(g=>{const p=toXY(g.coords.latitude,g.coords.longitude);if(!inArea(p)){$("#locNote").textContent="You're outside the mapped area (King's Cross to Camden).";return}A=snap(p);clickNext="B";$("#selA").selectedIndex=-1;$("#locNote").textContent="Start set to your location.";run()},
       err=>{$("#locNote").textContent=err.code===1?"Location permission was denied.":"Couldn't get your location."},{enableHighAccuracy:true,timeout:15000})};
 }
+
+/* ---------- Fix the city ---------- */
+const PCH={unlit:"Unlit",tun:"Underpass",quiet:"Nobody around",hidden:"Hidden",steps:"Steps",inc:"Incidents"};
+function probs(p){const out=[];if(p.unlit>=30)out.push(`${PCH.unlit} ${Math.round(p.unlit/10)*10} m`);if(p.tun)out.push(`${p.tun} underpass${p.tun>1?"es":""}`);if(p.quiet>=60)out.push(`Quiet ${Math.round(p.quiet/10)*10} m`);if(p.hidden>=40)out.push(`Hidden ${Math.round(p.hidden/10)*10} m`);if(p.steps)out.push("Steps");if(p.inc>.5)out.push("Many incidents");return out}
+function renderFix(){
+  if(!FX)return;const b=FX.base,t=FX.top3,T=b.trips;
+  $("#fstats").innerHTML=`<div><b>${Math.round(b.quick_safe*100)}→${Math.round(t.quick_safe*100)}%</b><span>quick walks that are safe enough, if the top 3 are fixed</span></div><div><b>+${t.flipped}</b><span>walks that no longer need a detour</span></div><div><b>${Math.round(b.lit*100)}→${Math.round(t.lit*100)}%</b><span>light on the quick way home</span></div><div><b>${Math.round(t.minutes_saved)} min</b><span>of detours no longer needed, per ${T.toLocaleString("en-GB")} walks</span></div>`;
+  $("#fixl").innerHTML=FX.fixes.map((f,k)=>`<li data-f="${k}" class="${k===fixSel?"on":""}"><span class="n">${k+1}</span><div><b>${f.name}</b><span class="ch">${probs(f.problems).map(x=>`<i>${x}</i>`).join("")}</span><span class="im">On ${Math.round(f.after.uses/T*100)}% of quick walks · <strong>+${f.after.flipped}</strong> safe enough · ${f.cost}</span></div></li>`).join("");
+  $("#fixl").onclick=e=>{const li=e.target.closest("[data-f]");if(!li)return;fixSel=+li.dataset.f;renderFix();zoomTo(FX.fixes[fixSel].ids);draw();$("#props").scrollIntoView({behavior:"smooth",block:"start"})};
+  const f=FX.fixes[fixSel];
+  $("#props").innerHTML=`<p class="lab">Proposal ${fixSel+1} · ${f.name}</p>
+    <div class="ba"><button type="button" data-ba="0" class="${fixAfter?"":"on"}">Before</button><button type="button" data-ba="1" class="${fixAfter?"on":""}">After</button></div>
+    <div class="sect">${section(f.kind,fixAfter)}</div>
+    <ul class="mv">${f.moves.map(([k,t])=>`<li><b>${k}</b>${t}</li>`).join("")}</ul>
+    <table class="kit imp"><tr><td>Quick walks using it</td><td>${f.after.uses} of ${T} (${Math.round(f.after.uses/T*100)}%)</td></tr><tr><td>Become safe enough</td><td>+${f.after.flipped} walks${f.after.minutes_saved?`, ${Math.round(f.after.minutes_saved)} min of detours saved`:""}</td></tr><tr><td>Light on quick walks</td><td>${Math.round(b.lit*100)}% → ${Math.round(f.after.lit*100)}%</td></tr><tr><td>Rough cost</td><td>${f.cost}</td></tr><tr><td>Likely partners</td><td>${f.partners.join(", ")}</td></tr></table>`;
+  $("#props").onclick=e=>{const x=e.target.closest("[data-ba]");if(!x)return;fixAfter=x.dataset.ba==="1";renderFix();draw()};
+  $("#printP").onclick=()=>window.print();
+}
+function drawFix(){
+  const g=$("#fixg");if(mode!=="fix"||!FX){g.innerHTML="";return}
+  let h="";const sp=px();
+  FX.fixes.forEach((f,k)=>{const sel=k===fixSel,col=sel&&fixAfter?"#A3B58C":"#E8785E";
+    h+=`<path d="${f.ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="${col}" stroke-opacity="${sel?1:.55}" stroke-width="${sel?6:3}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+    const bb=bbOf(f.ids),cx=(bb[0]+bb[2])/2,cy=-(bb[1]+bb[3])/2;
+    h+=`<g transform="translate(${cx} ${cy}) scale(${sp})"><rect x="-10" y="-10" width="20" height="20" fill="${sel?"#fff":"#1B1B1B"}" stroke="#fff" stroke-width="1.2"/><text y="4" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="11" font-weight="700" fill="${sel?"#1B1B1B":"#fff"}">${k+1}</text></g>`});
+  g.innerHTML=h;
+}
+/* diagrammatic street sections, before and after */
+function section(kind,after){
+  const W=372,H=170,gl=132;let s=`<svg viewBox="0 0 ${W} ${H}" class="secsvg"><rect width="${W}" height="${H}" fill="#141312"/>`;
+  const lamp=(x,y,r)=>after?`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#pool)"/><circle cx="${x}" cy="${y-2}" r="2.6" fill="#FFE2A8"/>`:"";
+  const person=(x,o)=>`<g opacity="${o}"><circle cx="${x}" cy="${gl-24}" r="4" fill="#CFC8BF"/><rect x="${x-3.5}" y="${gl-19}" width="7" height="19" fill="#CFC8BF"/></g>`;
+  s+=`<defs><radialGradient id="pool"><stop offset="0" stop-color="#FFD9A0" stop-opacity=".55"/><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"/></radialGradient></defs>`;
+  if(kind==="towpath"){
+    s+=`<rect x="0" y="${gl+6}" width="120" height="${H-gl-6}" fill="#4F5A5F"/><path d="M0 ${gl+10}h120" stroke="#8a969b" stroke-dasharray="6 6"/><rect x="120" y="${gl}" width="130" height="${H-gl}" fill="#3D3834"/><rect x="250" y="40" width="${W-250}" height="${H-40}" fill="#2a2724"/>`;
+    s+=after?`${lamp(160,gl-6,46)}${lamp(225,gl-6,46)}<rect x="157" y="${gl-8}" width="6" height="8" fill="#8F7B58"/><rect x="222" y="${gl-8}" width="6" height="8" fill="#8F7B58"/><path d="M250 ${gl}l40 -46h24" stroke="#A3B58C" stroke-width="3" fill="none"/>${person(190,1)}${person(205,.8)}`:`<path d="M250 70q-30 10 -20 62" stroke="#3B302A" stroke-width="14" fill="none"/>${person(195,.35)}`;
+    s+=`<text x="10" y="${H-10}" class="sl">CANAL</text><text x="130" y="${H-10}" class="sl">TOWPATH</text><text x="262" y="${H-10}" class="sl">${after?"RAMP UP":"WALL"}</text>`;
+  }else if(kind==="underpass"){
+    s+=`<rect x="0" y="${gl}" width="${W}" height="${H-gl}" fill="#3D3834"/><rect x="70" y="40" width="232" height="30" fill="#2a2724"/><rect x="70" y="70" width="10" height="${gl-70}" fill="#2a2724"/><rect x="292" y="70" width="10" height="${gl-70}" fill="#2a2724"/>`;
+    s+=after?`<rect x="80" y="70" width="212" height="${gl-70}" fill="url(#pool)"/><rect x="90" y="72" width="192" height="3" fill="#FFE2A8"/>${[110,150,190,230,270].map(x=>`<circle cx="${x}" cy="100" r="3" fill="#A3B58C" opacity=".8"/>`).join("")}<path d="M60 ${gl-40}l10 -10M312 ${gl-40}l-10 -10" stroke="#CFC8BF" stroke-width="3"/>${person(160,1)}${person(220,.9)}`:`<rect x="80" y="70" width="212" height="${gl-70}" fill="#0c0b0a"/>${person(190,.3)}`;
+    s+=`<text x="76" y="34" class="sl">RAILWAY / ROAD ABOVE</text><text x="10" y="${H-10}" class="sl">${after?"LIT, PAINTED, MIRRORS AT BOTH ENDS":"DARK, ENCLOSED, NO WAY TO SEE THROUGH"}</text>`;
+  }else{
+    s+=`<rect x="0" y="${gl}" width="${W}" height="${H-gl}" fill="#3D3834"/><rect x="120" y="${gl+4}" width="132" height="${H-gl-4}" fill="#2f2b28"/><rect x="0" y="20" width="80" height="${gl-20}" fill="#2a2724"/><rect x="${W-80}" y="20" width="80" height="${gl-20}" fill="#2a2724"/>`;
+    s+=after?`<rect x="18" y="${gl-46}" width="44" height="40" fill="#E8B87A" opacity=".75"/><rect x="${W-62}" y="${gl-46}" width="44" height="40" fill="#E8B87A" opacity=".75"/>${lamp(100,gl-70,52)}${lamp(272,gl-70,52)}<rect x="98" y="${gl-70}" width="3" height="70" fill="#8F7B58"/><rect x="270" y="${gl-70}" width="3" height="70" fill="#8F7B58"/>${person(96,1)}${person(110,.9)}${person(285,1)}`:`<path d="M18 ${gl-46}h44v40h-44zM${W-62} ${gl-46}h44v40h-44z" fill="#1d1b19" stroke="#3a3632"/>${person(105,.35)}`;
+    s+=`<text x="10" y="${H-10}" class="sl">${after?"LIT FRONTAGES · LAMPS · LATE USES":"BLANK FRONTAGES · NO LIGHT · NOBODY AROUND"}</text>`;
+  }
+  return s+`<text x="${W-10}" y="16" text-anchor="end" class="sl" fill="${after?"#A3B58C":"#E8785E"}">${after?"AFTER":"BEFORE"}</text></svg>`;
+}
 /* ---------- map ---------- */
 let vb,svg,base,FR;
 function setupMap(){
@@ -481,7 +559,7 @@ function setupMap(){
   <path id="actp" d="${act}" fill="#E0412F" fill-opacity=".45"/>
   <rect id="veil" x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#0E0D0C" fill-opacity=".58" mask="url(#spot)"/>
   </g>
-  <g id="lensg"></g><g id="cityg" clip-path="url(#clip)"></g><g id="routes"></g></g>
+  <g id="lensg"></g><g id="cityg" clip-path="url(#clip)"></g><g id="fixg" clip-path="url(#clip)"></g><g id="routes"></g></g>
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${tick.join("")}" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/>
   <g id="marks"></g><g id="calls"></g><g id="meg"></g>`;
   setVB();
@@ -545,6 +623,9 @@ const pathOf=r=>{if(!r)return"";let d="",cur=A;for(const i of r){const e=G.E[i];
 function draw(){
   const g=$("#routes");let h="";drawCity();
   $("#lit").style.opacity=mode==="city"?.25:1;$("#actp").style.opacity=mode==="city"?.3:1;
+  drawFix();
+  if(mode==="fix"){g.innerHTML="";$("#marks").innerHTML="";$("#calls").innerHTML="";$("#holes").innerHTML="";document.querySelector(".legend").style.visibility="hidden";$("#lit").style.opacity=1;$("#actp").style.opacity=.6;
+    if(FX)$("#headTxt").innerHTML=`Fix three streets and ${FX.top3.flipped} more walks become safe without a detour. <span class="r">Light on the quick way home goes from ${Math.round(FX.base.lit*100)}% to ${Math.round(FX.top3.lit*100)}%.</span>`;return}
   if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";$("#calls").innerHTML="";$("#holes").innerHTML="";$("#headTxt").innerHTML=`${city?city.stats.trips.toLocaleString("en-GB"):"2,560"} simulated walks, all on one map. <span class="r">Where the safe way costs time, and which streets to fix.</span>`;document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
   const showW=true;$("#wleg").style.display=showW?"flex":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
