@@ -129,9 +129,9 @@ input[type=range]{accent-color:var(--lamp)}
 .legend .rose{background:#D9536A;width:13px}.legend .canal{background:#C4C4C2;height:13px;opacity:1}
 .legend .park{background:radial-gradient(circle,#D4975F 1.2px,#8C5A3C 1.4px 3.4px,#3B302A 3.6px) 0 0/8px 8px}
 .legend .box{width:13px;height:13px;border:1.5px solid #fff}
-.calls{gap:18px}.calls li{display:block}
+.calls{gap:14px 12px;grid-template-columns:1fr 1fr}.calls li{display:block;min-width:0}
 .calls .tl{font:600 11.5px var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--salmon);margin:0 0 6px}
-.calls .inset{display:block;width:100%;height:290px;background:#4A443F;border:0}
+.calls .inset{display:block;width:100%;height:150px;background:#4A443F;border:0}.calls .tl{font-size:10.5px!important;min-height:30px;align-items:flex-start!important}.calls .td{font-size:12.5px!important}
 .calls .td{font-size:13.5px;margin:6px 0 0;color:#CFC8BF}
 .head .r{color:var(--salmon)}.head{background:#1B1B1B;padding:10px 14px 12px;left:0;top:0}
 .map{background:#1B1B1B}
@@ -238,7 +238,7 @@ const $=s=>document.querySelector(s);
 const CRIT=[["Lighting","Lit streets"],["People around","Open late venues, shops, stations"],["Open sightlines","No underpasses, alleys or dark park paths"],["Help nearby","Stations, pharmacies, 24/7 shops, staffed venues"],["Fewer incidents","Recorded incidents (police.uk)"]];
 const WALKERS=[
  {id:"shift",col:"#C9973F",name:"Maya, night-shift nurse",need:"Finishing at 1am and tired. Wants it lit and not too long.",w:[.9,.2,.3,.1,.4],tol:.45,dash:"2 5"},
- {id:"new",col:"#E59A92",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
+ {id:"new",col:"#B7A6E0",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
  {id:"pram",col:"#9DB89A",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
  {id:"alone",col:"#9FB3C8",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
@@ -347,9 +347,9 @@ function summary(){
   }
   CALLS=callouts();
   $("#callHead").style.display=CALLS.length?"":"none";
-  $("#callList").innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+70;return `<li><p class="tl"><span class="nb">${k+1}</span>${c.name}</p><svg class="inset" viewBox="${cx-h*1.25} ${cy-h} ${h*2.5} ${h*2}" preserveAspectRatio="xMidYMid slice"><use href="#world"/></svg><p class="td">${c.detail[0].toUpperCase()+c.detail.slice(1)}. The safe route avoids it.</p></li>`}).join("");
-  const dm2=Math.round(a.min-s.min),c0=CALLS.slice().sort((x,y)=>y.sev-x.sev)[0];
-  $("#headTxt").innerHTML=!c0?"Here the quick way is also the safe way.":`The quick way ${c0.unlit>=30?`follows ${/^(Path|Underpass)/.test(c0.name)?"an unlit "+c0.name.replace(/^(Path|Underpass)/,m=>m.toLowerCase()):"the unlit "+c0.name}`:`goes through ${c0.tun} underpass${c0.tun>1?"es":""}`}. <span class="r">The safe way stays on lit streets${dm2>0?`, ${dm2} min longer`:""}.</span>`;
+  $("#callList").innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.min(260,Math.max(x1-x0,y1-y0)/2+90);return `<li><p class="tl"><span class="nb">${k+1}</span>${c.name}</p><svg class="inset" viewBox="${cx-h*1.25} ${cy-h} ${h*2.5} ${h*2}" preserveAspectRatio="xMidYMid slice"><use href="#world"/></svg><p class="td">${c.detail[0].toUpperCase()+c.detail.slice(1)}.</p></li>`}).join("");
+  const dm2=Math.round(a.min-s.min);
+  $("#headTxt").innerHTML=!CALLS.length?"Here the quick way is also the safe way.":`The quick way ${RISK.unlit>=60?`follows ${RISK.name?"the unlit "+RISK.name:"unlit paths"}${RISK.tun?` through ${RISK.tun} underpass${RISK.tun>1?"es":""}`:""}`:`goes through ${RISK.tun} underpass${RISK.tun>1?"es":""}`}. <span class="r">The safe way stays on lit streets${dm2>0?`, ${dm2} min longer`:""}.</span>`;
   $("#why").innerHTML=li.map(([c,t])=>`<li class="${c}">${t}</li>`).join("");
 }
 function renderCity(){
@@ -486,40 +486,42 @@ function setupMap(){
   $("#zin").onclick=()=>zoom(1/1.4);$("#zout").onclick=()=>zoom(1.4);
   svg.addEventListener("pointerleave",()=>$("#tip").style.display="none");
 }
-function setVB(){svg.setAttribute("viewBox",vb.map(v=>v.toFixed(1)).join(" "));if(G&&res&&mode==="route")drawMarks();if(nav)drawMe()}
+function setVB(){svg.setAttribute("viewBox",vb.map(v=>v.toFixed(1)).join(" "));if(G&&res&&mode==="route"){clearTimeout(setVB.t);setVB.t=setTimeout(draw,60);drawMarks()}if(nav)drawMe()}
 function px(){const r=svg.getBoundingClientRect();return Math.max(vb[2]/r.width,vb[3]/r.height)}
 let CALLS=[];
+function nearestStreet(x,y,skip){let bd=1e9,bn="";for(const e of G.E){if(!e[10]||(skip&&skip.test(e[10])))continue;const v=G.V[e[0]],d=Math.hypot(v[0]-x,v[1]-y);if(d<bd){bd=d;bn=e[10]}}return bn}
+function bbOf(ids){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(const i of ids){const e=G.E[i];for(const p of [G.V[e[0]],G.V[e[1]],...e[11]]){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}}return [x0,y0,x1,y1]}
+let RISK={unlit:0,tun:0,name:""};
 function callouts(){
-  const S=res.shortest,main=mainR();if(!S||!main)return [];
-  const safe=new Set(main),runs=[];let cur=null,along=0,prevT=0;
-  for(const i of S){const e=G.E[i];const prob=!safe.has(i)&&(e[3]<.5||e[9]||e[5]<.35);
-    if(prob){if(!cur||along-cur.end>40){cur={ids:[],start:along,end:along,L:0,unlit:0,tun:0,names:{}};runs.push(cur)}
-      cur.ids.push(i);cur.L+=e[2];if(e[3]<.5)cur.unlit+=e[2];if(e[9]&&!prevT)cur.tun++;if(e[10])cur.names[e[10]]=(cur.names[e[10]]||0)+e[2];cur.end=along+e[2]}
-    prevT=e[9];along+=e[2]}
-  // one callout per place: merge runs that share the same street name
-  const nameOf=r=>{const nm=Object.entries(r.names).sort((a,b)=>b[1]-a[1])[0];return nm?nm[0]:""};
-  for(let i=0;i<runs.length;i++)for(let j=i+1;j<runs.length;j++){const n=nameOf(runs[i]);if(n&&n===nameOf(runs[j])){const a=runs[i],b=runs[j];a.ids.push(...b.ids);a.L+=b.L;a.unlit+=b.unlit;a.tun+=b.tun;a.end=b.end;for(const k in b.names)a.names[k]=(a.names[k]||0)+b.names[k];runs.splice(j--,1)}}
-  runs.forEach(r=>r.sev=r.unlit+r.tun*120+(r.L-r.unlit)*.3);
-  return runs.filter(r=>r.sev>60).sort((a,b)=>b.sev-a.sev).slice(0,3).sort((a,b)=>a.start-b.start).map(r=>{
-    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(const i of r.ids){const e=G.E[i];for(const p of [G.V[e[0]],G.V[e[1]],...e[11]]){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}}
-    const nm=Object.entries(r.names).sort((a,b)=>b[1]-a[1])[0];let name=nm?nm[0]:"";
-    if(!name){const cx=(x0+x1)/2,cy=(y0+y1)/2;let bd=1e9,bn="";for(const e of G.E){if(!e[10]||/canal/i.test(e[10]))continue;const v=G.V[e[0]],d=Math.hypot(v[0]-cx,v[1]-cy);if(d<bd){bd=d;bn=e[10]}}name=(r.tun?"Underpass":"Path")+(bn?" near "+bn:"")}
-    const bits=[];if(r.unlit>=30)bits.push(`unlit for ${Math.round(r.unlit/10)*10} m`);if(r.tun>1||(r.tun&&!/^Underpass/.test(name)))bits.push(`${r.tun} underpass${r.tun>1?"es":""}`);if(!bits.length)bits.push(/^Underpass/.test(name)?"dark and enclosed":"hidden from view");
-    return {...r,name,detail:bits.join(", "),bb:[x0,y0,x1,y1]}}).reduce((out,c)=>{const o=out.find(x=>x.name===c.name);
-      if(!o){out.push(c);return out}
-      o.bb=[Math.min(o.bb[0],c.bb[0]),Math.min(o.bb[1],c.bb[1]),Math.max(o.bb[2],c.bb[2]),Math.max(o.bb[3],c.bb[3])];o.unlit+=c.unlit;o.tun+=c.tun;o.sev+=c.sev;o.ids.push(...c.ids);
-      const bits=[];if(o.unlit>=30)bits.push(`unlit for ${Math.round(o.unlit/10)*10} m`);if(o.tun>1)bits.push(`${o.tun} underpasses`);o.detail=bits.join(", ")||o.detail;return out},[]);
+  // small boxes, one per event on the short way that the safe route avoids: each underpass, and each unlit stretch in chunks of ~200 m
+  const S=res.shortest,main=mainR();RISK={unlit:0,tun:0,name:""};if(!S||!main)return [];
+  const safe=new Set(main),ev=[],names={};let along=0,cur=null,curT=null;
+  for(const i of S){const e=G.E[i],off=!safe.has(i);
+    if(off&&e[9]){if(!curT){curT={type:"tun",ids:[],start:along};ev.push(curT);RISK.tun++}curT.ids.push(i)}else curT=null;
+    if(off&&!e[9]&&e[3]<.5){if(!cur||cur.L>200){cur={type:"dark",ids:[],L:0,start:along};ev.push(cur)}cur.ids.push(i);cur.L+=e[2];RISK.unlit+=e[2]}else if(!(off&&e[9]))cur=null;
+    if(off&&(e[3]<.5||e[9])&&e[10])names[e[10]]=(names[e[10]]||0)+e[2];
+    along+=e[2]}
+  RISK.name=(Object.entries(names).sort((a,b)=>b[1]-a[1])[0]||[""])[0];
+  const out=[];
+  for(const v of ev){if(v.type==="dark"&&v.L<50)continue;
+    const bb=bbOf(v.ids),cx=(bb[0]+bb[2])/2,cy=(bb[1]+bb[3])/2,own=(v.ids.map(i=>G.E[i][10]).find(Boolean))||"";
+    let name,detail,sev;
+    if(v.type==="tun"){const st=nearestStreet(cx,cy,/canal|towpath/i);name=(/canal|towpath/i.test(own)?"Towpath under ":"Underpass near ")+st;detail="dark underpass, out of sight";sev=150}
+    else{name=own||("Path near "+nearestStreet(cx,cy,/canal|towpath/i));detail=`unlit for ${Math.round(v.L/10)*10} m`;sev=v.L}
+    out.push({name,detail,sev,bb,cx,cy,start:v.start,ids:v.ids})}
+  // keep the strongest few that don't overlap
+  const pick=[];for(const c of out.sort((a,b)=>b.sev-a.sev)){if(pick.length>=5)break;if(pick.every(p=>Math.hypot(p.cx-c.cx,p.cy-c.cy)>170))pick.push(c)}
+  return pick.sort((a,b)=>a.start-b.start);
 }
 function drawCalls(s){
   const g=$("#calls");if(!g)return;if(mode==="city"){g.innerHTML="";$("#holes").innerHTML="";return}
-  const geo=c=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+40;return [cx,cy,Math.max(h,36*s)]};
+  const geo=c=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.min(130,Math.max(x1-x0,y1-y0)/2+35);return [cx,cy,Math.max(h,24*s)]};
   $("#holes").innerHTML=CALLS.map(c=>{const [cx,cy,hs]=geo(c);return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="#000"/>`}).join("");
   g.innerHTML=CALLS.map((c,k)=>{const [cx,cy,hs]=geo(c),t=10*s;
     const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>`M${cx+a*hs} ${cy+b*hs+(-b)*t}V${cy+b*hs}H${cx+a*hs+(-a)*t}`).join("");
     return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="${corners}" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"/>
-    <g transform="translate(${cx-hs} ${cy-hs}) scale(${s})"><rect x="-1" y="-44" width="${Math.max(c.name.length*7.4,c.detail.length*6.4+100)+36}" height="44" fill="#141312" fill-opacity=".92"/><rect x="8" y="-36" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.2"/><text x="18" y="-21.5" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="11" font-weight="700" fill="#fff">${k+1}</text>
-      <text x="38" y="-27" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" fill="#E8785E" letter-spacing=".05em">${c.name.toUpperCase()}</text>
-      <text x="38" y="-12" font-family="Roboto Mono, monospace" font-size="10" fill="#CFC8BF">Risk on the short way: ${c.detail}</text></g>`}).join("");
+    <g transform="translate(${cx-hs} ${cy-hs}) scale(${s})"><rect x="-1" y="-24" width="${c.name.length*7.2+40}" height="24" fill="#141312" fill-opacity=".92"/><rect x="5" y="-19" width="15" height="15" fill="none" stroke="#fff" stroke-width="1.1"/><text x="12.5" y="-8" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="10" font-weight="700" fill="#fff">${k+1}</text>
+      <text x="27" y="-8" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="600" fill="#E8785E" letter-spacing=".04em">${c.name.toUpperCase()}</text></g>`}).join("");
 }
 function drawMarks(){
   const s=px(),m=(v,l,c,tc)=>{const p=G.V[v];return `<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="13" fill="${c}"/><text y="4.5" text-anchor="middle" fill="${tc}" font-family="Roboto Mono, monospace" font-size="12" font-weight="600">${l}</text></g>`};
@@ -537,9 +539,9 @@ function draw(){
   $("#lit").style.opacity=mode==="city"?.25:1;$("#actp").style.opacity=mode==="city"?.3:1;
   if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";$("#calls").innerHTML="";document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
-  const showW=$("#neg").open||focus!==null;$("#wleg").style.display=showW?"flex":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
+  const showW=true;$("#wleg").style.display=showW?"flex":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
   if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-dasharray="0.01 6.5" stroke-linecap="round"/>`;
-  res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="${WALKERS[i].col}" stroke-opacity="${focus===null?.9:focus===i?1:.15}" stroke-width="${focus===i?3.5:2.2}" vector-effect="non-scaling-stroke"/>`});
+  const sp=px(),OFF=[[-1,-1],[1,1],[-1,1],[1,-1]];res.own.forEach((r,i)=>{if(r&&showW)h+=`<path transform="translate(${OFF[i][0]*3.2*sp} ${OFF[i][1]*3.2*sp})" d="${pathOf(r)}" fill="none" stroke="${WALKERS[i].col}" stroke-opacity="${focus===null?.95:focus===i?1:.15}" stroke-width="${focus===i?3.2:2}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`});
   if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#FFFFFF" stroke-width="3.5" vector-effect="non-scaling-stroke"/>`;
   if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#E3495F" stroke-width="${focus===null?5.5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
