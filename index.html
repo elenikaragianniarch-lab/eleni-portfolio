@@ -263,13 +263,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-hero>*{position:relative;z-index:1;min-width:0}
 #dots{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .k-ht{display:flex;justify-content:space-between;gap:16px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.k-name{align-self:center;margin:0;font-size:clamp(64px,19.5vw,300px);line-height:.84;font-weight:200;letter-spacing:-.05em;display:flex;flex-direction:column}
-.k-name .w{display:block;white-space:nowrap}
+.k-name{align-self:center;margin:0;font-size:clamp(44px,7.4vw,124px);line-height:.95;font-weight:250;letter-spacing:-.04em;text-transform:uppercase;max-width:15ch}
+.k-name .w{display:inline-block;white-space:nowrap}
 .k-name .ch{display:inline-block;transition:font-variation-settings .35s cubic-bezier(.2,.8,.2,1),color .3s}
 .k-name .ch.hot{color:var(--red)}
 .k-hrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
 .k-hrow p{font-size:15px}
-.k-claim{font-family:var(--f-display);font-size:clamp(24px,2.6vw,38px)!important;line-height:1.12;letter-spacing:-.025em;font-weight:350;max-width:20ch}
+.k-claim{font-family:var(--f-display);font-size:clamp(19px,1.7vw,25px)!important;line-height:1.3;letter-spacing:-.015em;font-weight:350;max-width:32ch}.k-claim b{font-weight:600}
 .k-hrow a{text-decoration:none}.k-hrow a:hover{color:var(--red)}
 .k-copy{font:inherit;font-family:var(--f-mono);font-size:13px;background:none;border:0;padding:0;cursor:pointer;color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .k-copy:hover{color:var(--red)}
@@ -663,13 +663,13 @@ function stage(){
   const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),tu=byId("turin-machine"),uc=byId("unseen-city"),nw=byId("night-walk"),rest=P.filter(p=>CAT[p.id]!=="ai");
   return `<section class="k-hero"><canvas id="dots" aria-hidden="true"></canvas>
     <div class="k-ht"><span>Portfolio · 2026</span><span>Architectural engineer · computational designer</span><span>London, UK <span class="clk"></span></span></div>
-    <h1 class="k-name" id="nm" aria-label="Eleni Karagianni"><span class="w">Eleni</span><span class="w">Karagianni</span></h1>
+    <h1 class="k-name" id="nm" aria-label="I build AI agents that read cities and design space.">${"I build AI agents that read cities and design space.".split(" ").map(w=>`<span class="w">${w}</span>`).join(" ")}</h1>
     <div class="k-hrow">
-      <p class="k-claim">I build AI agents that read cities and design space.</p>
-      <div><p class="lab">Now</p><p>MArch Urban Design, the Bartlett, UCL. Best Computation Prize 2026. Open to roles in applied AI, computational design and creative technology.</p></div>
+      <p class="k-claim"><b>Eleni Karagianni.</b> Architectural engineer and computational designer in London. MArch Urban Design, the Bartlett, UCL.</p>
+      <div><p class="lab">Now</p><p>Open to roles in applied AI, computational design and creative technology.</p><div class="btns" style="margin-top:14px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#night-walk">Try Night Walk</a></div></div>
       <div><p class="lab">Contact</p><p><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><br><a href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a> &nbsp;<a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a></p></div>
     </div>
-    <p class="k-hint" aria-hidden="true">move the cursor over the name and the dots</p>
+    <p class="k-hint" aria-hidden="true">move the cursor over the words and the dots</p>
   </section>
 
   <section class="k-s">
