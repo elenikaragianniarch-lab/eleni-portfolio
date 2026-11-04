@@ -6,7 +6,7 @@
 <title>Eleni Karagianni</title>
 <meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. AI agents, data pipelines and 3D systems that read cities.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap">
 <style>
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
 /* Layout: a working index, like a film studio's directory. Black on white, one wide heavy face for names, a typewriter face for everything else.
@@ -225,7 +225,7 @@ footer{padding-block:18px 30px;font-size:12px;color:var(--muted);border-top:1.5p
 
 
 /* ===== v2: moving index, fixed frame, red accent ===== */
-:root{--red:#E3241B;--f-serif:"Instrument Serif",Georgia,"Times New Roman",serif}
+:root{--red:#E3241B;--f-serif:var(--f-display)}
 body{overflow-x:hidden}
 .wrap{max-width:none}
 ::selection{background:var(--red);color:#fff}
@@ -278,9 +278,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ctrl button{font:500 12px var(--f-mono);border:1.5px solid var(--ink);background:var(--paper);width:30px;height:26px;cursor:pointer}
 .ctrl button:hover{background:var(--red);border-color:var(--red);color:#fff}
 .clock{font-variant-numeric:tabular-nums}
-.bigname{position:relative;z-index:2;margin:0;line-height:.8;white-space:nowrap;font-size:clamp(28px,12.2vw,212px);letter-spacing:-.02em;padding-bottom:6px}
+.bigname{position:relative;z-index:2;margin:0;line-height:.8;white-space:nowrap;font-size:clamp(22px,8.4vw,200px);letter-spacing:-.02em;padding-bottom:6px}
 .bigname .a{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase}
-.bigname .b2{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em}
+.bigname .b2{font-family:var(--f-display);font-stretch:125%;font-weight:200;text-transform:uppercase}
 
 /* ticker */
 .ticker{position:relative;z-index:2;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);overflow:hidden;white-space:nowrap;font-size:13px;margin-block:10px 14px}
@@ -313,7 +313,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .panel .x{position:sticky;top:0;float:right;font:500 13px var(--f-mono);border:1.5px solid var(--ink);background:var(--paper);padding:5px 10px;cursor:pointer}
 .panel .x:hover{background:var(--red);border-color:var(--red);color:#fff}
 .panel h2{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(30px,5vw,52px);line-height:.95;margin:36px 0 18px}
-.panel h2 i{font-family:var(--f-serif);font-weight:400;text-transform:none;letter-spacing:0}
+.panel h2 i{font-style:normal;font-weight:200}
 .panel .intro2{font-size:15px;line-height:1.6;margin-bottom:24px}
 .panel .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 @media (max-width:520px){.panel .cols{grid-template-columns:1fr}}
@@ -326,7 +326,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .labhead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:end;margin-bottom:28px}
 @media (max-width:760px){.labhead{grid-template-columns:1fr}}
 .labhead h1{font-family:var(--f-display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(46px,9vw,120px);line-height:.85;margin:0}
-.labhead h1 i{font-family:var(--f-serif);font-weight:400;text-transform:none}
+.labhead h1 i{font-style:normal;font-weight:200}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
 .card2{text-decoration:none;display:grid;gap:8px;cursor:pointer;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit}
 .card2 .scr{position:relative;aspect-ratio:16/10;overflow:hidden;border:1.5px solid var(--ink);background-color:var(--paper);background-image:radial-gradient(var(--dot) 1.2px,transparent 1.4px);background-size:9px 9px}
@@ -380,6 +380,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .seq span.on{background:var(--red);border-color:var(--red)}
 footer{display:none}
 
+.hero-in{position:relative;z-index:2;align-self:center;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:36px;align-items:end;padding-block:40px;pointer-events:none}
+.hero-in a{pointer-events:auto}.intro-side{background:rgba(255,255,255,.85)}
+.scrl{color:inherit;text-decoration:none;border-bottom:1.5px solid currentColor}
+.fcards{grid-template-columns:repeat(3,minmax(0,1fr));margin-block:26px}
+.fcards .card2{color:inherit}.fcards .d2{color:#bbb}
+.sitefoot{display:flex;justify-content:space-between;gap:12px;padding-block:22px 34px;border-top:1.5px solid var(--ink);font-size:13px}
+.sitefoot a{color:var(--ink);font-weight:500}
+@media (max-width:760px){.hero-in{grid-template-columns:1fr;gap:18px}.fcards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -394,7 +402,7 @@ footer{display:none}
 <div class="scrim" id="scrim"></div>
 <aside class="panel" id="panel" aria-hidden="true" aria-label="Panel"></aside>
 <div class="theatre" id="theatre" role="dialog" aria-modal="true" aria-label="Demo">
-  <div class="th-bar"><span class="tt" id="th-t"></span><span class="sp"></span><a id="th-open" href="#" target="_blank" rel="noopener">Open in new tab ↗</a><button type="button" id="th-close">✕ Close</button></div>
+  <div class="th-bar"><span class="tt" id="th-t"></span><span class="sp"></span><a id="th-open" href="#" target="_blank" rel="noopener">Open in new tab ↗</a><button type="button" id="th-close">← Back</button></div>
   <div id="th-body"></div>
 </div>
 <script>
@@ -432,8 +440,8 @@ const $=s=>document.querySelector(s);
 function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
 function thumb(p){
-  if(p.thumb) return `<div class="thumb"><img src="${IMG+p.thumb}" alt="" loading="lazy"><img class="col" src="${IMG+p.col}" alt="" loading="lazy"></div>`;
-  return `<div class="thumb dots" aria-hidden="true"><span>${p.n}</span></div>`;
+  if(p.thumb) return `<div class="thumb"><img src="${IMG+p.thumb}" alt="" loading="lazy"></div>`;
+  return `<div class="thumb dots" aria-hidden="true"><span>${p.n.replace("W","")}</span></div>`;
 }
 function builders(b){
   return `<div class="builders" aria-label="For builders">
@@ -455,9 +463,7 @@ const DETAIL={
     <div class="step"><b>Discussion</b>Reactions, retrievals, proposals and argument, with deletions tracked</div><span class="arr" aria-hidden="true">→</span>
     <div class="step"><b>Blender via MCP</b>The agents place, shape and furnish rooms live in 3D</div>
   </div>`)}
-  ${sec("Run it yourself",`<p style="margin-bottom:12px">Every step of a run is published as its own live app. These are the real outputs, not mock-ups.</p><div class="demos"><a class="demo" href="https://nine-acts-step1-reactions.vercel.app/" target="_blank" rel="noopener"><span class="dn">01</span><span><span class="b up">Step 1 · Reactions</span><span class="muted"> Nine agents meet the same site; each notices something different.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-step2-archive.vercel.app/" target="_blank" rel="noopener"><span class="dn">02</span><span><span class="b up">Step 2 · Retrievals</span><span class="muted"> Each agent searches the archive for evidence behind its reaction.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-step3-production.vercel.app/" target="_blank" rel="noopener"><span class="dn">03</span><span><span class="b up">Step 3 · Productions</span><span class="muted"> Each agent makes text, an image or 3D form (or stays silent), and says why.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://vercel-step4-discussion.vercel.app/" target="_blank" rel="noopener"><span class="dn">04</span><span><span class="b up">Step 4 · Discussion</span><span class="muted"> 22 turns of argument, every claim linked to its evidence.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-location-map.vercel.app/" target="_blank" rel="noopener"><span class="dn">05</span><span><span class="b up">Location map</span><span class="muted"> Every reaction, retrieval, production and discussion mapped across 14 sites.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-text-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">06</span><span><span class="b up">Text output</span><span class="muted"> The collective text, with each agent's additions and deletions tracked.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-image-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">07</span><span><span class="b up">Image output</span><span class="muted"> Each agent's image prompt and the image it produced.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://spatial-overview-vercel.vercel.app/" target="_blank" rel="noopener"><span class="dn">08</span><span><span class="b up">Spatial overview</span><span class="muted"> Which agent produced which element of the proposal.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://vercel-3d-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">09</span><span><span class="b up">3D output</span><span class="muted"> The 3D composition for one location, to orbit in the browser.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-archive-map.vercel.app/" target="_blank" rel="noopener"><span class="dn">10</span><span><span class="b up">Archive map</span><span class="muted"> 177,241 items in one vector space, searchable and ranked by oddness.</span></span><span class="go">Open ↗</span></a></div>`)}
-  ${sec("Watch the agents build",`<p style="margin-bottom:12px">Screen recordings of the agents designing in Blender through MCP.</p><div class="demos"><a class="demo" href="https://drive.google.com/file/d/16yFbaNu4Cw7tRHe8MEjQh0HL0GBUv1Kj/view" target="_blank" rel="noopener"><span class="dn">01</span><span><span class="b up">Task 1 · Hosting activities</span><span class="muted"> The agents decide what to host, how many spaces and at what size.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1YcTp4Y-MjVP8CztHHma6QmsXTiYydmPj/view" target="_blank" rel="noopener"><span class="dn">02</span><span><span class="b up">Task 2 · Shaping from within</span><span class="muted"> Through MCP each agent places a camera inside its spaces and reshapes them.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1Cp77F5v6_-d_UTI2IQ7DcqRdTd6Kzpm3/view" target="_blank" rel="noopener"><span class="dn">03</span><span><span class="b up">Task 3 · Components</span><span class="muted"> The agents build and position components for each activity.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/13ZiBZRJTk_sEbLiL-TPMMEZXFLqsurXf/view" target="_blank" rel="noopener"><span class="dn">04</span><span><span class="b up">Task 4 · Gifts</span><span class="muted"> The agents enter each other's spaces, each carrying a form as a gift.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1z9oPCH9EaG__-xrdgPuWZlnwFTx3R6gC/view" target="_blank" rel="noopener"><span class="dn">05</span><span><span class="b up">Materials</span><span class="muted"> Each agent chooses materials from its own archive's metadata.</span></span><span class="go">Video ↗</span></a></div>
-  <div class="btns" style="margin-top:14px"><a class="btn ghost" href="https://eleni-rae.tumblr.com/post/825923780838866944/film" target="_blank" rel="noopener">Spatial proposals film ↗</a><a class="btn ghost" href="https://drive.google.com/file/d/11YgnDuLaGwM_DPTDF5XDniTneLfDmVnB/view" target="_blank" rel="noopener">Project booklet ↗</a></div>`)}
+  ${sec("In numbers",`<div class="nums"><div><b>177,241</b><span>items in one table</span></div><div><b>9</b><span>agents, 10 tools</span></div><div><b>~100</b><span>runs</span></div><div><b>14</b><span>sites on the Maas</span></div><div><b>39</b><span>elements in one run</span></div></div>`)}
   ${sec("The nine agents",`<p style="margin-bottom:14px">Same model, nine situated readings. The agents differ in what they can see and how they judge it, not just in their prompts. The aim is to keep difference active, not to reach consensus.</p>
   <div class="agents">
     <div><b>Normal Literature</b>Reads for the expected</div><div><b>Normal Photography</b>Reads for the expected</div><div><b>Normal Films</b>Reads for the expected</div>
@@ -482,7 +488,9 @@ const DETAIL={
     ["Spiegel van Nederland (1959), film still",.71],["De Brug, Joris Ivens (1928)",.68],["Undated Flickr street photograph",.79],["De Stille, subtitle fragment",.91],["IMDb stills",.74]
   ].map(([t,s],i)=>`<div class="node"><span class="i">${i+1}</span><span>${t}</span><span class="sc"><span>anomaly ${s.toFixed(2)}</span><span class="bar2"><i style="width:${s*100}%"></i></span></span></div>`).join("")}</div>
   <div class="btns" style="margin-top:14px"><a class="btn" href="https://nine-acts-archive-map.vercel.app" target="_blank" rel="noopener">Search the live archive ↗</a></div>`)}
-  ${sec("In numbers",`<div class="nums"><div><b>177,241</b><span>items in one table</span></div><div><b>9</b><span>agents, 10 tools</span></div><div><b>~100</b><span>runs</span></div><div><b>14</b><span>sites on the Maas</span></div><div><b>39</b><span>elements in one run</span></div></div>`)}
+  ${sec("Watch the agents build",`<p style="margin-bottom:12px">Screen recordings of the agents designing in Blender through MCP.</p><div class="demos"><a class="demo" href="https://drive.google.com/file/d/16yFbaNu4Cw7tRHe8MEjQh0HL0GBUv1Kj/view" target="_blank" rel="noopener"><span class="dn">01</span><span><span class="b up">Task 1 · Hosting activities</span><span class="muted"> The agents decide what to host, how many spaces and at what size.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1YcTp4Y-MjVP8CztHHma6QmsXTiYydmPj/view" target="_blank" rel="noopener"><span class="dn">02</span><span><span class="b up">Task 2 · Shaping from within</span><span class="muted"> Through MCP each agent places a camera inside its spaces and reshapes them.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1Cp77F5v6_-d_UTI2IQ7DcqRdTd6Kzpm3/view" target="_blank" rel="noopener"><span class="dn">03</span><span><span class="b up">Task 3 · Components</span><span class="muted"> The agents build and position components for each activity.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/13ZiBZRJTk_sEbLiL-TPMMEZXFLqsurXf/view" target="_blank" rel="noopener"><span class="dn">04</span><span><span class="b up">Task 4 · Gifts</span><span class="muted"> The agents enter each other's spaces, each carrying a form as a gift.</span></span><span class="go">Video ↗</span></a><a class="demo" href="https://drive.google.com/file/d/1z9oPCH9EaG__-xrdgPuWZlnwFTx3R6gC/view" target="_blank" rel="noopener"><span class="dn">05</span><span><span class="b up">Materials</span><span class="muted"> Each agent chooses materials from its own archive's metadata.</span></span><span class="go">Video ↗</span></a></div>
+  <div class="btns" style="margin-top:14px"><a class="btn ghost" href="https://eleni-rae.tumblr.com/post/825923780838866944/film" target="_blank" rel="noopener">Spatial proposals film ↗</a><a class="btn ghost" href="https://drive.google.com/file/d/11YgnDuLaGwM_DPTDF5XDniTneLfDmVnB/view" target="_blank" rel="noopener">Project booklet ↗</a></div>`)}
+  ${sec("Watch a run, step by step",`<p style="margin-bottom:12px">One full run, published step by step as it happened. Open any step to see what the agents noticed, found, made and argued.</p><div class="demos"><a class="demo" href="https://nine-acts-step1-reactions.vercel.app/" target="_blank" rel="noopener"><span class="dn">01</span><span><span class="b up">Step 1 · Reactions</span><span class="muted"> Nine agents meet the same site; each notices something different.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-step2-archive.vercel.app/" target="_blank" rel="noopener"><span class="dn">02</span><span><span class="b up">Step 2 · Retrievals</span><span class="muted"> Each agent searches the archive for evidence behind its reaction.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-step3-production.vercel.app/" target="_blank" rel="noopener"><span class="dn">03</span><span><span class="b up">Step 3 · Productions</span><span class="muted"> Each agent makes text, an image or 3D form (or stays silent), and says why.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://vercel-step4-discussion.vercel.app/" target="_blank" rel="noopener"><span class="dn">04</span><span><span class="b up">Step 4 · Discussion</span><span class="muted"> 22 turns of argument, every claim linked to its evidence.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-location-map.vercel.app/" target="_blank" rel="noopener"><span class="dn">05</span><span><span class="b up">Location map</span><span class="muted"> Every reaction, retrieval, production and discussion mapped across 14 sites.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-text-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">06</span><span><span class="b up">Text output</span><span class="muted"> The collective text, with each agent's additions and deletions tracked.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-image-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">07</span><span><span class="b up">Image output</span><span class="muted"> Each agent's image prompt and the image it produced.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://spatial-overview-vercel.vercel.app/" target="_blank" rel="noopener"><span class="dn">08</span><span><span class="b up">Spatial overview</span><span class="muted"> Which agent produced which element of the proposal.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://vercel-3d-output.vercel.app/" target="_blank" rel="noopener"><span class="dn">09</span><span><span class="b up">3D output</span><span class="muted"> The 3D composition for one location, to orbit in the browser.</span></span><span class="go">Open ↗</span></a><a class="demo" href="https://nine-acts-archive-map.vercel.app/" target="_blank" rel="noopener"><span class="dn">10</span><span><span class="b up">Archive map</span><span class="muted"> 177,241 items in one vector space, searchable and ranked by oddness.</span></span><span class="go">Open ↗</span></a></div>`)}
   ${sec("Then",`<p>The project became a workshop. At Bartlett B-Pro in October 2026, Ruijia Zheng and I taught Designing with Disagreement: 23 students built their own opposing agents.</p>`)}`,
 
 "turin-machine":()=>`
@@ -561,54 +569,77 @@ const QUOTES=[
  ["Odd Photography","You mistake the static for silence."]
 ];
 const CAN_EMBED=/^https?:$/.test(location.protocol)&&!/claude|anthropic/i.test(location.hostname);
-let active=7, mode="carousel";
-try{mode=localStorage.getItem("mode")||"carousel"}catch(e){}
 
-function picHTML(p,big){
-  if(p.thumb) return `<div class="pic"><img src="${IMG+p.thumb}" alt="" loading="lazy"><img class="col" src="${IMG+p.col}" alt="" loading="lazy"></div>`;
-  return `<div class="pic dots" aria-hidden="true"></div>`;
-}
+function labCard(i){const c=LAB[i];return `<button type="button" class="card2" data-lab="${i}">
+      <span class="scr">${c.f?`<img src="${IMG+c.f[0]}" alt=""><img class="f2" src="${IMG+c.f[1]}" alt="">`:""}<span class="tag2 live">Live app</span></span>
+      <span class="t2">${esc(c.t)}</span><span class="d2">${esc(c.d)}</span></button>`}
 function stage(){
   const tick=QUOTES.map(([a,q])=>`<a href="https://vercel-step4-discussion.vercel.app/" data-theatre="Step 4 · Discussion"><b>${esc(a)}</b>"${esc(q)}"</a>`).join("");
-  const body=mode==="list"?listView():`<div class="strip-wrap" id="sw"><div class="strip" id="strip">${[...P,...P,...P].map((p,i)=>`<a class="it" href="#${p.id}" data-i="${i}" aria-label="${esc(p.t)}"${i<P.length||i>=2*P.length?' tabindex="-1" aria-hidden="true"':""}><span class="cap2"><span class="num">${p.n.replace("W","")}.</span><span class="tt">${esc(p.t)}</span><span class="kk">[${esc(p.kind.split(" · ")[0])}]</span><span class="open-hint">Open project →</span></span>${picHTML(p)}</a>`).join("")}</div></div>`;
-  return `<section class="stage" aria-label="Works">
+  const na=P[0],tu=P[1],uc=P[2],rest=P.slice(3);
+  return `<section class="stage" aria-label="Intro">
     <canvas id="dots" aria-hidden="true"></canvas>
-    ${body}
-    <div>
-      <div class="ticker" aria-label="Lines from the agents"><div class="run">${tick}${tick}</div></div>
-      <div class="stage-foot">
-        <span class="toggle"><button type="button" data-mode="carousel" class="${mode==="carousel"?"on":""}">Carousel</button>, <button type="button" data-mode="list" class="${mode==="list"?"on":""}">List</button></span>
-        ${mode==="carousel"?`<span class="ctrl"><button type="button" id="prev" aria-label="Previous project">←</button><button type="button" id="nxt" aria-label="Next project">→</button></span>`:""}
-        <span class="clock">London, UK <span id="clk"></span></span>
+    <div class="hero-in">
+      <h1 class="claim">I build AI agents that read cities and design space.</h1>
+      <div class="intro-side">
+        <p>Architectural engineer and computational designer in London. MArch Urban Design, the Bartlett, UCL.</p>
+        <p class="b" style="margin-top:10px">Open to roles in applied AI, computational design and creative technology.</p>
+        <div class="btns" style="margin-top:16px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#lab">Open the Lab</a></div>
       </div>
     </div>
-    <h1 class="bigname"><span class="a">Eleni</span><span class="b2">karagianni</span></h1>
-  </section>`;
-}
-function listView(){
-  return `<div class="listv">
-    <div>${P.map(p=>`<a class="lrow2" href="#${p.id}"><span class="num">${p.n.replace("W","")}</span><span><span class="tt">${esc(p.t)}</span><span class="kk">${esc(p.kind)}</span></span><span style="text-align:right">${p.y}</span></a>`).join("")}</div>
-    <div class="lgrid">${P.map(p=>`<a href="#${p.id}">${thumb(p)}<span>${esc(p.t)}</span></a>`).join("")}</div>
-  </div>`;
-}
-function setActive(i,instant){
-  active=i;
-  const s=$("#strip"); if(!s)return;
-  if(instant){s.style.transition="none";s.querySelectorAll(".it,.it .pic").forEach(el=>el.style.transition="none")}
-  s.querySelectorAll(".it").forEach((el,j)=>el.classList.toggle("on",j===active));
-  center();
-  if(instant){void s.offsetWidth;s.style.transition="";s.querySelectorAll(".it,.it .pic").forEach(el=>el.style.transition="")}
-  clearTimeout(setActive.t);
-  setActive.t=setTimeout(()=>{const n=P.length;if(active<n)setActive(active+n,true);else if(active>=2*n)setActive(active-n,true)},720);
-}
-function center(){
-  const s=$("#strip"),w=$("#sw"); if(!s||!w)return;
-  const el=s.children[active];
-  // target widths (after transition) so the centre is right before the animation ends
-  const isPhone=innerWidth<=640;
-  const sw=isPhone?110:150, bw=isPhone?250:360;
-  const x=active*sw+bw/2;
-  s.style.transform=`translateX(${w.clientWidth/2-x}px)`;
+    <div>
+      <div class="ticker" aria-label="Lines from the agents"><div class="run">${tick}${tick}</div></div>
+      <div class="stage-foot"><a href="#work" class="scrl">Selected work ↓</a><span class="clock">London, UK <span id="clk"></span></span></div>
+    </div>
+    <p class="bigname" aria-hidden="true"><span class="a">Eleni</span> <span class="b2">Karagianni</span></p>
+  </section>
+
+  <section class="feature" id="work" aria-labelledby="h-feat">
+    <div class="f-in">
+      <div class="f-top"><div class="f-head">
+        <p class="f-k">Featured · 01 · 2026 · Best Computation Prize, Bartlett</p>
+        <h2 class="f-t" id="h-feat">Nine Acts of Ostranenie</h2>
+        <p class="f-l">${esc(na.lede)}</p>
+      </div><a class="f-img ht" href="#nine-acts" aria-label="Nine Acts project"><img src="${IMG+na.thumb}" alt="" loading="lazy"></a></div>
+      <div class="f-nums">
+        <div><b>177,241</b><span>archive items</span></div>
+        <div><b>9</b><span>agents, one local open model</span></div>
+        <div><b>~100</b><span>runs with a human in the loop</span></div>
+        <div><b>MCP</b><span>agents design live in Blender</span></div>
+      </div>
+      <div class="cards fcards">${[1,0,6].map(labCard).join("")}</div>
+      <div class="btns"><a class="btn inv" href="#nine-acts">How it works →</a><a class="btn inv" href="#lab">All live apps →</a></div>
+    </div>
+  </section>
+
+  <section class="pair">
+    <a class="big-card" href="#${tu.id}">
+      <div class="bc-img ht"><img src="${IMG}w02_lg.png" alt="" loading="lazy"></div>
+      <p class="f-k dark">02 · ${tu.y} · ${esc(tu.kind)}</p>
+      <h3 class="bc-t">${esc(tu.t)}</h3>
+      <p>${esc(tu.lede)}</p>
+      <span class="more">See the pipeline →</span>
+    </a>
+    <a class="big-card text" href="#${uc.id}">
+      <p class="f-k dark">03 · ${uc.y} · Thesis · Theory Report Prize</p>
+      <h3 class="bc-t">${esc(uc.t)}</h3>
+      <p class="pull">"Every system that measures a city has already decided what doesn't count."</p>
+      <p>A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</p>
+      <span class="more">Read the argument →</span>
+    </a>
+  </section>
+
+  <section class="also" aria-labelledby="h-also">
+    <p class="lab" id="h-also">Also: architecture and film</p>
+    <div class="dir">${rest.map(p=>`<a class="dir-row" href="#${p.id}"><span class="dthumb">${thumb(p)}</span><span class="dn">${p.n.replace("W","")}</span><span class="dt">${esc(p.t)}</span><span class="dk">${esc(p.kind)}</span><span class="dy">${p.y} →</span></a>`).join("")}</div>
+  </section>
+
+  <section class="stack" aria-label="What I work with">
+    <div><p class="lab">Agents</p><p>Multi-agent systems, tool use, memory, MCP, local open models, human in the loop</p></div>
+    <div><p class="lab">Data & ML</p><p>Python, scraping, pandas, CLIP, SOM, UMAP, anomaly detection, NLP</p></div>
+    <div><p class="lab">3D & space</p><p>Blender, Geometry Nodes, Rhino, Revit, TouchDesigner, 3D printing</p></div>
+    <div><p class="lab">Image & film</p><p>Drawing, Photoshop, Illustrator, InDesign, Premiere, DaVinci</p></div>
+  </section>
+  <footer class="sitefoot"><a href="#contact">Send me a message →</a><span>© Eleni Karagianni 2026</span></footer>`;
 }
 function lab(){
   return `<section class="labv">
@@ -674,9 +705,10 @@ function theatre(title,url){
   const t=$("#theatre"), embedUrl=url.includes("drive.google.com")?url.replace(/\/view.*$/,"/preview"):url;
   $("#th-t").textContent=title;$("#th-open").href=url;
   $("#th-body").innerHTML=CAN_EMBED?`<iframe src="${embedUrl}" title="${esc(title)}" allow="autoplay; fullscreen"></iframe>`:`<div class="th-fallback"><div><p style="margin-bottom:14px">This page can't show other sites inside it.</p><a class="btn inv" href="${url}" target="_blank" rel="noopener">Open ${esc(title)} ↗</a></div></div>`;
-  t.classList.add("on");document.body.style.overflow="hidden";setTimeout(()=>$("#th-close").focus(),50);
+  t.classList.add("on");document.body.style.overflow="hidden";history.pushState({th:1},"",location.href);setTimeout(()=>$("#th-close").focus(),50);
 }
-function closeTheatre(){$("#theatre").classList.remove("on");$("#th-body").innerHTML="";document.body.style.overflow=""}
+window.addEventListener("popstate",()=>{if($("#theatre").classList.contains("on"))closeTheatre(true)});
+function closeTheatre(fromPop){if(!fromPop&&history.state&&history.state.th){history.back();return}$("#theatre").classList.remove("on");$("#th-body").innerHTML="";document.body.style.overflow=""}
 
 /* dots that swell near the cursor */
 let mx=-999,my=-999,raf=0;
@@ -709,14 +741,10 @@ function renderView(h){
   $("#view").innerHTML=p?projectV(p):h==="lab"?lab():stage();
   document.title=p?`${p.t} · Eleni Karagianni`:h==="lab"?"Lab · Eleni Karagianni":"Eleni Karagianni";
   k=1;drawSeq();tickClock();window.scrollTo(0,0);
-  if(!p&&h!=="lab"){ if(mode==="carousel"){requestAnimationFrame(()=>setActive(active,true))} queueDots() }
+  if(!p&&h!=="lab"){ queueDots() }
 }
 document.addEventListener("click",async e=>{
-  const it=e.target.closest(".it");
-  if(it){const i=+it.dataset.i;if(i!==active){e.preventDefault();setActive(i)}return}
-  const md=e.target.closest("[data-mode]");if(md){mode=md.dataset.mode;try{localStorage.setItem("mode",mode)}catch(err){}renderView("");return}
-  if(e.target.id==="prev"){setActive(active-1);return}
-  if(e.target.id==="nxt"){setActive(active+1);return}
+  const sc=e.target.closest(".scrl");if(sc){e.preventDefault();$("#work").scrollIntoView({behavior:"smooth"});return}
   const lc=e.target.closest("[data-lab]");if(lc){const c=LAB[+lc.dataset.lab];if(c.ext){window.open(c.u,"_blank","noopener")}else theatre(c.t,c.u);return}
   const th=e.target.closest("[data-theatre]");if(th){e.preventDefault();theatre(th.dataset.theatre,th.href);return}
   const dm=e.target.closest("a.demo");if(dm&&/vercel\.app|drive\.google/.test(dm.href)){e.preventDefault();theatre(dm.querySelector(".b")?.textContent||"Demo",dm.href);return}
@@ -728,21 +756,9 @@ document.addEventListener("click",async e=>{
 });
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){if($("#theatre").classList.contains("on"))closeTheatre();else if($("#panel").classList.contains("on")){closePanel();history.replaceState(null,"",lastView?"#"+lastView:location.pathname)}}
-  if(!$("#strip")||$("#panel").classList.contains("on")||$("#theatre").classList.contains("on"))return;
-  if(e.key==="ArrowRight"){setActive(active+1)}if(e.key==="ArrowLeft"){setActive(active-1)}
 });
-let wheelLock=0;
-document.addEventListener("wheel",e=>{
-  if(!$("#strip")||$("#panel").classList.contains("on"))return;
-  const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
-  if(Math.abs(d)<12)return; const now=Date.now(); if(now-wheelLock<450)return; wheelLock=now;
-  setActive(active+(d>0?1:-1));
-},{passive:true});
-let tx=null;
-document.addEventListener("touchstart",e=>{if($("#strip"))tx=e.touches[0].clientX},{passive:true});
-document.addEventListener("touchend",e=>{if(tx===null||!$("#strip"))return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>40)setActive(active+(dx<0?1:-1))},{passive:true});
 document.addEventListener("pointermove",e=>{const c=$("#dots");if(!c)return;const r=c.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;queueDots()});
-addEventListener("resize",()=>{center();queueDots()});
+addEventListener("resize",queueDots);
 window.addEventListener("hashchange",route);
 route();
 
