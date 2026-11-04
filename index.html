@@ -312,6 +312,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-nums div{border-top:1px solid var(--ink);padding-top:12px}
 .k-nums b{display:block;font-family:var(--f-display);font-weight:250;font-size:clamp(44px,5vw,76px);line-height:.95;letter-spacing:-.04em}
 .k-nums span{font-size:12px;color:var(--muted)}
+.k-nw{margin-top:40px;height:min(86vh,820px)}
 .k-fx-i{display:block;position:relative;aspect-ratio:1/1;border:1px solid var(--ink);overflow:hidden}.k-fx-i img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.k-fx-i img.col{opacity:0;transition:opacity .4s}
 .k-try{margin-top:64px;display:grid;gap:14px}
 .k-tryh{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
@@ -464,6 +465,13 @@ const P=[
      stack:["Python, pandas, SQLite","CLIP, SOM, UMAP","IsolationForest + LOF","Qwen3.6-27B, local","Tool use, memory, MCP","Blender, Plotly, Vercel"],
      scale:["177,241 archive items","9 agents, 10 tools","14 river-edge sites","~100 runs"],
      links:[["Live archive ↗","https://nine-acts-archive-map.vercel.app"],["Agent discussion ↗","https://vercel-step4-discussion.vercel.app"],["3D output ↗","https://vercel-3d-output.vercel.app"],["Process blog ↗","https://eleni-rae.tumblr.com"]],code:"Repository coming soon"}},
+ {id:"night-walk",n:"W00",t:"Night Walk",y:"2026",kind:"Prototype · route optimisation · agents",with:"Individual prototype",award:"",
+  thumb:"w08.png",col:"c08.jpg",cap:"The agreed route from King's Cross to Camden Town.",
+  lede:"Four people with different needs walk home through King's Cross and Camden after dark. Each finds their own best route, then they negotiate one route that works for all of them.",
+  b:{does:"Scores every street on five safety criteria from open data and finds one route that four walkers with different needs can all accept.",
+     stack:["Python, NumPy, SciPy","OpenStreetMap, police.uk","Dijkstra routing","Minimax-regret negotiation","Vanilla JS, SVG"],
+     scale:["8,165 street segments","5 criteria","4 walkers","Runs in the browser"],
+     links:[["Open Night Walk ↗","nightwalk/"]],code:"Repository coming soon"}},
  {id:"turin-machine",n:"W02",t:"Turin Machine",y:"2025",kind:"AI characters · language → form · 3D print",with:"Individual project",award:"",
   thumb:"w02.png",col:"c02.jpg",cap:"Spatial assembly built from the project's 42-word vocabulary.",
   lede:"Two AI characters, Nietzsche and Franco, the blind detective from The Cat o' Nine Tails, walk Turin and talk. Their words become a 42-word vocabulary that builds space sentence by sentence.",
@@ -485,6 +493,7 @@ const P=[
   lede:"A portrait of Dimitris, a photographer living at Villa Koutarelia in Volos, and of the house itself, shortly before it closed."}
 ];
 
+P.forEach((p,i)=>p.n="W"+String(i+1).padStart(2,"0"));
 const $=s=>document.querySelector(s);
 function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
@@ -579,6 +588,19 @@ const DETAIL={
 "mind-the-gap":()=>`
   ${sec("The project",`<p>The gaps between buildings were mapped across the city. Residents had already filled some with improvised stairs, so we turned that habit into a scaffolding system that attaches to the gaps and carries five programmes: cinema, library, playground, workspace and kitchen. The library is developed in plans, elevation and section.</p>`)}`,
 
+"night-walk":()=>`
+  ${sec("The question",`<p>Most route apps find the fastest way. Safety apps tend to find one "safe" way, as if everyone walking at night needed the same thing. A nurse finishing a late shift, someone new to the city, a parent with a pram and someone walking home alone after a night out each trade time, light and company differently. Night Walk asks: can we find one route they would all accept, and show exactly why?</p><p>It grows out of earlier work: my short film <a href="#the-bus">The Bus</a>, about fear on the way home, my safety research at LOvMe.ai, and my thesis on what data about cities leaves out.</p>`)}
+  ${sec("How it works",`<div class="pipe">
+    <div class="step"><b>Streets</b>8,165 street segments between King's Cross and Camden, from OpenStreetMap</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Scores</b>Each segment scored 0 to 1 on lighting, people around, sightlines, help nearby and recorded incidents</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Walkers</b>Four agents weight those scores differently and find their own best route</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Negotiation</b>Candidate routes are compared; the one where nobody gives up too much wins</div><span class="arr" aria-hidden="true">→</span>
+    <div class="step"><b>Explanation</b>A scorecard against the shortest route, and each walker's reasons</div>
+  </div>`)}
+  ${sec("King's Cross to Camden Town",`<div class="nums"><div><b>+3 min</b><span>longer than the shortest route</span></div><div><b>72 → 100%</b><span>of the walk on lit streets</span></div><div><b>48 → 81%</b><span>with people around</span></div><div><b>3 → 0</b><span>underpasses</span></div></div><p style="margin-top:14px">For three minutes more, the agreed route stays lit the whole way and avoids the underpasses. Busier streets also record more incidents, partly because more people are there to report them, and the tool shows that trade-off instead of hiding it.</p>`)}
+  ${sec("What the data can't see",`<p>Lighting is tagged on 59% of these streets; the rest is estimated. Police data covers one month of reported incidents at approximate locations, and most harassment is never reported. No dataset records how a street feels at 1am. Night Walk makes those gaps visible so they can be argued about, which is the point of my thesis, <a href="#unseen-city">The Unseen City</a>.</p>`)}
+  ${sec("Try it",`<p>Pick any two stations or click the map. Set your own priorities and compare your route with the agreed one.</p><div class="btns" style="margin-top:14px"><a class="btn" href="nightwalk/" data-theatre="Night Walk">Open Night Walk full screen</a><a class="btn ghost" href="nightwalk/" target="_blank" rel="noopener">New tab ↗</a></div><p class="muted" style="margin-top:12px">A design prototype, not safety advice.</p>`)}`,
+
 "the-bus":()=>`
   ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Pantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
   <div class="btns" style="margin-top:14px"><a class="btn" href="https://youtu.be/ZQ0DikdlK14" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`)}`,
@@ -590,6 +612,7 @@ const DETAIL={
 
 /* ===== v2 app ===== */
 const LAB=[
+ {t:"Night Walk",d:"Four walkers with different needs negotiate one safer route home, King's Cross to Camden.",u:"nightwalk/",f:["c08.jpg","w08.png"],live:1},
  {t:"Step 4 · Discussion",d:"22 turns of argument between the nine agents, every claim linked to its evidence.",u:"https://vercel-step4-discussion.vercel.app/",f:["lab/discussion_1.jpg","lab/discussion_2.jpg"],live:1},
  {t:"Archive map",d:"177,241 items in one vector space, searchable and ranked by how odd each one is.",u:"https://nine-acts-archive-map.vercel.app/",f:["lab/archive_1.jpg","lab/archive_2.jpg"],live:1},
  {t:"3D output",d:"The 3D composition for one location, to orbit in the browser.",u:"https://vercel-3d-output.vercel.app/",f:["lab/out3d_1.jpg","lab/out3d_2.jpg"],live:1},
@@ -621,10 +644,10 @@ const CAN_EMBED=/^https?:$/.test(location.protocol)&&!/claude|anthropic/i.test(l
 
 const DEMOS=[["Archive map","https://nine-acts-archive-map.vercel.app/","Search 177,241 books, photos and film stills about Rotterdam, ranked by how odd each one is."],["Agent discussion","https://vercel-step4-discussion.vercel.app/","22 turns of argument between the nine agents, every claim linked to its evidence."],["Location map","https://nine-acts-location-map.vercel.app/","Every reaction, retrieval, production and discussion, mapped across 14 sites. Click a marker."],["3D output","https://vercel-3d-output.vercel.app/","The 3D composition for one location. Drag to orbit."]];
 const FR={"Archive map":"archive_1.jpg","Agent discussion":"discussion_1.jpg","Location map":"map_1.jpg","3D output":"out3d_1.jpg"};
-const CAT={"nine-acts":"ai","turin-machine":"ai","unseen-city":"ai","under-common-care":"arch","mind-the-gap":"arch","the-bus":"film","interview-dimitris":"film"};
+const CAT={"night-walk":"ai","nine-acts":"ai","turin-machine":"ai","unseen-city":"ai","under-common-care":"arch","mind-the-gap":"arch","the-bus":"film","interview-dimitris":"film"};
 let demo=0,qi=0,filt="all";
 const num=p=>p.n.replace("W","");
-const UC_INFO=`<span class="k-info"><span class="f-k dark">03 · 2026 · Thesis · Theory Report Prize</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span></span>`;
+const UC_INFO=`<span class="k-info"><span class="f-k dark">04 · 2026 · Thesis · Theory Report Prize</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span></span>`;
 const ht=(p,cls="")=>p&&p.id==="unseen-city"?`<span class="k-dots" aria-hidden="true"></span>${UC_INFO}`:p&&p.thumb?`<img src="${IMG+(cls==="lg"&&p.id==="turin-machine"?"w02_lg.png":p.thumb)}" alt="" loading="lazy">${p.col?`<img class="col" src="${IMG+p.col}" alt="" loading="lazy">`:""}`:`<span class="k-dots" aria-hidden="true"></span>`;
 const sh=(n,t,right="")=>`<div class="k-sh"><span class="k-n">${n}</span><h2>${t}</h2><span class="k-r">${right}</span></div>`;
 function wcard(p,i){return `<a class="k-wc" href="#${p.id}" data-i="${i}" data-cat="${CAT[p.id]}"><span class="k-pic">${ht(p)}</span><span class="k-cap"><span class="k-no">${num(p)}</span><span class="k-tt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)} · ${p.y}</span></span></a>`}
@@ -636,7 +659,7 @@ function foot(){return `<footer class="k-foot">
   <div class="k-fl"><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><a href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/elenikaragianniarch-lab" target="_blank" rel="noopener">GitHub ↗</a><span>London <span class="clk"></span></span></div>
 </footer>`}
 function stage(){
-  const na=P[0],tu=P[1],uc=P[2],rest=P.slice(3);
+  const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),tu=byId("turin-machine"),uc=byId("unseen-city"),nw=byId("night-walk"),rest=P.filter(p=>CAT[p.id]!=="ai");
   return `<section class="k-hero"><canvas id="dots" aria-hidden="true"></canvas>
     <div class="k-ht"><span>Portfolio · 2026</span><span>Architectural engineer · computational designer</span><span>London, UK <span class="clk"></span></span></div>
     <h1 class="k-name" id="nm" aria-label="Eleni Karagianni"><span class="w">Eleni</span><span class="w">Karagianni</span></h1>
@@ -655,7 +678,20 @@ function stage(){
   </section>
 
   <section class="k-s">
-    ${sh("02","Featured: Nine Acts of Ostranenie",`<a href="#nine-acts">Open project →</a>`)}
+    ${sh("02","New: Night Walk",`<a href="#night-walk">How it works →</a>`)}
+    <div class="k-fx">
+      <div class="k-fx-t">
+        <p class="f-k dark">2026 · prototype · open data · route optimisation · agents</p>
+        <p class="k-big">Four people with different needs walk home through King's Cross and Camden after dark. They negotiate one route that works for all of them.</p>
+      </div>
+      <div class="k-nums" style="margin-top:0"><div><b>+3 min</b><span>vs the shortest route</span></div><div><b>100%</b><span>lit, up from 72%</span></div><div><b>0</b><span>underpasses, down from 3</span></div><div><b>4</b><span>walkers agree</span></div></div>
+    </div>
+      <div class="k-frame k-nw">${CAN_EMBED?`<iframe src="nightwalk/" title="Night Walk" loading="lazy"></iframe>`:`<a class="k-fb" href="nightwalk/" target="_blank" rel="noopener"><img src="${IMG}c08.jpg" alt=""><span class="btn">Open Night Walk ↗</span></a>`}</div>
+    <p class="k-under">Pick two stations or click the map inside. <button type="button" class="k-copy" data-theatre="Night Walk" data-href="nightwalk/">Open full screen ⤢</button></p>
+  </section>
+
+  <section class="k-s">
+    ${sh("03","Featured: Nine Acts of Ostranenie",`<a href="#nine-acts">Open project →</a>`)}
     <div class="k-fx">
       <div class="k-fx-t">
         <p class="f-k dark">2026 · with Ruijia Zheng · Best Computation Prize, Bartlett</p>
@@ -667,12 +703,12 @@ function stage(){
     <div class="k-try">
       <div class="k-tryh"><p class="lab">Try it here, it's live</p><span class="k-tabs">${DEMOS.map((d,i)=>`<button type="button" data-demo="${i}" class="${i===demo?"on":""}">${d[0]}</button>`).join("")}</span></div>
       <div class="k-frame" id="lbf">${demoFrame()}</div>
-      <div class="k-tryh"><p id="lbd">${DEMOS[demo][2]}</p><span class="k-tabs"><button type="button" id="lbfull">Full screen ⤢</button><a href="#lab">All 17 live pieces →</a></span></div>
+      <div class="k-tryh"><p id="lbd">${DEMOS[demo][2]}</p><span class="k-tabs"><button type="button" id="lbfull">Full screen ⤢</button><a href="#lab">All 18 live pieces →</a></span></div>
     </div>
   </section>
 
   <section class="k-s">
-    ${sh("03","Language, form and the city")}
+    ${sh("04","Language, form and the city")}
     <div class="k-pair">
       <a class="k-pc" href="#${tu.id}"><span class="k-pic wide">${ht(tu,"lg")}</span><span class="f-k dark">${tu.y} · ${esc(tu.kind)}</span><span class="k-pt">${esc(tu.t)}</span><span>${esc(tu.lede)}</span><span class="k-more">See the pipeline →</span></a>
       <a class="k-pc k-box" href="#${uc.id}"><span class="f-k dark">${num(uc)} · ${uc.y} · Thesis · Theory Report Prize</span><span class="k-pt">${esc(uc.t)}</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span><span class="k-more">Read the argument →</span></a>
@@ -680,17 +716,17 @@ function stage(){
   </section>
 
   <section class="k-s">
-    ${sh("04","Architecture and film")}
+    ${sh("05","Architecture and film")}
     <div class="k-list">${rest.map(p=>`<a class="k-row" href="#${p.id}"><span class="k-pic sm">${ht(p)}</span><span class="k-no">${num(p)}</span><span class="k-rt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)}</span><span class="k-yr">${p.y} →</span></a>`).join("")}</div>
   </section>
 
   <section class="k-s">
-    ${sh("05","What the agents said",`<button type="button" id="qnext" class="k-lnk">Ask another agent ↻</button>`)}
+    ${sh("06","What the agents said",`<button type="button" id="qnext" class="k-lnk">Ask another agent ↻</button>`)}
     <figure class="k-quote" id="qbox">${quoteHTML()}</figure>
   </section>
 
   <section class="k-s">
-    ${sh("06","Tools")}
+    ${sh("07","Tools")}
     <div class="k-tools">
       <div><p class="lab">Agents</p><p>Multi-agent systems, tool use, memory, MCP, local open models, human in the loop</p></div>
       <div><p class="lab">Data & ML</p><p>Python, scraping, pandas, CLIP, SOM, UMAP, anomaly detection, NLP</p></div>
@@ -908,7 +944,7 @@ document.addEventListener("click",async e=>{
   const fb=e.target.closest("[data-filt]");if(fb){filt=fb.dataset.filt;document.querySelectorAll("[data-filt]").forEach(b=>b.classList.toggle("on",b===fb));document.querySelectorAll(".k-grid .k-wc").forEach(c=>c.classList.toggle("out",filt!=="all"&&c.dataset.cat!==filt));return}
   const cp=e.target.closest("[data-copy]");if(cp){const t=cp.dataset.copy;try{await navigator.clipboard.writeText(t);cp.textContent="Copied ✓"}catch(err){location.href="mailto:"+t;return}setTimeout(()=>cp.textContent=t,1600);return}
   const lc=e.target.closest("[data-lab]");if(lc){const c=LAB[+lc.dataset.lab];if(c.ext){window.open(c.u,"_blank","noopener")}else theatre(c.t,c.u);return}
-  const th=e.target.closest("[data-theatre]");if(th){e.preventDefault();theatre(th.dataset.theatre,th.href);return}
+  const th=e.target.closest("[data-theatre]");if(th){e.preventDefault();theatre(th.dataset.theatre,th.dataset.href||th.href);return}
   const dm=e.target.closest("a.demo");if(dm&&/vercel\.app|drive\.google/.test(dm.href)){e.preventDefault();theatre(dm.querySelector(".b")?.textContent||"Demo",dm.href);return}
   if(e.target.id==="th-close"){closeTheatre();return}
   if(e.target.id==="seqnext"){k=Math.min(WORDS.length,k+1);drawSeq()}
