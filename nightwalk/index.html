@@ -8,7 +8,7 @@
 <style>
 @font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations")}
 @font-face{font-family:"Roboto Mono";font-weight:100 700;font-display:swap;src:url(../fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations")}
-:root{--ink:#111;--muted:#6b6b6b;--hair:#e2e2e2;--red:#E3241B;--paper:#fff;--tint:#f4f4f2;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
+:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#2A2A2A;--red:#FF3B2F;--paper:#0B0B0C;--tint:#151517;--lamp:#FFD27A;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font:400 15px/1.5 var(--f);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .app{display:grid;grid-template-columns:420px minmax(0,1fr);height:100vh;height:100dvh}
@@ -19,16 +19,16 @@ h1{font-weight:300;font-size:44px;line-height:.95;letter-spacing:-.04em;margin:6
 .note{font:400 11.5px/1.5 var(--m);color:var(--muted);margin:0}
 section{border-top:1px solid var(--ink);padding-top:14px;margin-top:22px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-select{font:inherit;font-size:14px;border:1px solid var(--ink);border-radius:99px;padding:6px 12px;background:#fff;max-width:100%}
+select{font:inherit;color:var(--ink);font-size:14px;border:1px solid var(--ink);border-radius:0;padding:6px 12px;background:var(--paper);max-width:100%}
 .ab{display:grid;grid-template-columns:22px 1fr;gap:6px 8px;align-items:center}
-.pin{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font:600 11px var(--m);display:grid;place-items:center}
+.pin{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--paper);font:600 11px var(--m);display:grid;place-items:center}
 .who{display:grid;gap:8px}
-.w{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;border:1px solid var(--hair);padding:10px 12px;cursor:pointer;background:#fff;text-align:left;font:inherit;color:inherit;transition:border-color .2s}
+.w{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;border:1px solid var(--hair);padding:10px 12px;cursor:pointer;background:var(--paper);text-align:left;font:inherit;color:inherit;transition:border-color .2s}
 .w:hover,.w.on{border-color:var(--ink)}
 .w b{font-weight:500;font-size:15px}.w .need{grid-column:1/-1;font-size:13px;color:var(--muted)}
 .w .sw{width:26px;height:0;border-top:2px dashed var(--ink);align-self:center}
 .bars{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
-.bars i{display:block;height:4px;background:var(--hair);position:relative}.bars i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--ink)}
+.bars i{display:block;height:4px;background:var(--hair);position:relative}.bars i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--lamp)}
 table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
 th,td{padding:6px 0;border-bottom:1px solid var(--hair);text-align:right;font-variant-numeric:tabular-nums}
 th:first-child,td:first-child{text-align:left;color:var(--muted);font-weight:400}
@@ -45,26 +45,26 @@ td.good{color:var(--ink)}
 input[type=range]{width:100%;accent-color:var(--ink)}
 .sl output{font:400 12px var(--m);text-align:right}
 .tog{display:flex;gap:8px;align-items:center;font-size:13.5px;margin-top:8px}
-.btn{font:400 12px var(--m);border:1px solid var(--ink);border-radius:99px;padding:6px 12px;background:#fff;cursor:pointer;color:var(--ink)}
+.btn{font:400 12px var(--m);border:1px solid var(--ink);border-radius:0;padding:6px 12px;background:var(--paper);cursor:pointer;color:var(--ink)}
 .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
-.map{position:relative;overflow:hidden;background:#fff;touch-action:none;cursor:crosshair}
+.map{position:relative;overflow:hidden;background:var(--paper);touch-action:none;cursor:crosshair}
 svg{width:100%;height:100%;display:block}
 .lens{position:absolute;left:14px;top:14px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
-.lens button{font:400 11.5px var(--m);border:1px solid var(--ink);border-radius:99px;padding:5px 11px;background:rgba(255,255,255,.92);cursor:pointer}
-.lens button.on{background:var(--ink);color:#fff}
-.legend{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.92);border:1px solid var(--hair);padding:10px 12px;font:400 11px/1.7 var(--m);z-index:2}
+.lens button{font:400 11.5px var(--m);border:1px solid var(--ink);border-radius:0;padding:5px 11px;background:var(--paper);cursor:pointer}
+.lens button.on{background:var(--ink);color:var(--paper)}
+.legend{position:absolute;left:14px;bottom:14px;background:var(--paper);border:1px solid var(--hair);padding:10px 12px;font:400 11px/1.7 var(--m);z-index:2}
 .legend span{display:inline-block;width:24px;vertical-align:middle;margin-right:6px;border-top:3px solid var(--red)}
 .legend .k{border-top:2px dashed #888}.legend .y{border-top:3px solid var(--ink)}.legend .s{border-top:2px solid #bbb}
 .zoom{position:absolute;right:14px;top:14px;display:grid;gap:6px;z-index:2}
-.zoom button{width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;background:#fff;cursor:pointer;font-size:16px}
-.hint{position:absolute;right:14px;bottom:14px;font:400 11px var(--m);color:var(--muted);background:rgba(255,255,255,.9);padding:4px 8px;z-index:2}
-.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font:400 11.5px/1.4 var(--m);padding:6px 9px;z-index:3;max-width:240px;display:none}
-.tabs{display:flex;gap:0;margin:16px 0 4px;border:1px solid var(--ink);border-radius:99px;padding:3px;width:max-content}
-.tabs button{font:500 14px var(--f);border:0;background:none;padding:7px 16px;border-radius:99px;cursor:pointer;color:var(--ink)}
-.tabs button.on{background:var(--ink);color:#fff}
+.zoom button{width:34px;height:34px;border:1px solid var(--ink);color:var(--ink);background:var(--paper);cursor:pointer;font-size:16px}
+.hint{position:absolute;right:14px;bottom:14px;font:400 11px var(--m);color:var(--muted);background:var(--paper);padding:4px 8px;z-index:2}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:400 11.5px/1.4 var(--m);padding:6px 9px;z-index:3;max-width:240px;display:none}
+.tabs{display:flex;gap:0;margin:16px 0 4px;border:1px solid var(--ink);border-radius:0;padding:3px;width:max-content}
+.tabs button{font:500 14px var(--f);border:0;background:none;padding:7px 16px;border-radius:0;cursor:pointer;color:var(--ink)}
+.tabs button.on{background:var(--ink);color:var(--paper)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chips.col{flex-direction:column;align-items:flex-start}
-.chips button{font:400 13.5px var(--f);border:1px solid var(--ink);border-radius:99px;padding:6px 12px;background:#fff;cursor:pointer;color:var(--ink);text-align:left}
-.chips button.on{background:var(--ink);color:#fff}
+.chips button{font:400 13.5px var(--f);border:1px solid var(--ink);border-radius:0;padding:6px 12px;background:var(--paper);cursor:pointer;color:var(--ink);text-align:left}
+.chips button.on{background:var(--ink);color:var(--paper)}
 .chips button:hover:not(.on){border-color:var(--red);color:var(--red)}
 .cmp{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink)}
 .cmp .c{padding:12px 14px;display:grid;gap:2px}.cmp .c+.c{border-left:1px solid var(--ink);color:var(--muted)}
@@ -85,13 +85,25 @@ details[open] summary{margin-bottom:12px}
 .fix li::before{content:counter(f,decimal-leading-zero);font:400 11px var(--m);color:var(--red);padding-top:3px}
 .fix li b{font-weight:500}.fix li em{font-style:normal;font:400 12px var(--m);text-align:right}.fix li span{grid-column:2/-1;font-size:12.5px;color:var(--muted)}
 .fix li:hover b,.fix li.on b{color:var(--red)}
-.go{font:500 15px var(--f);background:var(--red);color:#fff;border:0;border-radius:99px;padding:10px 20px;cursor:pointer}.go:hover{background:var(--ink)}
-.nav{position:absolute;left:14px;right:14px;top:14px;z-index:4;background:var(--ink);color:#fff;padding:14px 18px 16px;max-width:520px}
-.nav-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.nav-dist{font:400 13px var(--m);color:#ff8a83}
-.nav-top button{font:400 12px var(--m);background:none;color:#fff;border:1px solid #fff;border-radius:99px;padding:4px 12px;cursor:pointer}
-.nav-txt{font-size:24px;line-height:1.15;font-weight:400;letter-spacing:-.02em;margin:6px 0 8px}.nav-rest{font:400 12px var(--m);color:#bbb;margin:0}
+.go{font:500 15px var(--f);background:var(--red);color:#fff;border:0;border-radius:0;padding:10px 20px;cursor:pointer}.go:hover{background:var(--ink)}
+.nav{position:absolute;left:14px;right:14px;top:14px;z-index:4;background:var(--ink);color:var(--paper);padding:14px 18px 16px;max-width:520px}
+.nav-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.nav-dist{font:400 13px var(--m);color:var(--red)}
+.nav-top button{font:400 12px var(--m);background:none;color:var(--paper);border:1px solid var(--paper);border-radius:0;padding:4px 12px;cursor:pointer}
+.nav-txt{font-size:24px;line-height:1.15;font-weight:400;letter-spacing:-.02em;margin:6px 0 8px}.nav-rest{font:400 12px var(--m);color:#555;margin:0}
 body.navigating .lens,body.navigating .zoom{display:none}
 @media (max-width:900px){.legend,.hint{display:none}.lens button{font-size:10.5px;padding:4px 9px}.app{grid-template-columns:1fr;grid-template-rows:62vh auto;height:auto}.map{order:-1;height:62vh;border-bottom:1px solid var(--ink)}aside{border-right:0;overflow:visible}}
+
+.go:hover{background:var(--ink);color:var(--paper)}
+aside{border-right-color:var(--hair)}
+section,details{border-top-color:#3a3a3a!important}
+.cmp,.cmp .c+.c{border-color:#3a3a3a}
+.lede b,.cmp .safe b{text-shadow:0 0 18px rgba(255,59,47,.35)}
+.legend .lit{border-top:3px solid var(--lamp);box-shadow:0 0 8px var(--lamp)}
+.legend .s{border-top:2px dashed #8c8c8c}
+input[type=range]{accent-color:var(--lamp)}
+.map{background:var(--paper)}
+@keyframes on{from{opacity:0}to{opacity:1}}
+.lamp{opacity:0;animation:on .9s ease forwards;vector-effect:non-scaling-stroke}
 </style>
 </head>
 <body>
@@ -173,7 +185,7 @@ body.navigating .lens,body.navigating .zoom{display:none}
   <div class="lens" id="lens"></div>
   <div class="zoom"><button type="button" id="zin" aria-label="Zoom in">+</button><button type="button" id="zout" aria-label="Zoom out">−</button></div>
   <svg id="svg" aria-label="Map of King's Cross to Camden"></svg>
-  <div class="legend"><div><span></span>Safest route</div><div id="lensleg" style="display:none"></div><div><span class="y"></span>Your route</div><div><span class="s"></span>Shortest route</div></div>
+  <div class="legend"><div><span></span>Safest route</div><div><span class="lit"></span>Lit street (tagged)</div><div><span style="border-top:2px solid #C9A25A;opacity:.7"></span>Probably lit (estimated)</div><div id="lensleg" style="display:none"></div><div><span class="y"></span>Your route</div><div><span class="s"></span>Shortest route</div></div>
   <div class="hint" style="bottom:34px">Scroll to zoom · drag to move</div>
   <div class="hint" style="pointer-events:auto">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit">OpenStreetMap</a> contributors · police.uk (OGL)</div>
   <div class="tip" id="tip"></div>
@@ -209,7 +221,7 @@ function init(){
   A=snap(G.stations[PRESETS[0][0]]);B=snap(G.stations[PRESETS[0][1]]);
   $("#selA").onchange=()=>{A=snap(G.stations[$("#selA").value]);run()};
   $("#selB").onchange=()=>{B=snap(G.stations[$("#selB").value]);run()};
-  $("#who").innerHTML=WALKERS.map((w,i)=>`<button type="button" class="w" data-w="${i}"><b>${w.name}</b><svg width="30" height="8"><line x1="0" y1="4" x2="30" y2="4" stroke="#111" stroke-width="2" stroke-dasharray="${w.dash}"/></svg><span class="need">${w.need}${w.step?" Steps are a no.":""}</span><span class="bars">${w.w.map(v=>`<i style="--v:${v*100}%"></i>`).join("")}</span></button>`).join("");
+  $("#who").innerHTML=WALKERS.map((w,i)=>`<button type="button" class="w" data-w="${i}"><b>${w.name}</b><svg width="30" height="8"><line x1="0" y1="4" x2="30" y2="4" stroke="#ECECEC" stroke-width="2" stroke-dasharray="${w.dash}"/></svg><span class="need">${w.need}${w.step?" Steps are a no.":""}</span><span class="bars">${w.w.map(v=>`<i style="--v:${v*100}%"></i>`).join("")}</span></button>`).join("");
   $("#who").onclick=e=>{const b=e.target.closest("[data-w]");if(!b)return;const i=+b.dataset.w;focus=focus===i?null:i;document.querySelectorAll(".w").forEach((x,j)=>x.classList.toggle("on",j===focus));draw()};
   $("#sliders").innerHTML=CRIT.map((c,i)=>`<div class="sl"><span title="${c[1]}">${c[0]}</span><input type="range" min="0" max="100" value="60" data-c="${i}" aria-label="${c[0]}"><output>60</output></div>`).join("")+`<div class="sl"><span>Extra walking</span><input type="range" min="0" max="100" value="45" id="tol" aria-label="How much longer you would walk"><output id="tolo">ok</output></div>`;
   $("#sliders").oninput=e=>{if(e.target.dataset.c!==undefined)e.target.nextElementSibling.textContent=e.target.value;userRoute()};
@@ -310,11 +322,11 @@ const epath=e=>"M"+[G.V[e[0]],...e[11],G.V[e[1]]].map(p=>p[0].toFixed(0)+" "+(-p
 function drawCity(){
   const g=$("#cityg");if(mode!=="city"||!city){g.innerHTML="";return}
   let h="";
-  if(layer==="avoid"){const bins=[[.06,.2,1.5],[.2,.45,3],[.45,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.avoid[i]>=lo&&city.avoid[i]<hi).map(epath).join("")}" fill="none" stroke="#E3241B" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
-  if(layer==="corr"){const bins=[[.08,.25,1.5],[.25,.5,3],[.5,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.safe[i]>=lo&&city.safe[i]<hi).map(epath).join("")}" fill="none" stroke="#111" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
-  if(layer==="safety"){const sc=e=>(e[3]+e[4]+e[5]+e[6]+e[7])/5;h+=`<path d="${G.E.filter(e=>sc(e)<.55).map(epath).join("")}" fill="none" stroke="#E3241B" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="${G.E.filter(e=>sc(e)>=.75).map(epath).join("")}" fill="none" stroke="#111" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`}
+  if(layer==="avoid"){const bins=[[.06,.2,1.5],[.2,.45,3],[.45,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.avoid[i]>=lo&&city.avoid[i]<hi).map(epath).join("")}" fill="none" stroke="#FF3B2F" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
+  if(layer==="corr"){const bins=[[.08,.25,1.5],[.25,.5,3],[.5,2,5.5]];for(const [lo,hi,w] of bins)h+=`<path d="${G.E.filter((e,i)=>city.safe[i]>=lo&&city.safe[i]<hi).map(epath).join("")}" fill="none" stroke="#ECECEC" stroke-width="${w}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`}
+  if(layer==="safety"){const sc=e=>(e[3]+e[4]+e[5]+e[6]+e[7])/5;h+=`<path d="${G.E.filter(e=>sc(e)<.55).map(epath).join("")}" fill="none" stroke="#FF3B2F" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="${G.E.filter(e=>sc(e)>=.75).map(epath).join("")}" fill="none" stroke="#ECECEC" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`}
   if(layer==="detour")h+=city.detour.map(([x,y,d])=>`<circle cx="${x}" cy="${-y}" r="${10+Math.max(0,d)*16}" fill="#E3241B" fill-opacity=".35" stroke="#E3241B" stroke-width="1" vector-effect="non-scaling-stroke"/>`).join("");
-  if(fixOn>=0)h+=`<path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#E3241B" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+  if(fixOn>=0)h+=`<path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="${city.fix[fixOn].ids.map(i=>epath(G.E[i])).join("")}" fill="none" stroke="#E3241B" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
 }
 function chat(){
@@ -372,7 +384,7 @@ function update(p){
     $("#navRest").textContent=`${Math.max(1,Math.round(left/80))} min · ${left<1000?Math.round(left/10)*10+" m":(left/1000).toFixed(1)+" km"} to go${nav.sim?" · preview":""}`}
   const w=650;vb=[p[0]-w/2,-p[1]-w/2,w,w];setVB();drawMe();
 }
-function drawMe(){const g=$("#meg");if(!g)return;if(!nav||!nav.pos){g.innerHTML="";return}const s=px(),p=nav.pos;g.innerHTML=`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="20" fill="#E3241B" fill-opacity=".18"/><circle r="8" fill="#111" stroke="#fff" stroke-width="3"/></g>`}
+function drawMe(){const g=$("#meg");if(!g)return;if(!nav||!nav.pos){g.innerHTML="";return}const s=px(),p=nav.pos;g.innerHTML=`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="20" fill="#E3241B" fill-opacity=".18"/><circle r="8" fill="#fff" stroke="#FF3B2F" stroke-width="3"/></g>`}
 function stopNav(keep){if(!nav)return;clearInterval(nav.timer);if(nav.watch!=null)navigator.geolocation.clearWatch(nav.watch);try{nav.lock&&nav.lock.release()}catch(e){}nav=null;$("#nav").hidden=true;document.body.classList.remove("navigating");drawMe();if(!keep){vb=[...base];setVB()}}
 function setupNav(){
   $("#startNav").onclick=()=>{if(!("geolocation" in navigator)){startNav(true);return}startNav(false)};
@@ -383,14 +395,30 @@ function setupNav(){
       err=>{$("#locNote").textContent=err.code===1?"Location permission was denied.":"Couldn't get your location."},{enableHighAccuracy:true,timeout:15000})};
 }
 /* ---------- map ---------- */
-let vb,svg,base;
+let vb,svg,base,FR;
 function setupMap(){
   svg=$("#svg");let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;G.V.forEach(([x,y])=>{x0=Math.min(x0,x);x1=Math.max(x1,x);y0=Math.min(y0,y);y1=Math.max(y1,y)});
-  base=[x0-40,-y1-40,x1-x0+80,y1-y0+80];vb=[...base];
+  const P0=[(-0.150-G.origin[1])*G.kx,(51.528-G.origin[0])*G.ky],P1=[(-0.118-G.origin[1])*G.kx,(51.545-G.origin[0])*G.ky];
+  FR=[P0[0],-P1[1],P1[0]-P0[0],P1[1]-P0[1]];
+  base=[FR[0]-90,FR[1]-90,FR[2]+180,FR[3]+180];vb=[...base];
   const ed=G.E.map(e=>"M"+[G.V[e[0]],...e[11],G.V[e[1]]].map(p=>p[0].toFixed(0)+" "+(-p[1]).toFixed(0)).join("L")).join("");
   const pk=G.parks.map(p=>"M"+p.map(q=>q[0].toFixed(0)+" "+(-q[1]).toFixed(0)).join("L")+"Z").join("");
-  svg.innerHTML=`<defs><pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.3" fill="#bdbdbd"/></pattern></defs>
-  <path d="${pk}" fill="url(#dots)" stroke="none"/><path d="${ed}" fill="none" stroke="#cfcfcf" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+  // lamps switch on in rings spreading out from the start point
+  const lit=G.E.map((e,i)=>i).filter(i=>G.E[i][3]>=.8),dim=G.E.filter(e=>e[3]>=.4&&e[3]<.8);
+  const ax=G.V[A][0],ay=G.V[A][1],dmax=Math.max(...lit.map(i=>Math.hypot(G.V[G.E[i][0]][0]-ax,G.V[G.E[i][0]][1]-ay)));
+  const NB=16,bins=Array.from({length:NB},()=>[]),bins2=Array.from({length:NB},()=>[]);for(const i of lit){const v=G.V[G.E[i][0]];(G.E[i][3]>=.99?bins:bins2)[Math.min(NB-1,Math.floor(Math.hypot(v[0]-ax,v[1]-ay)/dmax*NB))].push(epath(G.E[i]))}
+  const lamps=bins.map((b,k)=>`<path class="lamp" style="animation-delay:${(.25+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("")+bins2.map((b,k)=>`<path class="lamp" stroke="#C9A25A" stroke-opacity=".55" stroke-width="1.1" style="animation-delay:${(.3+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("");
+  const cross=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)cross.push(`M${x-9} ${y}h18M${x} ${y-9}v18`);
+  const tick=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)tick.push(`M${x} ${FR[1]}v-14M${x} ${FR[1]+FR[3]}v14`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)tick.push(`M${FR[0]} ${y}h-14M${FR[0]+FR[2]} ${y}h14`);
+  svg.innerHTML=`<defs><pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.2" fill="#262628"/></pattern>
+    <clipPath id="clip"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"/></clipPath>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <path d="${cross.join("")}" stroke="#2c2c2e" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
+  <g clip-path="url(#clip)"><path d="${pk}" fill="url(#dots)" stroke="none"/><path d="${ed}" fill="none" stroke="#2e2e31" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="${dim.map(epath).join("")}" fill="none" stroke="#6b5a36" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <g id="lit" fill="none" stroke="#FFD27A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" style="vector-effect:non-scaling-stroke">${lamps}</g></g>
+  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#6a6a6e" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <path d="${tick.join("")}" stroke="#6a6a6e" stroke-width="1" vector-effect="non-scaling-stroke"/>
   <g id="lensg"></g><g id="cityg"></g><g id="routes"></g><g id="marks"></g><g id="meg"></g>`;
   setVB();
   let drag=null,moved=false;
@@ -405,28 +433,31 @@ function setupMap(){
 function setVB(){svg.setAttribute("viewBox",vb.map(v=>v.toFixed(1)).join(" "));if(G&&res&&mode==="route")drawMarks();if(nav)drawMe()}
 function px(){const r=svg.getBoundingClientRect();return Math.max(vb[2]/r.width,vb[3]/r.height)}
 function drawMarks(){
-  const s=px(),m=(v,l,c)=>{const p=G.V[v];return `<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="12" fill="${c}" stroke="#fff" stroke-width="2"/><text y="4.5" text-anchor="middle" fill="#fff" font-family="Roboto Mono, monospace" font-size="12">${l}</text></g>`};
-  const lab=Object.entries(G.stations).filter(([n])=>!/Waterbus|Cruises|^London King's Cross$|^Euston$|^St Pancras International$/.test(n)).filter(([n,p])=>[A,B].every(v=>Math.hypot(G.V[v][0]-p[0],G.V[v][1]-p[1])>60*s)).map(([n,p])=>`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="3" fill="#111"/><text x="7" y="4" font-family="Roboto Mono, monospace" font-size="11" fill="#111" paint-order="stroke" stroke="#fff" stroke-width="4">${n.replace("London ","")}</text></g>`).join("");
-  $("#marks").innerHTML=lab+m(A,"A","#111")+m(B,"B","#E3241B");
+  const s=px(),m=(v,l,c,tc)=>{const p=G.V[v];return `<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="13" fill="${c}" stroke="#0B0B0C" stroke-width="3"/><text y="4.5" text-anchor="middle" fill="${tc}" font-family="Roboto Mono, monospace" font-size="12" font-weight="600">${l}</text></g>`};
+  const fl=(x,y,t,anc)=>`<text transform="translate(${x} ${y}) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#7a7a7e" text-anchor="${anc}" letter-spacing=".06em">${t}</text>`;
+  const frl=FR?fl(FR[0],FR[1]-22*s,"51.545°N  0.150°W","start")+fl(FR[0]+FR[2],FR[1]+FR[3]+30*s,"51.528°N  0.118°W","end"):"";
+  const lab=Object.entries(G.stations).filter(([n])=>!/Waterbus|Cruises|^London King's Cross$|^Euston$|^St Pancras International$/.test(n)).filter(([n,p])=>[A,B].every(v=>Math.hypot(G.V[v][0]-p[0],G.V[v][1]-p[1])>60*s)).map(([n,p])=>`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="2.5" fill="#cfcfcf"/><text x="7" y="4" font-family="Roboto Mono, monospace" font-size="11" fill="#cfcfcf" paint-order="stroke" stroke="#0B0B0C" stroke-width="4">${n.replace("London ","")}</text></g>`).join("");
+  $("#marks").innerHTML=frl+lab+m(A,"A","#ECECEC","#0B0B0C")+m(B,"B","#FF3B2F","#fff");
 }
 function toMap(e){const r=svg.getBoundingClientRect(),s=Math.max(vb[2]/r.width,vb[3]/r.height),ox=vb[0]+(vb[2]-r.width*s)/2,oy=vb[1]+(vb[3]-r.height*s)/2;return [ox+(e.clientX-r.left)*s,-(oy+(e.clientY-r.top)*s)]}
 function zoom(f,c){const cx=c?c[0]:vb[0]+vb[2]/2,cy=c?-c[1]:vb[1]+vb[3]/2;const w=Math.min(base[2]*1.5,Math.max(250,vb[2]*f)),k=w/vb[2];vb=[cx-(cx-vb[0])*k,cy-(cy-vb[1])*k,vb[2]*k,vb[3]*k];setVB()}
 const pathOf=r=>{if(!r)return"";let d="",cur=A;for(const i of r){const e=G.E[i];let pts=[G.V[e[0]],...e[11],G.V[e[1]]];if(e[0]!==cur)pts=pts.reverse();cur=e[0]===cur?e[1]:e[0];d+=(d?"L":"M")+pts.map(p=>p[0].toFixed(0)+" "+(-p[1]).toFixed(0)).join("L")}return d};
 function draw(){
   const g=$("#routes");let h="";drawCity();
+  $("#lit").style.opacity=mode==="city"?.25:1;
   if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
   const showW=$("#neg").open||focus!==null;
-  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#b5b5b5" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
-  res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="#111" stroke-opacity="${focus===null?.45:focus===i?1:.12}" stroke-width="${focus===i?2.5:1.6}" stroke-dasharray="${WALKERS[i].dash}" vector-effect="non-scaling-stroke"/>`});
-  if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#111" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
-  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#E3241B" stroke-width="${focus===null?5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#9a9a9e" stroke-width="1.6" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>`;
+  res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="#ECECEC" stroke-opacity="${focus===null?.45:focus===i?1:.12}" stroke-width="${focus===i?2.5:1.6}" stroke-dasharray="${WALKERS[i].dash}" vector-effect="non-scaling-stroke"/>`});
+  if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
+  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#FF3B2F" filter="url(#glow)" stroke-width="${focus===null?5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
   drawMarks();
 }
 function drawLens(){
   const g=$("#lensg");$("#lensleg").style.display="none";if(!lens){g.innerHTML="";return}
-  if(lens==="help"){g.innerHTML=G.help.map(p=>`<circle cx="${p[0]}" cy="${-p[1]}" r="9" fill="#fff" stroke="#111" stroke-width="2"/><circle cx="${p[0]}" cy="${-p[1]}" r="3" fill="#111"/>`).join("");return}
+  if(lens==="help"){g.innerHTML=G.help.map(p=>`<circle cx="${p[0]}" cy="${-p[1]}" r="9" fill="#0B0B0C" stroke="#ECECEC" stroke-width="2"/><circle cx="${p[0]}" cy="${-p[1]}" r="3" fill="#ECECEC"/>`).join("");return}
   if(lens==="inc"){g.innerHTML=G.crime.map(p=>`<circle cx="${p[0]}" cy="${-p[1]}" r="${3+p[2]*4}" fill="#E3241B" fill-opacity=".35"/>`).join("");return}
   const k={light:3,act:4,open:5}[lens];
   $("#lensleg").style.display="block";$("#lensleg").innerHTML=`<span style="border-top:2px dashed #7a7a7a"></span>${{light:"Unlit or poorly lit",act:"Few people around",open:"Underpass, alley or park path"}[lens]}`;
