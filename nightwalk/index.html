@@ -239,10 +239,10 @@ input[type=range]{accent-color:var(--lamp)}
 const $=s=>document.querySelector(s);
 const CRIT=[["Lighting","Lit streets"],["People around","Open late venues, shops, stations"],["Open sightlines","No underpasses, alleys or dark park paths"],["Help nearby","Stations, pharmacies, 24/7 shops, staffed venues"],["Fewer incidents","Recorded incidents (police.uk)"]];
 const WALKERS=[
- {id:"shift",col:"#C9973F",name:"Maya, night-shift nurse",need:"Finishing at 1am and tired. Wants it lit and not too long.",w:[.9,.2,.3,.1,.4],tol:.45,dash:"2 5"},
- {id:"new",col:"#B7A6E0",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
- {id:"pram",col:"#9DB89A",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
- {id:"alone",col:"#9FB3C8",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
+ {id:"shift",col:"#8F7B58",name:"Maya, night-shift nurse",need:"Finishing at 1am and tired. Wants it lit and not too long.",w:[.9,.2,.3,.1,.4],tol:.45,dash:"2 5"},
+ {id:"new",col:"#6A7C88",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
+ {id:"pram",col:"#76866A",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
+ {id:"alone",col:"#8A7A70",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
 const PRESETS=[["Camden Market","Granary Square"],["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
 let need=-1,mode="route",city=null,layer="avoid",fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
