@@ -8,7 +8,7 @@
 <style>
 @font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations")}
 @font-face{font-family:"Roboto Mono";font-weight:100 700;font-display:swap;src:url(../fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations")}
-:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#2A2A2A;--red:#FF3B2F;--paper:#0B0B0C;--tint:#151517;--lamp:#FFD27A;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
+:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#2A2A2A;--red:#FF3B2F;--paper:#0B0B0C;--tint:#151517;--lamp:#ECECEC;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font:400 15px/1.5 var(--f);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .app{display:grid;grid-template-columns:420px minmax(0,1fr);height:100vh;height:100dvh}
@@ -98,8 +98,8 @@ aside{border-right-color:var(--hair)}
 section,details{border-top-color:#3a3a3a!important}
 .cmp,.cmp .c+.c{border-color:#3a3a3a}
 .lede b,.cmp .safe b{text-shadow:0 0 18px rgba(255,59,47,.35)}
-.legend .lit{border-top:3px solid var(--lamp);box-shadow:0 0 8px var(--lamp)}
-.legend .s{border-top:2px dashed #8c8c8c}
+.legend .lit{border-top:2px solid rgba(255,255,255,.45);box-shadow:0 0 6px rgba(255,255,255,.3)}
+.legend .s{border-top:2px dashed #fff}
 input[type=range]{accent-color:var(--lamp)}
 .map{background:var(--paper)}
 @keyframes on{from{opacity:0}to{opacity:1}}
@@ -151,7 +151,7 @@ input[type=range]{accent-color:var(--lamp)}
   <details id="own"><summary>Set your own priorities</summary>
     <div id="sliders"></div>
     <label class="tog"><input type="checkbox" id="stepfree"> Step-free only</label>
-    <div class="row" style="margin-top:10px"><button class="btn" id="reset" type="button">Reset</button><span class="note">Your route is drawn in black.</span></div>
+    <div class="row" style="margin-top:10px"><button class="btn" id="reset" type="button">Reset</button><span class="note">Your route is drawn in solid white.</span></div>
   </details>
   </div>
 
@@ -185,7 +185,7 @@ input[type=range]{accent-color:var(--lamp)}
   <div class="lens" id="lens"></div>
   <div class="zoom"><button type="button" id="zin" aria-label="Zoom in">+</button><button type="button" id="zout" aria-label="Zoom out">−</button></div>
   <svg id="svg" aria-label="Map of King's Cross to Camden"></svg>
-  <div class="legend"><div><span></span>Safest route</div><div><span class="lit"></span>Lit street (tagged)</div><div><span style="border-top:2px solid #C9A25A;opacity:.7"></span>Probably lit (estimated)</div><div id="lensleg" style="display:none"></div><div><span class="y"></span>Your route</div><div><span class="s"></span>Shortest route</div></div>
+  <div class="legend"><div><span></span>Safest route</div><div><span class="lit"></span>Lit street (tagged)</div><div><span style="border-top:1px solid rgba(255,255,255,.22)"></span>Probably lit (estimated)</div><div id="lensleg" style="display:none"></div><div><span class="y" style="border-top-color:#fff"></span>Your route (sliders)</div><div id="wleg" style="display:none"></div><div><span class="s"></span>Shortest route</div></div>
   <div class="hint" style="bottom:34px">Scroll to zoom · drag to move</div>
   <div class="hint" style="pointer-events:auto">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit">OpenStreetMap</a> contributors · police.uk (OGL)</div>
   <div class="tip" id="tip"></div>
@@ -196,10 +196,10 @@ input[type=range]{accent-color:var(--lamp)}
 const $=s=>document.querySelector(s);
 const CRIT=[["Lighting","Lit streets"],["People around","Open late venues, shops, stations"],["Open sightlines","No underpasses, alleys or dark park paths"],["Help nearby","Stations, pharmacies, 24/7 shops, staffed venues"],["Fewer incidents","Recorded incidents (police.uk)"]];
 const WALKERS=[
- {id:"shift",name:"Maya, night-shift nurse",need:"Finishing at 1am and tired. Wants it lit and not too long.",w:[.9,.2,.3,.1,.4],tol:.45,dash:"2 5"},
- {id:"new",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
- {id:"pram",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
- {id:"alone",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
+ {id:"shift",col:"#FFD60A",name:"Maya, night-shift nurse",need:"Finishing at 1am and tired. Wants it lit and not too long.",w:[.9,.2,.3,.1,.4],tol:.45,dash:"2 5"},
+ {id:"new",col:"#BF5AF2",name:"Sam, new to London",need:"First month here. Wants busy streets and places to ask for help.",w:[.4,.9,.5,.9,.4],tol:1.6,dash:"8 5"},
+ {id:"pram",col:"#30D158",name:"Leila, pushing a pram",need:"Needs step-free pavements and open, visible routes.",w:[.5,.3,.8,.3,.3],tol:1.1,step:true,dash:"1 3"},
+ {id:"alone",col:"#64D2FF",name:"Jo, alone after a night out",need:"Will walk further to stay around people and light.",w:[.9,.9,.9,.6,.9],tol:3.4,dash:"12 4 2 4"}
 ];
 const PRESETS=[["Camden Market","Granary Square"],["King's Cross St Pancras","Camden Town"],["London Euston","Camden Town"],["St Pancras International","Camden Road"],["Granary Square","Mornington Crescent"]];
 let need=-1,mode="route",city=null,layer="avoid",fixOn=-1,OK,G,adj,A=null,B=null,clickNext="A",lens=null,focus=null,user=null,res=null;
@@ -221,7 +221,7 @@ function init(){
   A=snap(G.stations[PRESETS[0][0]]);B=snap(G.stations[PRESETS[0][1]]);
   $("#selA").onchange=()=>{A=snap(G.stations[$("#selA").value]);run()};
   $("#selB").onchange=()=>{B=snap(G.stations[$("#selB").value]);run()};
-  $("#who").innerHTML=WALKERS.map((w,i)=>`<button type="button" class="w" data-w="${i}"><b>${w.name}</b><svg width="30" height="8"><line x1="0" y1="4" x2="30" y2="4" stroke="#ECECEC" stroke-width="2" stroke-dasharray="${w.dash}"/></svg><span class="need">${w.need}${w.step?" Steps are a no.":""}</span><span class="bars">${w.w.map(v=>`<i style="--v:${v*100}%"></i>`).join("")}</span></button>`).join("");
+  $("#who").innerHTML=WALKERS.map((w,i)=>`<button type="button" class="w" data-w="${i}"><b>${w.name}</b><svg width="30" height="8"><line x1="0" y1="4" x2="30" y2="4" stroke="${w.col}" stroke-width="3"/></svg><span class="need">${w.need}${w.step?" Steps are a no.":""}</span><span class="bars">${w.w.map(v=>`<i style="--v:${v*100}%"></i>`).join("")}</span></button>`).join("");
   $("#who").onclick=e=>{const b=e.target.closest("[data-w]");if(!b)return;const i=+b.dataset.w;focus=focus===i?null:i;document.querySelectorAll(".w").forEach((x,j)=>x.classList.toggle("on",j===focus));draw()};
   $("#sliders").innerHTML=CRIT.map((c,i)=>`<div class="sl"><span title="${c[1]}">${c[0]}</span><input type="range" min="0" max="100" value="60" data-c="${i}" aria-label="${c[0]}"><output>60</output></div>`).join("")+`<div class="sl"><span>Extra walking</span><input type="range" min="0" max="100" value="45" id="tol" aria-label="How much longer you would walk"><output id="tolo">ok</output></div>`;
   $("#sliders").oninput=e=>{if(e.target.dataset.c!==undefined)e.target.nextElementSibling.textContent=e.target.value;userRoute()};
@@ -407,7 +407,7 @@ function setupMap(){
   const lit=G.E.map((e,i)=>i).filter(i=>G.E[i][3]>=.8),dim=G.E.filter(e=>e[3]>=.4&&e[3]<.8);
   const ax=G.V[A][0],ay=G.V[A][1],dmax=Math.max(...lit.map(i=>Math.hypot(G.V[G.E[i][0]][0]-ax,G.V[G.E[i][0]][1]-ay)));
   const NB=16,bins=Array.from({length:NB},()=>[]),bins2=Array.from({length:NB},()=>[]);for(const i of lit){const v=G.V[G.E[i][0]];(G.E[i][3]>=.99?bins:bins2)[Math.min(NB-1,Math.floor(Math.hypot(v[0]-ax,v[1]-ay)/dmax*NB))].push(epath(G.E[i]))}
-  const lamps=bins.map((b,k)=>`<path class="lamp" style="animation-delay:${(.25+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("")+bins2.map((b,k)=>`<path class="lamp" stroke="#C9A25A" stroke-opacity=".55" stroke-width="1.1" style="animation-delay:${(.3+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("");
+  const lamps=bins.map((b,k)=>`<path class="lamp" style="animation-delay:${(.25+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("")+bins2.map((b,k)=>`<path class="lamp" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="1" style="animation-delay:${(.3+k*.11).toFixed(2)}s" d="${b.join("")}"/>`).join("");
   const cross=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)cross.push(`M${x-9} ${y}h18M${x} ${y-9}v18`);
   const tick=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)tick.push(`M${x} ${FR[1]}v-14M${x} ${FR[1]+FR[3]}v14`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)tick.push(`M${FR[0]} ${y}h-14M${FR[0]+FR[2]} ${y}h14`);
   svg.innerHTML=`<defs><pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.2" fill="#262628"/></pattern>
@@ -415,8 +415,8 @@ function setupMap(){
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
   <path d="${cross.join("")}" stroke="#2c2c2e" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
   <g clip-path="url(#clip)"><path d="${pk}" fill="url(#dots)" stroke="none"/><path d="${ed}" fill="none" stroke="#2e2e31" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="${dim.map(epath).join("")}" fill="none" stroke="#6b5a36" stroke-width="1" vector-effect="non-scaling-stroke"/>
-  <g id="lit" fill="none" stroke="#FFD27A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" style="vector-effect:non-scaling-stroke">${lamps}</g></g>
+  <path d="${dim.map(epath).join("")}" fill="none" stroke="#3a3a3d" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <g id="lit" fill="none" stroke="#FFFFFF" stroke-opacity=".34" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" style="vector-effect:non-scaling-stroke">${lamps}</g></g>
   <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#6a6a6e" stroke-width="1" vector-effect="non-scaling-stroke"/>
   <path d="${tick.join("")}" stroke="#6a6a6e" stroke-width="1" vector-effect="non-scaling-stroke"/>
   <g id="lensg"></g><g id="cityg"></g><g id="routes"></g><g id="marks"></g><g id="meg"></g>`;
@@ -447,10 +447,10 @@ function draw(){
   $("#lit").style.opacity=mode==="city"?.25:1;
   if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
-  const showW=$("#neg").open||focus!==null;
-  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#9a9a9e" stroke-width="1.6" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>`;
-  res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="#ECECEC" stroke-opacity="${focus===null?.45:focus===i?1:.12}" stroke-width="${focus===i?2.5:1.6}" stroke-dasharray="${WALKERS[i].dash}" vector-effect="non-scaling-stroke"/>`});
-  if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
+  const showW=$("#neg").open||focus!==null;$("#wleg").style.display=showW?"block":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
+  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-dasharray="7 6" vector-effect="non-scaling-stroke"/>`;
+  res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="${WALKERS[i].col}" stroke-opacity="${focus===null?.9:focus===i?1:.15}" stroke-width="${focus===i?3.5:2.2}" vector-effect="non-scaling-stroke"/>`});
+  if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#FFFFFF" stroke-width="3.5" vector-effect="non-scaling-stroke"/>`;
   if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#FF3B2F" filter="url(#glow)" stroke-width="${focus===null?5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
   drawMarks();
