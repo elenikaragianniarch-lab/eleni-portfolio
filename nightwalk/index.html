@@ -8,7 +8,7 @@
 <style>
 @font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations")}
 @font-face{font-family:"Roboto Mono";font-weight:100 700;font-display:swap;src:url(../fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations")}
-:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#2A2A2A;--red:#E8382D;--paper:#0B0B0C;--tint:#151517;--lamp:#ECECEC;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
+:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#343434;--red:#E0412F;--salmon:#E8785E;--taupe:#4A443F;--rose:#D9536A;--paper:#1B1B1B;--tint:#151517;--lamp:#ECECEC;color-scheme:dark;--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
 body{font:400 15px/1.5 var(--f);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .app{display:grid;grid-template-columns:420px minmax(0,1fr);height:100vh;height:100dvh}
@@ -103,7 +103,7 @@ section,details{border-top-color:#3a3a3a!important}
 input[type=range]{accent-color:var(--lamp)}
 .map{background:var(--paper)}
 @keyframes on{from{opacity:0}to{opacity:1}}
-#lit path{vector-effect:non-scaling-stroke}.lamp{opacity:0;animation:on .9s ease forwards}
+#lit path,#routes path{vector-effect:non-scaling-stroke}.lamp{opacity:0;animation:on .9s ease forwards}
 .legend{left:0;right:0;bottom:0;border:0;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:6px 22px;padding:10px 16px;font:400 11px/1.5 var(--m);letter-spacing:.03em;text-transform:uppercase;color:#bdbdbd}
 .legend>div{display:flex;align-items:center;gap:8px}.legend #wleg{gap:22px}
 .legend .sw{display:inline-block;width:26px;height:10px;border:0;margin:0}
@@ -120,6 +120,21 @@ input[type=range]{accent-color:var(--lamp)}
 .calls b{display:grid;place-items:center;width:20px;height:20px;border:1px solid #fff;font:600 11px var(--m)}
 .calls strong{font-weight:600}
 @media (max-width:900px){.head #headTxt{font-size:19px}.head{max-width:80%}.lens{display:none}.legend{display:flex!important;gap:4px 12px;font-size:9.5px}}
+.legend{background:#1B1B1B;color:#CFC8BF}
+.legend .sw{width:28px;height:13px}
+.legend .red{height:13px;border:0;background:linear-gradient(#1B1B1B 0 3px,#E0412F 3px 10px,#1B1B1B 10px)}
+.legend .dash{height:13px;border:0;background:radial-gradient(circle,#fff 1.4px,transparent 1.8px) 0 50%/6px 13px repeat-x}
+.legend .litst{background:linear-gradient(#161616 0 4px,#EFE6D8 4px 6px,#161616 6px)}
+.legend .darkst{background:radial-gradient(circle,rgba(239,230,216,.45) 1px,transparent 1.4px) 0 50%/5px 13px repeat-x,#161616}
+.legend .rose{background:#D9536A;width:13px}.legend .canal{background:#C4C4C2;height:13px;opacity:1}
+.legend .park{background:radial-gradient(circle,#D4975F 1.2px,#8C5A3C 1.4px 3.4px,#3B302A 3.6px) 0 0/8px 8px}
+.legend .box{width:13px;height:13px;border:1.5px solid #fff}
+.calls{gap:18px}.calls li{display:block}
+.calls .tl{font:600 11.5px var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--salmon);margin:0 0 6px}
+.calls .inset{display:block;width:100%;height:290px;background:#4A443F;border:0}
+.calls .td{font-size:13.5px;margin:6px 0 0;color:#CFC8BF}
+.head .r{color:var(--salmon)}.head{background:#1B1B1B;padding:10px 14px 12px;left:0;top:0}
+.map{background:#1B1B1B}
 </style>
 </head>
 <body>
@@ -203,7 +218,7 @@ input[type=range]{accent-color:var(--lamp)}
   <div class="lens" id="lens"></div>
   <div class="zoom"><button type="button" id="zin" aria-label="Zoom in">+</button><button type="button" id="zout" aria-label="Zoom out">−</button></div>
   <svg id="svg" aria-label="Map of King's Cross to Camden"></svg>
-  <div class="legend"><div><span class="sw red"></span>Safest route</div><div><span class="sw dash"></span>Shortest route</div><div><span class="sw dotb"></span>Lit street</div><div><span class="sw dotf"></span>Dark street</div><div><span class="sw canal"></span>Regent's Canal</div><div><span class="sw park"></span>Park</div><div><span class="sw box"></span>Why they split</div><div id="lensleg" style="display:none"></div><div id="wleg" style="display:none"></div></div><div><span class="s"></span>Shortest route</div></div>
+  <div class="legend"><div><span class="sw red"></span>Safest route</div><div><span class="sw dash"></span>Shortest route</div><div><span class="sw litst"></span>Lit street</div><div><span class="sw darkst"></span>Dark street</div><div><span class="sw rose"></span>Open at night</div><div><span class="sw canal"></span>Canal</div><div><span class="sw park"></span>Park</div><div><span class="sw box"></span>Why they split</div><div id="lensleg" style="display:none"></div><div id="wleg" style="display:none"></div></div><div><span class="s"></span>Shortest route</div></div>
   <div class="hint" style="bottom:78px">Scroll to zoom · drag to move</div>
   <div class="hint" style="pointer-events:auto;display:block;font-size:10px;bottom:52px">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit">OpenStreetMap</a> contributors · police.uk (OGL)</div>
   <div class="tip" id="tip"></div>
@@ -323,7 +338,7 @@ function summary(){
     li.push(["minus",dm>0?`Costs ${dm} more minute${dm===1?"":"s"} of walking.`:"Takes no longer than the shortest route."]);
   }
   CALLS=callouts();
-  $("#callList").innerHTML=CALLS.map((c,k)=>`<li><b>${k+1}</b><span><strong>${c.name}</strong> ${c.detail}. The safe route avoids it.</span></li>`).join("");
+  $("#callList").innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+70;return `<li><p class="tl">${c.name}</p><svg class="inset" viewBox="${cx-h*1.25} ${cy-h} ${h*2.5} ${h*2}" preserveAspectRatio="xMidYMid slice"><use href="#world"/></svg><p class="td">${c.detail[0].toUpperCase()+c.detail.slice(1)}. The safe route avoids it.</p></li>`}).join("");
   const dm2=Math.round(a.min-s.min),c0=CALLS.slice().sort((x,y)=>y.sev-x.sev)[0];
   $("#headTxt").innerHTML=!c0?"Here the quick way is also the safe way.":`The quick way ${c0.unlit>=30?`follows ${/^(Path|Underpass)/.test(c0.name)?"an unlit "+c0.name.replace(/^(Path|Underpass)/,m=>m.toLowerCase()):"the unlit "+c0.name}`:`goes through ${c0.tun} underpass${c0.tun>1?"es":""}`}. <span class="r">The safe way stays on lit streets${dm2>0?`, ${dm2} min longer`:""}.</span>`;
   $("#why").innerHTML=li.map(([c,t])=>`<li class="${c}">${t}</li>`).join("");
@@ -425,26 +440,30 @@ function setupMap(){
   base=[FR[0]-90,FR[1]-340,FR[2]+180,FR[3]+440];vb=[...base];
   const ed=G.E.map(e=>"M"+[G.V[e[0]],...e[11],G.V[e[1]]].map(p=>p[0].toFixed(0)+" "+(-p[1]).toFixed(0)).join("L")).join("");
   const pk=G.parks.map(p=>"M"+p.map(q=>q[0].toFixed(0)+" "+(-q[1]).toFixed(0)).join("L")+"Z").join("");
-  // every street is a line of dots: dense and bright where it is lit, sparse and faint where it is dark
+  // land is warm taupe, streets are black channels; a cream line shows where a street is lit, faint dots where it is dark
   const ax=G.V[A][0],ay=G.V[A][1];let dmax=1;G.E.forEach(e=>{const v=G.V[e[0]];dmax=Math.max(dmax,Math.hypot(v[0]-ax,v[1]-ay))});
-  const NB=14,cls=[[1.01,.99],[.99,.8],[.8,.4],[.4,-1]],bins=cls.map(()=>Array.from({length:NB},()=>[]));
-  G.E.forEach(e=>{const c=cls.findIndex(([hi,lo])=>e[3]<hi&&e[3]>=lo),v=G.V[e[0]];bins[c<0?3:c][Math.min(NB-1,Math.floor(Math.hypot(v[0]-ax,v[1]-ay)/dmax*NB))].push(epath(e))});
-  const sty=[["2.6","0.01 5","1"],["2.1","0.01 6",".5"],["1.7","0.01 7",".26"],["1.4","0.01 9",".13"]];
-  const lamps=bins.map((bb,c)=>bb.map((b,k)=>b.length?`<path class="${c<2?"lamp":""}" stroke-width="${sty[c][0]}" stroke-dasharray="${sty[c][1]}" stroke-opacity="${sty[c][2]}" style="${c<2?`animation-delay:${(.2+k*.1).toFixed(2)}s`:""}" d="${b.join("")}"/>`:"").join("")).join("");
+  const NB=14,bins=[0,1].map(()=>Array.from({length:NB},()=>[])),dark=[];
+  G.E.forEach(e=>{const v=G.V[e[0]],k=Math.min(NB-1,Math.floor(Math.hypot(v[0]-ax,v[1]-ay)/dmax*NB));if(e[3]>=.99)bins[0][k].push(epath(e));else if(e[3]>=.8)bins[1][k].push(epath(e));else dark.push(epath(e))});
+  const lamps=bins.map((bb,c)=>bb.map((b,k)=>b.length?`<path class="lamp" stroke-width="${c?1:1.3}" stroke-opacity="${c?.5:.95}" style="animation-delay:${(.2+k*.1).toFixed(2)}s" d="${b.join("")}"/>`:"").join("")).join("");
   const canal=G.E.filter(e=>/canal/i.test(e[10]));
-  const cross=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)cross.push(`M${x-8} ${y}h16M${x} ${y-8}v16`);
-  const tick=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)tick.push(`M${x} ${FR[1]}v-12M${x} ${FR[1]+FR[3]}v12`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)tick.push(`M${FR[0]} ${y}h-12M${FR[0]+FR[2]} ${y}h12`);
-  svg.innerHTML=`<defs><pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="#7A6A55"/></pattern>
-    <clipPath id="clip"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"/></clipPath>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#141414"/>
-  <path d="${cross.join("")}" stroke="#333336" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
-  <g clip-path="url(#clip)"><path d="${pk}" fill="url(#dots)" fill-opacity=".55" stroke="none"/>
-  <path d="${canal.map(epath).join("")}" fill="none" stroke="#5E6A70" stroke-opacity=".55" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-  <g id="lit" fill="none" stroke="#F1EBDD" stroke-linecap="round">${lamps}</g></g>
-  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#8a8a8e" stroke-width="1" vector-effect="non-scaling-stroke"/>
-  <path d="${tick.join("")}" stroke="#8a8a8e" stroke-width="1" vector-effect="non-scaling-stroke"/>
-  <g id="lensg"></g><g id="cityg"></g><g id="routes"></g><g id="calls"></g><g id="marks"></g><g id="meg"></g>`;
+  const act=(G.act||[]).map(([x,y,w])=>{const r=2+w*2.4;return `M${(x-r).toFixed(0)} ${(-y-r).toFixed(0)}h${2*r}v${2*r}h${-2*r}z`}).join("");
+  const grid=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)grid.push(`M${x} ${FR[1]}V${FR[1]+FR[3]}`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)grid.push(`M${FR[0]} ${y}H${FR[0]+FR[2]}`);
+  const tick=[];for(let x=Math.ceil(FR[0]/250)*250;x<FR[0]+FR[2];x+=250)tick.push(`M${x} ${FR[1]}v-10`);for(let y=Math.ceil(FR[1]/250)*250;y<FR[1]+FR[3];y+=250)tick.push(`M${FR[0]} ${y}h-10`);
+  svg.innerHTML=`<defs><pattern id="forest" width="15" height="15" patternUnits="userSpaceOnUse"><rect width="15" height="15" fill="#3B302A"/><circle cx="7.5" cy="7.5" r="3.6" fill="#8C5A3C"/><circle cx="7.5" cy="7.5" r="1.5" fill="#D4975F"/></pattern>
+    <clipPath id="clip"><rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}"/></clipPath></defs>
+  <g id="world"><g clip-path="url(#clip)">
+  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="#4A443F"/>
+  <path d="${pk}" fill="url(#forest)" stroke="none"/>
+  <path d="${ed}" fill="none" stroke="#161616" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="${canal.map(epath).join("")}" fill="none" stroke="#C4C4C2" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="${grid.join("")}" stroke="#ffffff" stroke-opacity=".12" stroke-width="1" vector-effect="non-scaling-stroke" fill="none"/>
+  <path d="${dark.join("")}" fill="none" stroke="#EFE6D8" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="0.01 5" stroke-linecap="round" style="vector-effect:non-scaling-stroke"/>
+  <g id="lit" fill="none" stroke="#EFE6D8" stroke-linecap="round" stroke-linejoin="round">${lamps}</g>
+  <path id="actp" d="${act}" fill="#D9536A" fill-opacity=".9"/>
+  </g>
+  <g id="lensg"></g><g id="cityg"></g><g id="routes"></g></g>
+  <rect x="${FR[0]}" y="${FR[1]}" width="${FR[2]}" height="${FR[3]}" fill="none" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${tick.join("")}" stroke="#9A9590" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <g id="calls"></g><g id="marks"></g><g id="meg"></g>`;
   setVB();
   let drag=null,moved=false;
   svg.addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,v:[...vb]};moved=false;svg.setPointerCapture(e.pointerId)});
@@ -483,15 +502,15 @@ function drawCalls(s){
   const g=$("#calls");if(!g)return;if(mode==="city"){g.innerHTML="";return}
   g.innerHTML=CALLS.map((c,k)=>{const [x0,y0,x1,y1]=c.bb,cx=(x0+x1)/2,cy=-(y0+y1)/2,h=Math.max(x1-x0,y1-y0)/2+40,hs=Math.max(h,36*s),t=10*s;
     const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>`M${cx+a*hs} ${cy+b*hs+(-b)*t}V${cy+b*hs}H${cx+a*hs+(-a)*t}`).join("");
-    return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="${corners}" fill="none" stroke="#fff" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
-    <g transform="translate(${cx-hs} ${cy-hs}) scale(${s})"><circle r="4" fill="#fff"/><text x="9" y="-8" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" fill="#fff" paint-order="stroke" stroke="#141414" stroke-width="4" letter-spacing=".04em">${k+1} · ${c.name.toUpperCase()}</text></g>`}).join("");
+    return `<rect x="${cx-hs}" y="${cy-hs}" width="${2*hs}" height="${2*hs}" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="${corners}" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    <g transform="translate(${cx} ${cy-hs}) scale(${s})"><circle r="4.5" fill="#fff"/><text x="12" y="-8" font-family="Roboto Mono, monospace" font-size="11" font-weight="600" fill="#E8785E" paint-order="stroke" stroke="#1B1B1B" stroke-width="4" letter-spacing=".05em">${c.name.toUpperCase()}</text></g>`}).join("");
 }
 function drawMarks(){
   const s=px(),m=(v,l,c,tc)=>{const p=G.V[v];return `<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="13" fill="${c}" stroke="#0B0B0C" stroke-width="3"/><text y="4.5" text-anchor="middle" fill="${tc}" font-family="Roboto Mono, monospace" font-size="12" font-weight="600">${l}</text></g>`};
-  const fl=(x,y,t,anc)=>`<text transform="translate(${x} ${y}) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#7a7a7e" text-anchor="${anc}" letter-spacing=".06em">${t}</text>`;
-  let frl="";if(FR){for(let x=Math.ceil(FR[0]/500)*500;x<FR[0]+FR[2]-60;x+=500)frl+=fl(x,FR[1]-20*s,(G.origin[1]+x/G.kx).toFixed(3)+"°","middle");for(let y=Math.ceil(FR[1]/500)*500;y<FR[1]+FR[3]-40;y+=500)frl+=`<text transform="translate(${FR[0]-20*s} ${y}) rotate(-90) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#7a7a7e" text-anchor="middle">${(G.origin[0]-y/G.ky).toFixed(3)}°</text>`}
+  const fl=(x,y,t,anc)=>`<text transform="translate(${x} ${y}) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#9A9590" text-anchor="${anc}" letter-spacing=".06em">${t}</text>`;
+  let frl="";if(FR){for(let x=Math.ceil(FR[0]/500)*500;x<FR[0]+FR[2]-60;x+=500)frl+=fl(x,FR[1]-20*s,(G.origin[1]+x/G.kx).toFixed(3)+"°","middle");for(let y=Math.ceil(FR[1]/500)*500;y<FR[1]+FR[3]-40;y+=500)frl+=`<text transform="translate(${FR[0]-20*s} ${y}) rotate(-90) scale(${s})" font-family="Roboto Mono, monospace" font-size="10" fill="#9A9590" text-anchor="middle">${(G.origin[0]-y/G.ky).toFixed(3)}°</text>`}
   drawCalls(s);
-  const lab=Object.entries(G.stations).filter(([n])=>!/Waterbus|Cruises|^London King's Cross$|^Euston$|^St Pancras International$/.test(n)).filter(([n,p])=>[A,B].every(v=>Math.hypot(G.V[v][0]-p[0],G.V[v][1]-p[1])>60*s)).map(([n,p])=>`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="2.5" fill="#cfcfcf"/><text x="7" y="4" font-family="Roboto Mono, monospace" font-size="11" fill="#cfcfcf" paint-order="stroke" stroke="#0B0B0C" stroke-width="4">${n.replace("London ","")}</text></g>`).join("");
+  const lab=Object.entries(G.stations).filter(([n])=>!/Waterbus|Cruises|^London King's Cross$|^Euston$|^St Pancras International$/.test(n)).filter(([n,p])=>[A,B].every(v=>Math.hypot(G.V[v][0]-p[0],G.V[v][1]-p[1])>60*s)).map(([n,p])=>`<g transform="translate(${p[0]} ${-p[1]}) scale(${s})"><circle r="3" fill="#fff"/><text x="8" y="4" font-family="Roboto Mono, monospace" font-size="10.5" font-weight="600" letter-spacing=".05em" fill="#fff" paint-order="stroke" stroke="#1B1B1B" stroke-width="3.5">${n.replace("London ","").toUpperCase()}</text></g>`).join("");
   $("#marks").innerHTML=frl+lab+m(A,"A","#ECECEC","#0B0B0C")+m(B,"B","#E8382D","#fff");
 }
 function toMap(e){const r=svg.getBoundingClientRect(),s=Math.max(vb[2]/r.width,vb[3]/r.height),ox=vb[0]+(vb[2]-r.width*s)/2,oy=vb[1]+(vb[3]-r.height*s)/2;return [ox+(e.clientX-r.left)*s,-(oy+(e.clientY-r.top)*s)]}
@@ -503,10 +522,10 @@ function draw(){
   if(mode==="city"){g.innerHTML="";$("#marks").innerHTML="";document.querySelector(".legend").style.visibility="hidden";return}
   document.querySelector(".legend").style.visibility="";
   const showW=$("#neg").open||focus!==null;$("#wleg").style.display=showW?"flex":"none";$("#wleg").innerHTML=WALKERS.map(w=>`<div><span style="border-top:3px solid ${w.col}"></span>${w.name.split(",")[0]}</div>`).join("");
-  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-dasharray="9 6" vector-effect="non-scaling-stroke"/>`;
+  if(res.shortest)h+=`<path d="${pathOf(res.shortest)}" fill="none" stroke="#161616" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="${pathOf(res.shortest)}" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-dasharray="0.01 6.5" stroke-linecap="round"/>`;
   res.own.forEach((r,i)=>{if(r&&showW)h+=`<path d="${pathOf(r)}" fill="none" stroke="${WALKERS[i].col}" stroke-opacity="${focus===null?.9:focus===i?1:.15}" stroke-width="${focus===i?3.5:2.2}" vector-effect="non-scaling-stroke"/>`});
   if(user)h+=`<path d="${pathOf(user)}" fill="none" stroke="#FFFFFF" stroke-width="3.5" vector-effect="non-scaling-stroke"/>`;
-  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#E8382D" stroke-width="${focus===null?5.5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+  if(mainR())h+=`<path d="${pathOf(mainR())}" fill="none" stroke="#141414" stroke-width="${focus===null?10:6}" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/><path d="${pathOf(mainR())}" fill="none" stroke="#E0412F" stroke-width="${focus===null?5.5:3}" stroke-opacity="${focus===null?1:.6}" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   g.innerHTML=h;
   drawMarks();
 }

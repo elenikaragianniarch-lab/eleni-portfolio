@@ -173,12 +173,13 @@ for s in S:
 parks_d = [[[round(x,1), round(y,1)] for x, y in [nodes[n] for n in p["nodes"] if n in nodes]] for p in parks]
 lit_known = sum(s["L"] for s in S if s["lit_tag"]) / sum(s["L"] for s in S)
 def nm(t): return t.get("name","")
+act_pts = [[round(nodes[n][0],1), round(nodes[n][1],1), round(activity_w(t),1)] for n, t in ntags.items() if activity_w(t) >= 0.4]
 help_pts = [[round(nodes[n][0],1), round(nodes[n][1],1), (t.get("amenity") or ("station" if t.get("railway") or t.get("public_transport")=="station" else "24/7 shop")), nm(t)]
             for n, t in ntags.items() if help_w(t) >= 1]
 crime_pts = [[round(x,1), round(y,1), round(w,1)] for x, y, w in CR]
 stations = {nm(t): [round(nodes[n][0],1), round(nodes[n][1],1)] for n, t in ntags.items()
             if (t.get("railway") == "station" or t.get("public_transport") == "station") and nm(t)}
-G = dict(origin=[LAT0, LON0], kx=KX, ky=KY, V=V, E=out, parks=parks_d, help=help_pts, crime=crime_pts,
+G = dict(origin=[LAT0, LON0], kx=KX, ky=KY, V=V, E=out, parks=parks_d, help=help_pts, crime=crime_pts, act=act_pts,
          meta=dict(crime_month=crime[0]["month"], crime_n=len(crime), lit_tagged=round(lit_known, 3), segments=len(out)),
          stations=stations)
 json.dump(G, open("graph.json", "w"), separators=(",", ":"), ensure_ascii=False)
