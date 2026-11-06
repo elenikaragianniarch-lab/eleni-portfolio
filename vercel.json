@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/cv/", "destination": "/cv", "permanent": true },
+    { "source": "/in/", "destination": "/in", "permanent": true },
+    { "source": "/email/", "destination": "/email", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/cv", "destination": "/index.html" },
+    { "source": "/in", "destination": "/index.html" },
+    { "source": "/email", "destination": "/index.html" }
+  ]
+}
