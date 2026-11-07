@@ -8,5 +8,8 @@
     { "source": "/cv", "destination": "/index.html" },
     { "source": "/in", "destination": "/index.html" },
     { "source": "/email", "destination": "/index.html" }
+  ],
+  "headers": [
+    { "source": "/(media|fonts)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
   ]
 }

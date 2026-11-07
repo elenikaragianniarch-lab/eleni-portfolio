@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Night Walk · Eleni Karagianni</title>
+<meta name="description" content="A route finder for walking home at night that also shows which streets to fix.">
+<link rel="canonical" href="https://www.eleni-karagianni.com/night-walk/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eleni Karagianni">
+<meta property="og:title" content="Night Walk · Eleni Karagianni">
+<meta property="og:description" content="A route finder for walking home at night that also shows which streets to fix.">
+<meta property="og:url" content="https://www.eleni-karagianni.com/night-walk/">
+<meta property="og:image" content="https://www.eleni-karagianni.com/og/night-walk.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head wrap">
+<a class="site-name" href="/">Eleni Karagianni</a>
+<nav class="site-nav" aria-label="Main"><a href="/#work" aria-current="page">Work</a><a href="/about/">About</a><a href="mailto:eleni.karagianni.arch@gmail.com">Contact</a></nav>
+</header>
+<main id="main">
+<article>
+<div class="wrap">
+<header class="p-head grid"><h1>Night Walk</h1><p class="lede">A route finder for walking home at night that also shows which streets to fix. It compares the quick way and the safe way across 2,560 simulated walks, finds the streets that make the quick way unsafe, and tests design fixes for them before anything is built.</p><dl><dt>Year</dt><dd>2026</dd><dt>Role</dt><dd>Individual prototype</dd><dt>Area</dt><dd>King's Cross and Camden, London</dd><dt>Status</dt><dd>Working prototype, runs in the browser</dd></dl></header>
+</div>
+<div class="wrap"><div class="lead"><figure class="fig"><video data-loop muted loop playsinline preload="none" poster="/media/night-walk/route.webp" width="1440" height="900" aria-label="Camden Market to Granary Square. The safe route, in pink, is seven minutes longer and stays off the unlit canal towpath."><source src="/media/night-walk/walk.mp4" type="video/mp4"></video><figcaption class="cap">Camden Market to Granary Square. The safe route, in pink, is seven minutes longer and stays off the unlit canal towpath.</figcaption></figure></div></div>
+<div class="wrap">
+<section class="text grid"><h2>Why I'm building it</h2><div class="prose"><p>I've walked home at night choosing the route the way most women do: which street is lit, which one has people on it, which shortcut to skip. I made a short film about that fear, <a href="/the-bus/">The Bus</a>. At LOvMe.ai I worked on safety advice and spoke to women about how they move through cities at night. And my thesis, <a href="/unseen-city/">The Unseen City</a>, is about what data about cities leaves out. Night Walk is where the three meet.</p></div></section><section class="text grid"><h2>The problem</h2><div class="prose"><p>In Britain, 82% of women say they feel unsafe walking alone in a park or open space after dark (<a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/perceptionsofpersonalsafetyandexperiencesofharassmentgreatbritain/16februaryto13march2022" target="_blank" rel="noopener">ONS, 2022</a>). Map apps send people the quickest way, which is often the dark one. Safety apps send them around it. Neither tells a council which street to fix first, or what fixing it would change.</p><p>Public money is already going into this: the Home Office's <a href="https://www.gov.uk/government/publications/safer-streets-fund-round-five/safer-streets-fund" target="_blank" rel="noopener">Safer Streets Fund</a> has put £159 million into 413 local projects, much of it lighting, CCTV and design.</p></div></section><div class="row full"><figure class="fig"><img src="/media/night-walk/city.webp" width="1440" height="900" alt="Dark map of King&#x27;s Cross and Camden with coloured street networks and dotted circles" class="zoom" loading="lazy" decoding="async"><figcaption class="cap">City map: all 2,560 simulated walks. Pink streets are the ones the safe route avoids; green are safe corridors; dotted circles mark where safety costs the most time.</figcaption></figure></div><section class="text grid"><h2>What it found</h2><div class="prose"></div><div class="facts"><div><b>+1.2 min</b><span>average extra time to walk the safe way</span></div><div><b>73% → 93%</b><span>share of the walk on lit streets, quick way against safe way</span></div><div><b>+87</b><span>walks that no longer need a detour if the top three streets are fixed</span></div><div><b>73% → 80%</b><span>light on the quick way home after those three fixes</span></div></div><div class="note prose"><p>Lighting the Regent's Canal towpath and opening up its underpasses does the most: 58 more walks become safe enough and 100 minutes of detours disappear. Camden Street comes next. Some streets that look bad on a map, such as Camden Road, change nothing when fixed, because people already avoid them for other reasons. That's the kind of thing a council can only see with a tool like this.</p></div></section><div class="row two"><figure class="fig"><img src="/media/night-walk/fix.webp" width="1440" height="900" alt="Map with numbered streets to fix and a ranked list" class="zoom" loading="lazy" decoding="async"><figcaption class="cap">Fix the city: streets ranked by how many walks a fix would make safe.</figcaption></figure><figure class="fig"><img src="/media/night-walk/fix-section.webp" width="1440" height="900" alt="Before and after street section of the canal towpath with lighting" class="zoom" loading="lazy" decoding="async"><figcaption class="cap">Proposal 1, the canal towpath, after: low amber lighting, a lit underpass, late uses at ground level.</figcaption></figure></div><section class="text grid"><h2>How it works</h2><div class="prose"><ol><li><strong>Walk.</strong> A route finder with safest and shortest routes, the cost in minutes and step-by-step navigation.</li><li><strong>See.</strong> 2,560 simulated walks between random points show where the quick way and the safe way split.</li><li><strong>Diagnose.</strong> Every street is scored on light, people around, sightlines, help nearby and incidents.</li><li><strong>Fix.</strong> Design moves are tested on all 2,560 walks before anything is built.</li><li><strong>Propose.</strong> Ranked proposals with before and after sections, rough cost and who should act.</li></ol></div><p class="note meta">Python, NumPy, SciPy, OpenStreetMap, police.uk, Dijkstra routing, minimax-regret negotiation between four walker profiles, vanilla JS and SVG. 8,165 street segments.</p></section><section class="text grid"><h2>Who it could serve</h2><div class="prose"><p>Councils and police and crime commissioners bidding for safety funding, developers and estates planning night-time public space, canal and transport operators, and consultancies writing women's safety audits. The method works for any city with open map data.</p></div></section><section class="text grid"><h2>Limits</h2><div class="prose"><p>The scores are rules I designed from open data (OpenStreetMap and one month of police.uk records). They haven't yet been tested with the women who walk these streets, lighting is only tagged on 59% of them, and impact is measured on simulated walks rather than real footfall. The next step is walk-alongs, a short survey and council lighting data. It is a design prototype and shouldn't be used as safety advice.</p></div></section><section class="explore grid"><h2>Explore</h2><ul><li><a href="/nightwalk/"><span>Open Night Walk</span><span>Live app</span></a></li></ul></section>
+<nav class="next" aria-label="Next project"><span class="meta">Next</span><a href="/turin-machine/">Turin Machine →</a></nav>
+</div>
+</article>
+</main>
+<footer class="site-foot wrap grid">
+<p class="hi">Open to roles in applied AI, computational design and creative technology in London. <a href="mailto:eleni.karagianni.arch@gmail.com">eleni.karagianni.arch@gmail.com</a></p>
+<ul><li><a href="https://www.linkedin.com/in/elenikaragiannii/" target=_blank rel=noopener>LinkedIn</a></li><li><a href="https://github.com/elenikaragianniarch-lab" target=_blank rel=noopener>GitHub</a></li><li><a href="https://www.instagram.com/eleni_karagianni_arch/" target=_blank rel=noopener>Instagram</a></li><li><a href="/files/Eleni_Karagianni_CV.pdf">CV (PDF)</a></li></ul>
+<div class="small meta"><span>© 2026 Eleni Karagianni</span><span>London</span></div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
