@@ -447,6 +447,12 @@ footer:not(.k-foot){display:none}
  .k-frame{height:70vh}.k-pgh{display:block}.k-pgh .k-tabs{margin-top:16px}}
 @media (prefers-reduced-motion:reduce){.k-rail .k-wc,.k-name .ch,.k-row{transition:none}.card2 .scr img.f2{animation:none}}
 
+.uc-lead{font-size:clamp(22px,2.2vw,30px);line-height:1.2;margin-bottom:14px}
+.uc-abs{margin-top:14px;border-top:1px solid var(--hair);padding-top:10px}.uc-abs summary{cursor:pointer;font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}.uc-abs p{margin-top:12px}
+.noise{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--ink);padding:26px 16px;font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.noise .nz{border:1px solid var(--ink);padding:6px 12px;background:#fff;text-align:center}.noise .nz.th{background:var(--ink);color:#fff}.noise .nz.red{border-color:#FF3131;color:#C8102E}
+.noise .na{color:var(--muted);line-height:1}.nsplit{display:grid;grid-template-columns:1fr 1fr;gap:28px}.nsplit>div{display:flex;flex-direction:column;align-items:center;gap:6px}
+.meta .stk{display:flex;flex-direction:column;gap:3px}
 /* ---- v5 fixes: in-page images (dots, colour on hover or tap), videos, phone ---- */
 .gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:6px}
 .gal .gi.w{grid-column:1/-1}
@@ -499,37 +505,37 @@ footer:not(.k-foot){display:none}
 <script>
 const IMG="img/";
 const P=[
- {id:"nine-acts",n:"W01",t:"Nine Acts of Ostranenie",y:"2026",kind:"Multi-agent AI · archive · 3D",with:"with Ruijia Zheng",award:"Best Computation Prize, Bartlett UD · Hon. Mention, SCI-Arc Playing Models 2026",
+ {id:"nine-acts",n:"W01",t:"Nine Acts of Ostranenie",y:"2026",kind:"Multi-agent AI · archive · 3D",with:"Agent design, data pipeline, Blender integration, web interfaces",team:"with Ruijia Zheng",award:"Best Computation Prize, Bartlett UD · Hon. Mention, SCI-Arc Playing Models 2026",
   thumb:"w01.png",col:"c01.jpg",cap:"One of the rooms the agents built: the photography exhibition.",
   lede:"Nine AI agents read Rotterdam through its books, photographs and films, disagree about what they find, and build that disagreement into rooms in Blender.",
   b:{does:"Agents with different, partial views of one archive argue over a site and design spaces live in 3D.",
      stack:["Python, pandas, SQLite","CLIP, SOM, UMAP","IsolationForest + LOF","Qwen3.6-27B, local","Tool use, memory, MCP","Blender, Plotly, Vercel"],
      scale:["177,241 archive items","9 agents, 10 tools","14 river-edge sites","~100 runs"],
      links:[["Live archive ↗","https://nine-acts-archive-map.vercel.app"],["Agent discussion ↗","https://vercel-step4-discussion.vercel.app"],["3D output ↗","https://vercel-3d-output.vercel.app"],["Process blog ↗","https://eleni-rae.tumblr.com"]],code:"Repository coming soon"}},
- {id:"night-walk",n:"W00",t:"Night Walk",y:"2026",kind:"Prototype · safety · urban design · AI",with:"Individual prototype",award:"",
-  thumb:"w08.png",col:"c08.jpg",cap:"Camden Market to Granary Square: the safe way in pink, the quick way along the canal dotted.",
+ {id:"night-walk",n:"W00",t:"Night Walk",y:"2026",kind:"Prototype · safety · urban design · AI",with:"Concept, data, code and design",team:"Individual",award:"",
+  thumb:"w08.png",col:"c08.jpg",cap:"Camden Market to Granary Square: the safe way in pink, the quick way dotted, and the four risky stretches it avoids.",
   lede:"Safety apps send women around the dark street. Night Walk finds which streets make the quick way home unsafe, tests a fix for each on 2,560 simulated walks, and turns the best into design proposals.",
   b:{does:"Finds the safest route home, maps where the quick way and the safe way split, and ranks and tests design fixes for the streets that cause it.",
      stack:["Python, NumPy, SciPy","OpenStreetMap, police.uk","Dijkstra routing","Minimax-regret negotiation","Vanilla JS, SVG"],
      scale:["8,165 street segments","5 criteria","4 walkers","Runs in the browser"],
      links:[["Open Night Walk ↗","nightwalk/"]],code:"Repository coming soon"}},
- {id:"turin-machine",n:"W02",t:"Turin Machine",y:"2025",kind:"AI characters · language → form · 3D print",with:"Individual project",award:"",
+ {id:"turin-machine",n:"W02",t:"Turin Machine",y:"2025",kind:"AI characters · language → form · 3D print",with:"Concept, agents, code, 3D and film",team:"Individual",award:"",
   thumb:"w02.png",col:"c02.jpg",cap:"Spatial assembly built from the project's 42-word vocabulary.",
   lede:"Two AI characters, Nietzsche and Franco, the blind detective from The Cat o' Nine Tails, walk Turin and talk. Their words become a 42-word vocabulary that builds space sentence by sentence.",
   b:{does:"Turns conversations between two persona agents into a spatial vocabulary that drives parametric 3D form.",
      stack:["Python, scraping","GPT-4o mini (API)","TF-IDF, CLIP, SOM","Audio segmentation","Blender Geometry Nodes","3D printing, DaVinci"],
      scale:["~3,200 dataset items","30 sound fragments","23 locations","42 words, 3 behaviours"],
      links:[["Process blog ↗","https://eleni-karagiannii.tumblr.com"],["Word-driven animation ↗","https://eleni-karagiannii.tumblr.com/post/801754706757255168/making-the-word-driven-animation"],["Turin walk, sound only ↗","https://www.youtube.com/watch?v=XdMCOOmc4bs"]],code:"GitHub ↗",repo:"https://github.com/elenikaragianniarch-lab/turin-machine"}},
- {id:"unseen-city",n:"W03",t:"The Unseen City",y:"2026",kind:"Thesis · AI and the city",with:"Supervisor: Elizabeth Selby",award:"Theory Report Prize, Bartlett UD (the programme's single thesis prize)",
+ {id:"unseen-city",n:"W03",t:"The Unseen City",y:"2026",kind:"Thesis · AI and the city",with:"Author",team:"Supervisor: Elizabeth Selby",award:"Theory Report Prize, Bartlett UD (the programme's single thesis prize)",
   lede:"Every system that measures a city has already decided what doesn't count. My thesis calls this the politics of noise, and asks for AI that declares its point of view instead of claiming to be neutral."},
- {id:"under-common-care",n:"W04",t:"Under Common Care",y:"2025",kind:"Adaptive reuse · collective housing",with:"with Paschalina Iliadou · Diploma project, Volos",award:"",thumb:"w05.png",col:"w05.jpg",cap:"Under Common Care, Gazi Street, Volos.",
+ {id:"under-common-care",n:"W04",t:"Under Common Care",y:"2025",kind:"Adaptive reuse · collective housing",with:"Research, design and drawings",team:"with Paschalina Iliadou · diploma project, Volos",award:"",thumb:"w05.png",col:"w05.jpg",cap:"Under Common Care, Gazi Street, Volos.",
   lede:"A network of shared housing made from the abandoned buildings of Gazi Street in Volos, treating vacancy as a resource rather than a problem."},
- {id:"mind-the-gap",n:"W05",t:"Mind the Gap",y:"2023",kind:"Urban gaps · scaffolding",with:"with Katerina Aggelaki and Paschalina Iliadou · Thessaloniki",award:"",thumb:"w06.png",col:"w06.jpg",cap:"Mind the Gap, Thessaloniki.",
+ {id:"mind-the-gap",n:"W05",t:"Mind the Gap",y:"2023",kind:"Urban gaps · scaffolding",with:"Mapping, design and drawings",team:"with Katerina Aggelaki and Paschalina Iliadou · Thessaloniki",award:"",thumb:"w06.png",col:"w06.jpg",cap:"Mind the Gap, Thessaloniki.",
   lede:"We mapped the gaps between Thessaloniki's buildings. Residents' own improvised staircases became a scaffolding system that plugs into them."},
- {id:"the-bus",n:"W06",t:"The Bus",y:"2023",kind:"Short film · 3′24″",with:"Director, camera (with Aikaterini Angelaki), editor",award:"",
+ {id:"the-bus",n:"W06",t:"The Bus",y:"2023",kind:"Short film · 3′24″",with:"Director, camera, editor",team:"Team of five · camera with Aikaterini Angelaki",award:"",
   thumb:"w03.png",col:"c03.jpg",cap:"Still from The Bus (Το Λεωφορείο).",
   lede:"A young woman misses her bus home after a night out and walks alone, more and more afraid she is being followed. Was it all in her head?"},
- {id:"interview-dimitris",n:"W07",t:"Interview with Dimitris",y:"2023",kind:"Documentary · 3′",with:"Direction, camera, edit, web",award:"",
+ {id:"interview-dimitris",n:"W07",t:"Interview with Dimitris",y:"2023",kind:"Documentary · 3′",with:"Direction, camera, edit, web",team:"Individual",award:"",
   thumb:"w04.png",col:"c04.jpg",cap:"Villa Koutarelia, Volos.",
   lede:"A portrait of Dimitris, a photographer living at Villa Koutarelia in Volos, and of the house itself, shortly before it closed."}
 ];
@@ -610,16 +616,28 @@ const DETAIL={
   ${sec("Words with behaviours",`<p style="margin-bottom:14px">The 42 words fall into three behaviours, each with a different effect on the form.</p>
   <div class="behav"><div><p class="b up">Soft</p><p>Low density, continuous</p></div><div><p class="b up">Medium</p><p>Balanced, partly broken</p></div><div><p class="b up">Chaotic</p><p>Dense, fragmented</p></div></div>`)}
   ${sec("A sentence, built",`<p>"The monumental industry hum feels tired; as brick and stones become unforgiving under the sun." Each word adds a layer to the space.</p>${gal(gi("tm-sentence","The sentence, built word by word.",{w:true}))}`)}
-  ${sec("In pictures",gal(gi("tm-buildings","Dataset: Turin's industrial buildings.",{draw:true}),gi("tm-sound","The 30 sound fragments from the two-hour walk.",{draw:true}),gi("tm-words","The 42 words, each as a form.",{w:true,draw:true}),gi("tm-print","3D-printed word assembly.")))}
+  ${sec("In pictures",gal(gi("tm-words","The 42 words, each as a form.",{w:true,draw:true}),gi("tm-print","3D-printed word assembly.")))}
   ${sec("Judgement",`<p>A visual clustering of all the images (SOM) was technically sound but spatially flat, so I pivoted to a language-driven method. The dropped branch is documented on the blog.</p>`)}`,
 
 "unseen-city":()=>`
+  ${sec("Abstract",`<p class="uc-lead">To measure a city is already to have taken an ideological position on what counts.</p>
+  <p>Computational tools hide that position behind the authority of mathematical fact. The thesis uses <b>urban oddness</b>, the strange, unclassifiable moments in a city, to ask what the gap between human and machine perception does to the city that gets built, and what it reveals about the assumptions inside the systems that govern it. Its answer: computation should act as a <b>declared partial co-author</b>, not an oracle claiming to see the whole.</p>
+  <details class="uc-abs"><summary>Read the full abstract</summary><p>To measure a city is already to have taken an ideological position on what counts. Computational tools systematically obscure this positioning behind the authority of mathematical fact. Far from operating as a neutral window into urban reality, algorithmic measurement emerges from a specific posture in which constructed ground truths conceal cultural and epistemological assumptions beneath a veneer of objectivity. This dissertation uses the phenomenon of urban oddness, at once aesthetic, psychological, and spatial, to confront a central crisis in contemporary digital urbanism: what does the gap between human and machine perception do to the production of urban space, and what does urban oddness reveal about the epistemological assumptions embedded in the computational systems governing it?</p>
+<p>The inquiry traces this question through the full apparatus by which the contemporary city is rendered computable. It begins with the administrative machinery of legibility, in which the city, understood through Lefebvre as actively produced space (1991) and through Kitchin as increasingly produced in code (2017), is governed by infrastructural regimes whose reach exceeds conventional accountability (Easterling, 2014) and whose demand for simplification requires deciding in advance what will count as noise (Scott, 1998). Urban oddness names precisely what this machinery discards. Read first through the relational uncanny of Freud (2003) and Vidler (1987), and extended through Edensor's account of ruin, infrastructural rupture, discontinuity, and programmatic conflict (2005) into a properly spatial register, oddness proves constitutively relational and permanently resistant to statistical capture. Grounded in Donna Haraway's critique of the omniscient god trick (1988) and Florian Jaton's analysis of ground-truthing (2021), the dissertation argues that the algorithmic claim to see the city from nowhere does not eliminate positionality; it merely submerges it, foreclosing the accountability that declared partiality would enable. Mattern's dismantling of the city-as-computer metaphor (2017) and Weizman's account of sensing as a political act (2017) reveal the material consequences for urban production itself: the systematic categorisation of oddness as noise is not a technical limitation but an operation that shapes what the city is permitted to become.</p>
+<p>This diagnosis is tested against practice through two case studies held at critical distance rather than treated as confirmation, each engaged on its own terms and departed from where its claims exceed what its epistemology can support. Subjectivity, reframed as situated partiality, emerges as the foundational condition of genuine spatial knowledge. Computation, reimagined as a declared partial co-author rather than an oracle claiming to see the whole, offers architectural practice the only structurally honest response. Permanent declared partiality, this dissertation contends, produces a more accountable form of urban knowledge than any performance of neutrality could achieve.</p>
+<p class="muted">Keywords: situated knowledge, computational urbanism, urban oddness, production of space, algorithmic partiality, co-authorship</p></details>`)}
+  ${sec("The politics of noise",`<p style="margin-bottom:16px">Every system that senses a city draws a line. What falls above it is recorded and acted on. What falls below it is treated as absent, and built around. The threshold is always a decision.</p>
+  <div class="noise" role="img" aria-label="Diagram: urban condition, sensed and classified, meets a threshold. Legible things are recorded and acted upon; noise is treated as absent and built around.">
+    <span class="nz">Urban condition</span><span class="na">↓</span><span class="nz">Sensing / classification</span><span class="na">↓</span><span class="nz th">Threshold</span>
+    <div class="nsplit"><div><span class="na">↙</span><span class="nz">Legible</span><span class="na">↓</span><span class="nz">Recorded</span><span class="na">↓</span><span class="nz">Acted upon</span></div><div><span class="na">↘</span><span class="nz red">Noise</span><span class="na">↓</span><span class="nz red">Treated as absent</span><span class="na">↓</span><span class="nz red">Built around</span></div></div>
+  </div>`)}
   ${sec("The argument",`<ul class="pts">
     <li>Cities are governed by making them readable, and every reading leaves something out.</li>
-    <li>What falls below a system's threshold gets built around as if it wasn't there. I call this the politics of noise. The threshold is always a decision.</li>
+    <li>What falls below a system's threshold gets built around as if it wasn't there. I call this the politics of noise.</li>
     <li>Instead of neutral machines, design systems that declare their partial point of view, and keep humans responsible.</li></ul>`)}
   ${sec("Tested on",`<p><span class="b">MIT's Streetscore:</span> 208,738 comparisons by 7,872 people, about a million street views scored. Its scores track income and fail on unusual scenes.</p>
-  <p><span class="b">My own Nine Acts:</span> including an honest critique of it. The agents who argued most also built tallest.</p>`)}
+  <p style="margin-bottom:14px"><span class="b">My own Nine Acts:</span> including an honest critique of it. The agents who argued most also built tallest.</p>
+  ${gal(gi("uc-readers","Nine situated readers: the archive mapped, and where each agent looks.",{w:true}),gi("uc-chain","Every step of Nine Acts is a decision someone made: the points where a person can intervene.",{w:true}))}`)}
   ${sec("Why it matters",`<p>Building AI and thinking critically about it are usually separate jobs. This thesis is the second half of Nine Acts: what dataset choices, thresholds and evaluation do to a city.</p>`)}`,
 
 "under-common-care":()=>`
@@ -635,7 +653,7 @@ const DETAIL={
   ${sec("In pictures",gal(gi("mg-map","Gaps between buildings, mapped.",{w:true,draw:true}),gi("mg-gaps","Documenting residents' informal staircases.",{draw:true}),gi("mg-typology","One scaffolding system, five programmes.",{draw:true}),gi("mg-library","The library: ground floor, first floor, west elevation and section.",{draw:true}),gi("mg-lead","The scaffolding system in a gap.",{w:true})))}`,
 
 "night-walk":()=>`
-  ${sec("Why I'm building this",`<p>I've walked home at night calculating the route the way most women do: which street is lit, which one has people on it, which shortcut to skip. I made a short film about that fear, <a href="#the-bus">The Bus</a>. At LOvMe.ai I worked on safety advice and spoke to women about how they move through cities at night. And my thesis, <a href="#unseen-city">The Unseen City</a>, is about what data about cities leaves out. Night Walk is where those three meet.</p>`)}
+  ${sec("Why I'm building this",`<p>I've walked home at night calculating the route the way most women do: which street is lit, which one has people on it, which shortcut to skip. I made a short film about that fear, <a href="#the-bus">The Bus</a>. At LOvMe.ai I worked on safety advice and spoke to women about how they move through cities at night. And my undergraduate thesis, <i>Under the Night Veil</i>, studied the city at night through women's eyes. Night Walk is where those three meet.</p>`)}
   ${sec("The problem",`<p>In Britain, 82% of women say they feel unsafe walking alone in a park or open space after dark (ONS, 2022). Map apps send them the quickest way, which is often the dark one. Safety apps send them around it. <b>Both treat the dark street as a fact to avoid. Nobody fixes it.</b></p><p>Meanwhile, public money is already being spent on this: the Home Office's Safer Streets Fund has put £159 million into 413 local projects, much of it lighting, CCTV and design. What's missing is evidence of which street to fix first, and what each fix would change.</p>`)}
   ${sec("What Night Walk does",`<div class="pipe">
     <div class="step"><b>1 · Walk</b>A route finder: safest, not shortest, with the cost in minutes and GPS navigation</div><span class="arr" aria-hidden="true">→</span>
@@ -710,7 +728,7 @@ function foot(){return `<footer class="k-foot">
 </footer>`}
 function stage(){
   const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),tu=byId("turin-machine"),uc=byId("unseen-city"),nw=byId("night-walk"),rest=P.filter(p=>CAT[p.id]!=="ai");
-  return `<section class="k-hero"><canvas id="dots" aria-hidden="true"></canvas>
+  return `<section class="k-hero">
     <div class="k-ht"><span>Portfolio · 2026</span><span>Architectural engineer · computational designer</span><span>London, UK <span class="clk"></span></span></div>
     <h1 class="k-name" id="nm" aria-label="I build AI agents that read cities and design space.">${"I build AI agents that read cities and design space.".split(" ").map(w=>`<span class="w">${w}</span>`).join(" ")}</h1>
     <div class="k-hrow">
@@ -718,7 +736,6 @@ function stage(){
       <div><p class="lab">Now</p><p>Open to roles in applied AI, computational design and creative technology.</p><div class="btns" style="margin-top:14px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#night-walk">Try Night Walk</a></div></div>
       <div><p class="lab">Contact</p><p><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><br><a href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a> &nbsp;<a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a></p></div>
     </div>
-    <p class="k-hint" aria-hidden="true">move the cursor over the words and the dots</p>
   </section>
 
   <section class="k-s">
@@ -849,7 +866,8 @@ function projectV(p){
     ${b?`<div class="r"><span>Does</span><span>${esc(b.does)}</span></div>`:""}
     <div class="r"><span>Type</span><span>${esc(p.kind)}</span></div>
     <div class="r"><span>Role</span><span>${esc(p.with)}</span></div>
-    ${b?`<div class="r"><span>Stack</span><ul>${b.stack.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div><div class="r"><span>Scale</span><ul>${b.scale.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>`:""}
+    ${p.team?`<div class="r"><span>${p.team.startsWith("Supervisor")?"Supervisor":"Team"}</span><span>${esc(p.team.replace(/^Supervisor: /,""))}</span></div>`:""}
+    ${b?`<div class="r"><span>Stack</span><span class="stk">${b.stack.map(x=>`<span>${esc(x)}</span>`).join("")}</span></div><div class="r"><span>Scale</span><span>${b.scale.map(esc).join(" · ")}</span></div>`:""}
     ${p.award?`<div class="r"><span>Recognition</span><span>${esc(p.award)}</span></div>`:""}
     ${b?`<div class="r"><span>Try it</span><div class="btns">${b.links.map(([l,u],k)=>`<a class="btn${k?" ghost":""}" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}${b.repo?`<a class="btn ghost" href="${b.repo}" target="_blank" rel="noopener">${esc(b.code)}</a>`:""}</div></div>`:""}
   </div>`;
@@ -957,7 +975,8 @@ function queueDots(){if(!raf)raf=requestAnimationFrame(drawDots)}
 /* ---------- the name: letters gain weight near the cursor ---------- */
 let L=[];
 function nameMount(){
-  const n=$("#nm");L=[];if(!n)return;
+  L=[];return; // letter effect removed: the statement stays still
+  const n=$("#nm");if(!n)return;
   n.querySelectorAll(".w").forEach(w=>{if(!w.dataset.done){w.innerHTML=[...w.textContent].map(ch=>`<span class="ch" aria-hidden="true">${ch}</span>`).join("");w.dataset.done=1}});
   nameMeasure();
 }
