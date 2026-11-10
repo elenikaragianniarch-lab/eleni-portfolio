@@ -1,12 +1,42 @@
 {
   "redirects": [
-    { "source": "/cv/", "destination": "/cv", "permanent": true },
-    { "source": "/in/", "destination": "/in", "permanent": true },
-    { "source": "/email/", "destination": "/email", "permanent": true }
+    {
+      "source": "/cv/",
+      "destination": "/cv",
+      "permanent": true
+    },
+    {
+      "source": "/in/",
+      "destination": "/in",
+      "permanent": true
+    },
+    {
+      "source": "/email/",
+      "destination": "/email",
+      "permanent": true
+    },
+    {
+      "source": "/slack/",
+      "destination": "/slack",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/cv", "destination": "/index.html" },
-    { "source": "/in", "destination": "/index.html" },
-    { "source": "/email", "destination": "/index.html" }
+    {
+      "source": "/cv",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/in",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/email",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/slack",
+      "destination": "/index.html"
+    }
   ]
 }
