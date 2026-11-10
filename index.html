@@ -484,8 +484,10 @@ const P=[
  {id:"unseen-city",n:"W03",t:"The Unseen City",y:"2026",kind:"Thesis · AI and the city",with:"Supervisor: Elizabeth Selby",award:"Theory Report Prize, Bartlett UD (the programme's single thesis prize)",
   lede:"Every system that measures a city has already decided what doesn't count. My thesis calls this the politics of noise, and asks for AI that declares its point of view instead of claiming to be neutral."},
  {id:"under-common-care",n:"W04",t:"Under Common Care",y:"2025",kind:"Adaptive reuse · collective housing",with:"with Paschalina Iliadou · Diploma project, Volos",award:"",
+  thumb:"w05.png",col:"c05.jpg",cap:"Building #2: four storeys of housing on the kept warehouse frame, Gazi Street.",
   lede:"A network of shared housing made from the abandoned buildings of Gazi Street in Volos, treating vacancy as a resource rather than a problem."},
  {id:"mind-the-gap",n:"W05",t:"Mind the Gap",y:"2023",kind:"Urban gaps · scaffolding",with:"with Katerina Aggelaki and Paschalina Iliadou · Thessaloniki",award:"",
+  thumb:"w06.png",col:"c06.jpg",cap:"The scaffolding system plugged into a gap between buildings.",
   lede:"We mapped the gaps between Thessaloniki's buildings. Residents' own improvised staircases became a scaffolding system that plugs into them."},
  {id:"the-bus",n:"W06",t:"The Bus",y:"2023",kind:"Short film · 3′24″",with:"Director, camera (with Aikaterini Angelaki), editor",award:"",
   thumb:"w03.png",col:"c03.jpg",cap:"Still from The Bus (Το Λεωφορείο).",
@@ -607,12 +609,12 @@ const DETAIL={
   ${sec("Honest limits",`<p>The scores are rules I designed from open data (OpenStreetMap and one month of police.uk records), not yet tested with the women who walk these streets; lighting is only tagged on 59% of them; and impact is measured on simulated walks, not real footfall. The next step is validating it with people: walk-alongs, a short survey, and council lighting data.</p><p class="muted" style="margin-top:8px">A design prototype, not safety advice. Sources: ONS, <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/perceptionsofpersonalsafetyandexperiencesofharassmentgreatbritain/16februaryto13march2022" target="_blank" rel="noopener">Perceptions of personal safety, 2022</a>; Home Office, <a href="https://www.gov.uk/government/publications/safer-streets-fund-round-five/safer-streets-fund" target="_blank" rel="noopener">Safer Streets Fund</a>.</p>`)}`,
 
 "the-bus":()=>`
-  ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Pantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
+  ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Prantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
   <div class="btns" style="margin-top:14px"><a class="btn" href="https://youtu.be/ZQ0DikdlK14" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`)}`,
 
 "interview-dimitris":()=>`
   ${sec("The film",`<p>Made for Residential Practices: The Gift, with Prof. Zissis Kotionis at the University of Thessaly. The brief: record a home as a biography of its people and things, then give something back. My gift to Dimitris was a website of his film photographs.</p>
-  <div class="btns" style="margin-top:14px"><span class="btn off">Video link coming soon</span></div>`)}`
+  <div class="btns" style="margin-top:14px"><a class="btn" href="https://www.youtube.com/watch?v=TaQQ2AR2X_A" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`)}`
 };
 
 /* ===== v2 app ===== */
@@ -758,9 +760,9 @@ function aboutPage(){return `<section class="k-pg">
   </div>
   <div class="k-cv">
     <div><p class="lab">Experience</p>
-      <div class="k-it"><b>Workshop tutor</b><span>Bartlett B-Pro · Oct 2026</span><em>Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</em></div>
-      <div class="k-it"><b>Team member</b><span>LOvMe.ai · 2023–25</span><em>AI safety startup: research, user interviews, urban-safety advice.</em></div>
-      <div class="k-it"><b>Architectural designer</b><span>Urban Soul Project, Athens · 2023</span><em>Drawing sets for 5+ projects at once, including PwC's Athens campus.</em></div>
+      <div class="k-it"><b>Workshop co-lead</b><span>Bartlett B-Pro · Oct 2026</span><em>Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</em></div>
+      <div class="k-it"><b>Urban safety research</b><span>LOvMe.ai · 2023–25</span><em>AI safety startup: research, user interviews, urban-safety advice.</em></div>
+      <div class="k-it"><b>Architectural designer</b><span>Urban Soul Project, Thessaloniki · 2023</span><em>Drawing sets for 5+ projects at once, including PwC's Athens campus.</em></div>
       <div class="k-it"><b>Architectural designer</b><span>Angelos Koukoulis · 2023–24</span><em>Converting existing buildings into homes, with engineers and clients.</em></div>
     </div>
     <div><p class="lab">Education</p>
@@ -823,9 +825,9 @@ function panelHTML(which){
     <p class="intro2"><span class="b">Open to roles in applied AI, computational design and creative technology in London.</span></p>
     <div class="cols">
       <div><p class="lab">Experience</p>
-        <div class="item"><p class="b up">Workshop tutor</p><p>Bartlett B-Pro · Oct 2026</p><p class="muted">Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</p></div>
-        <div class="item"><p class="b up">Team member</p><p>LOvMe.ai · 2023–25</p><p class="muted">AI safety startup: research, user interviews, urban-safety advice.</p></div>
-        <div class="item"><p class="b up">Architectural designer</p><p>Urban Soul Project, Athens · 2023</p><p class="muted">Drawing sets for 5+ projects at once, incl. PwC's Athens campus.</p></div>
+        <div class="item"><p class="b up">Workshop co-lead</p><p>Bartlett B-Pro · Oct 2026</p><p class="muted">Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</p></div>
+        <div class="item"><p class="b up">Urban safety research</p><p>LOvMe.ai · 2023–25</p><p class="muted">AI safety startup: research, user interviews, urban-safety advice.</p></div>
+        <div class="item"><p class="b up">Architectural designer</p><p>Urban Soul Project, Thessaloniki · 2023</p><p class="muted">Drawing sets for 5+ projects at once, incl. PwC's Athens campus.</p></div>
         <div class="item"><p class="b up">Architectural designer</p><p>Angelos Koukoulis · 2023–24</p><p class="muted">Converting existing buildings into homes; worked with engineers and clients.</p></div>
       </div>
       <div><p class="lab">Education</p>
