@@ -552,8 +552,8 @@ function builders(b){
 }
 
 function sec(label,html){return `<section class="sec"><p class="lab">${label}</p><div class="body">${html}</div></section>`}
-// in-page images: dotted by default, colour on hover (laptop) or tap (phone). Line drawings are shown as they are.
-function gi(n,cap,{w=false,draw=false}={}){const a=esc(cap||"");return `<figure class="gi${w?" w":""}${draw?" draw":""}"><span class="gx">${draw?`<img src="${IMG}g/${n}.webp" alt="${a}" loading="lazy">`:`<img src="${IMG}g/${n}.png" alt="${a}" loading="lazy"><img class="col" src="${IMG}g/${n}.webp" alt="" loading="lazy">`}</span>${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`}
+// in-page images: always in colour. Dotted versions are only used on the overview pages (home, Works).
+function gi(n,cap,{w=false,draw=false}={}){const a=esc(cap||"");return `<figure class="gi${w?" w":""} draw"><span class="gx"><img src="${IMG}g/${n}.webp" alt="${a}" loading="lazy"></span>${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`}
 function gal(...items){return `<div class="gal">${items.join("")}</div>`}
 function gvid(src,poster,cap){return `<figure class="gv"><video src="${IMG}${src}" poster="${IMG}${poster}" muted loop playsinline autoplay preload="metadata"></video>${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`}
 
@@ -652,11 +652,12 @@ const DETAIL={
   ${sec("Honest limits",`<p>The scores are rules I designed from open data (OpenStreetMap and one month of police.uk records), not yet tested with the women who walk these streets; lighting is only tagged on 59% of them; and impact is measured on simulated walks, not real footfall. The next step is validating it with people: walk-alongs, a short survey, and council lighting data.</p><p class="muted" style="margin-top:8px">A design prototype, not safety advice. Sources: ONS, <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/perceptionsofpersonalsafetyandexperiencesofharassmentgreatbritain/16februaryto13march2022" target="_blank" rel="noopener">Perceptions of personal safety, 2022</a>; Home Office, <a href="https://www.gov.uk/government/publications/safer-streets-fund-round-five/safer-streets-fund" target="_blank" rel="noopener">Safer Streets Fund</a>.</p>`)}`,
 
 "the-bus":()=>`
-  ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Pantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
+  ${sec("The film",`<p>Made for the Image, Sound and Multimedia course at the University of Thessaly, by a team of five: Aikaterini Angelaki, Paschalina Iliadou, Eleni Karagianni, Anna Prantsidi and Maria Tserveni. I directed, shot (with Aikaterini Angelaki) and edited it. It's about fear at night in the city, based on real experiences.</p>
   <div class="ytb"><iframe src="https://www.youtube-nocookie.com/embed/ZQ0DikdlK14?rel=0" title="The Bus" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`)}`,
 
 "interview-dimitris":()=>`
-  ${sec("The film",`<p>Made for Residential Practices: The Gift, with Prof. Zissis Kotionis at the University of Thessaly. The brief: record a home as a biography of its people and things, then give something back. My gift to Dimitris was a website of his film photographs.</p>`)}`
+  ${sec("The film",`<p>Made for Residential Practices: The Gift, with Prof. Zissis Kotionis at the University of Thessaly. The brief: record a home as a biography of its people and things, then give something back. My gift to Dimitris was a website of his film photographs.</p>
+  <div class="ytb"><iframe src="https://www.youtube-nocookie.com/embed/TaQQ2AR2X_A?rel=0" title="Interview with Dimitris" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`)}`
 };
 
 /* ===== v2 app ===== */
@@ -803,9 +804,9 @@ function aboutPage(){return `<section class="k-pg">
   </div>
   <div class="k-cv">
     <div><p class="lab">Experience</p>
-      <div class="k-it"><b>Workshop tutor</b><span>Bartlett B-Pro · Oct 2026</span><em>Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</em></div>
+      <div class="k-it"><b>Workshop co-lead</b><span>Bartlett B-Pro · Oct 2026</span><em>Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</em></div>
       <div class="k-it"><b>Urban safety research and advisory</b><span>LOvMe.ai · 2023–25</span><em>Problem framing, user interviews and urban-safety advice for an early-stage AI safety venture.</em></div>
-      <div class="k-it"><b>Architectural designer</b><span>Urban Soul Project, Athens · 2023</span><em>Drawing sets for 5+ projects at once, including PwC's Athens campus.</em></div>
+      <div class="k-it"><b>Architectural designer</b><span>Urban Soul Project, Thessaloniki · 2023</span><em>Drawing sets for 5+ projects at once, including PwC's Athens campus.</em></div>
       <div class="k-it"><b>Architectural designer</b><span>Angelos Koukoulis · 2023–24</span><em>Converting existing buildings into homes, with engineers and clients.</em></div>
     </div>
     <div><p class="lab">Education</p>
@@ -868,9 +869,9 @@ function panelHTML(which){
     <p class="intro2"><span class="b">Open to roles in applied AI, computational design and creative technology in London.</span></p>
     <div class="cols">
       <div><p class="lab">Experience</p>
-        <div class="item"><p class="b up">Workshop tutor</p><p>Bartlett B-Pro · Oct 2026</p><p class="muted">Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</p></div>
+        <div class="item"><p class="b up">Workshop co-lead</p><p>Bartlett B-Pro · Oct 2026</p><p class="muted">Designing with Disagreement, co-led with Ruijia Zheng. 23 students built AI agents that argue.</p></div>
         <div class="item"><p class="b up">Urban safety research and advisory</p><p>LOvMe.ai · 2023–25</p><p class="muted">Problem framing, user interviews and urban-safety advice for an early-stage AI safety venture.</p></div>
-        <div class="item"><p class="b up">Architectural designer</p><p>Urban Soul Project, Athens · 2023</p><p class="muted">Drawing sets for 5+ projects at once, incl. PwC's Athens campus.</p></div>
+        <div class="item"><p class="b up">Architectural designer</p><p>Urban Soul Project, Thessaloniki · 2023</p><p class="muted">Drawing sets for 5+ projects at once, incl. PwC's Athens campus.</p></div>
         <div class="item"><p class="b up">Architectural designer</p><p>Angelos Koukoulis · 2023–24</p><p class="muted">Converting existing buildings into homes; worked with engineers and clients.</p></div>
       </div>
       <div><p class="lab">Education</p>
