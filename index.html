@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Eleni Karagianni</title>
-<meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. AI agents, data pipelines and 3D systems that read cities.">
+<meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. I design spaces, and build the tools that test them.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Eleni Karagianni">
 <meta property="og:title" content="Eleni Karagianni · architectural engineer and computational designer">
 <meta property="og:description" content="AI agents, data pipelines and 3D systems that read cities. London.">
@@ -453,6 +453,8 @@ footer:not(.k-foot){display:none}
 .noise .nz{border:1px solid var(--ink);padding:6px 12px;background:#fff;text-align:center}.noise .nz.th{background:var(--ink);color:#fff}.noise .nz.red{border-color:#FF3131;color:#C8102E}
 .noise .na{color:var(--muted);line-height:1}.nsplit{display:grid;grid-template-columns:1fr 1fr;gap:28px}.nsplit>div{display:flex;flex-direction:column;align-items:center;gap:6px}
 .meta .stk{display:flex;flex-direction:column;gap:3px}
+.k-name{max-width:none}
+@media (max-width:640px){.k-name .hb{display:none}.k-name{text-wrap:balance}}
 /* ---- v5 fixes: in-page images (dots, colour on hover or tap), videos, phone ---- */
 .gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:6px}
 .gal .gi.w{grid-column:1/-1}
@@ -733,7 +735,7 @@ function stage(){
   const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),tu=byId("turin-machine"),uc=byId("unseen-city"),nw=byId("night-walk"),rest=P.filter(p=>CAT[p.id]!=="ai");
   return `<section class="k-hero">
     <div class="k-ht"><span>Portfolio · 2026</span><span>Architectural engineer · computational designer</span><span>London, UK <span class="clk"></span></span></div>
-    <h1 class="k-name" id="nm" aria-label="I build AI agents that read cities and design space.">${"I build AI agents that read cities and design space.".split(" ").map(w=>`<span class="w">${w}</span>`).join(" ")}</h1>
+    <h1 class="k-name" id="nm" aria-label="I design spaces, and build the tools that test them."><span class="w">I</span> <span class="w">design</span> <span class="w">spaces,</span><br class="hb"> <span class="w">and</span> <span class="w">build</span> <span class="w">the</span> <span class="w">tools</span><br class="hb"> <span class="w">that</span> <span class="w">test</span> <span class="w">them.</span></h1>
     <div class="k-hrow">
       <p class="k-claim"><b>Eleni Karagianni.</b> Architectural engineer and computational designer in London. MArch Urban Design, the Bartlett, UCL.</p>
       <div><p class="lab">Now</p><p>Open to roles in applied AI, computational design and creative technology.</p><div class="btns" style="margin-top:14px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#night-walk">Try Night Walk</a></div></div>
