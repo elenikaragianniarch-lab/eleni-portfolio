@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Night Walk: how it works · Eleni Karagianni</title>
+<meta name="description" content="How Night Walk works: the data, the five street scores, four walkers negotiating one route, and which streets a city should fix first.">
+<link rel="icon" href="../../favicon.svg">
+<style>
+@font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(../../fonts/inter-tight-latin-wght-normal.woff2) format("woff2-variations")}
+@font-face{font-family:"Roboto Mono";font-weight:100 700;font-display:swap;src:url(../../fonts/roboto-mono-latin-wght-normal.woff2) format("woff2-variations")}
+:root{--ink:#ECECEC;--muted:#8B8B8B;--hair:#343434;--red:#E0412F;--pink:#E3495F;--salmon:#E8785E;--sage:#A3B58C;--cream:#EFE6D8;--land:#3D3834;--paper:#1B1B1B;
+--maya:#8F7B58;--sam:#6A7C88;--leila:#76866A;--jo:#8A7A70;color-scheme:dark;
+--f:"Inter Tight","Helvetica Neue",Arial,sans-serif;--m:"Roboto Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink)}
+body{font:400 16px/1.45 var(--f);-webkit-font-smoothing:antialiased;overflow:hidden}
+[data-lang=en] .el,[data-lang=el] .en{display:none!important}
+a{color:inherit}
+header{position:fixed;inset:0 0 auto 0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;font:400 12px var(--m);letter-spacing:.06em;background:linear-gradient(var(--paper) 60%,transparent)}
+header a{text-decoration:none;color:var(--muted)}header a:hover{color:var(--ink)}
+.langs button{font:500 12px var(--m);background:none;border:1px solid var(--hair);color:var(--muted);padding:5px 10px;cursor:pointer;border-radius:0}
+.langs button.on{border-color:var(--ink);color:var(--ink)}
+main{height:100vh;height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+section{min-height:100vh;min-height:100dvh;scroll-snap-align:start;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center;padding:76px 56px 56px;border-bottom:1px solid var(--hair)}
+section.wide{grid-template-columns:1fr}
+.lab{font:400 11.5px var(--m);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.lab b{color:var(--salmon);font-weight:500}
+h1{font-weight:300;font-size:clamp(40px,4.6vw,68px);line-height:.95;letter-spacing:-.04em;margin:0 0 22px}
+h2{font-weight:300;font-size:clamp(32px,3.6vw,52px);line-height:1;letter-spacing:-.035em;margin:0 0 20px}
+h1 .r,h2 .r{color:var(--pink)}
+p{margin:0 0 14px;max-width:560px}
+.lede{font-size:clamp(18px,1.6vw,22px);line-height:1.35}
+.big{font-size:clamp(24px,2.6vw,38px);line-height:1.15;font-weight:300;letter-spacing:-.02em;max-width:900px}
+.note{font:400 12px/1.55 var(--m);color:var(--muted)}
+.btn{display:inline-block;font:500 13px var(--m);letter-spacing:.04em;padding:10px 16px;border:1px solid var(--ink);text-decoration:none;margin:8px 8px 0 0}
+.btn.p{background:var(--pink);border-color:var(--pink);color:#1B1B1B}
+canvas{width:100%;display:block;background:var(--land)}
+.mapbox{position:relative}
+.cap{font:400 11.5px/1.5 var(--m);color:var(--muted);margin-top:8px}
+.cap i{font-style:normal;display:inline-block;width:18px;height:0;vertical-align:middle;margin:0 6px 0 0}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:26px 0 10px}
+.nums div{border-top:1px solid var(--ink);padding-top:10px}
+.nums b{display:block;font-weight:300;font-size:clamp(30px,3vw,46px);line-height:1;letter-spacing:-.03em;margin-bottom:6px}
+.nums b.r{color:var(--pink)}
+.nums span{font:400 11.5px/1.45 var(--m);color:var(--muted)}
+.src{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+.src div{border-top:1px solid var(--ink);padding-top:10px}
+.src h3{font-weight:500;font-size:17px;margin:0 0 4px}
+.src p{font-size:14px;color:#CFCFCF;margin:0 0 6px}
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.five h3{font-weight:500;font-size:15px;margin:10px 0 4px}
+.five p{font:400 11.5px/1.5 var(--m);color:var(--muted);margin:0}
+.formula{font:400 clamp(15px,1.5vw,20px)/1.5 var(--m);border:1px solid var(--ink);padding:16px 18px;margin:6px 0 18px;max-width:640px}
+.formula b{color:var(--pink);font-weight:500}
+.ex{display:grid;gap:10px;margin-top:6px}
+.ex .row{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;align-items:center;font:400 13px var(--m)}
+.ex .bar{height:12px;background:var(--hair);position:relative}
+.ex .bar i{position:absolute;inset:0 auto 0 0}
+.ex .base{position:absolute;top:-4px;bottom:-4px;border-left:1px dashed var(--ink)}
+.walkers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wk{border:1px solid var(--hair);padding:14px 16px}
+.wk h3{font-weight:500;font-size:17px;margin:0 0 2px;display:flex;align-items:center;gap:10px}
+.wk h3 i{width:26px;border-top:3px solid}
+.wk p{font-size:13.5px;color:#BDBDBD;margin:0 0 10px}
+.wbars{display:grid;grid-template-columns:96px 1fr;gap:4px 10px;font:400 11px var(--m);color:var(--muted);align-items:center}
+.wbars .b{height:6px;background:var(--hair);position:relative}.wbars .b i{position:absolute;inset:0 auto 0 0}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 18px;display:grid;gap:10px;max-width:560px}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:15px}
+.steps li::before{counter-increment:s;content:counter(s);width:22px;height:22px;display:grid;place-items:center;font:600 11px var(--m);background:var(--ink);color:var(--paper)}
+table{border-collapse:collapse;width:100%;font:400 12.5px var(--m)}
+th,td{padding:7px 8px;border-bottom:1px solid var(--hair);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{color:var(--muted);font-weight:400}
+tr.pick td{color:var(--pink);font-weight:600}
+td.worst{text-decoration:underline;text-underline-offset:3px}
+.fixes{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px;max-width:580px}
+.fixes li{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:baseline;border-top:1px solid var(--hair);padding-top:8px;font-size:15px}
+.fixes .n{width:20px;height:20px;display:grid;place-items:center;font:700 11px var(--m);border:1px solid var(--ink)}
+.fixes em{font:400 11.5px var(--m);font-style:normal;color:var(--muted)}
+.fixes .d{grid-column:2/-1;font:400 11.5px var(--m);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:10px}
+.three div{border-top:1px solid var(--ink);padding-top:12px}
+.three b{display:block;font:600 12px var(--m);color:var(--salmon);margin-bottom:8px;letter-spacing:.05em}
+.three h3{font-weight:400;font-size:clamp(20px,1.9vw,26px);line-height:1.15;letter-spacing:-.02em;margin:0 0 10px}
+.three p{font-size:14px;color:#BDBDBD}
+.oneline{font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.2;letter-spacing:-.02em;border-left:3px solid var(--pink);padding-left:18px;max-width:980px;margin:0 0 30px}
+.who{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.who div{border-top:1px solid var(--ink);padding-top:10px}
+.who h3{font-weight:500;font-size:16px;margin:0 0 6px}.who p{font-size:14px;color:#BDBDBD}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:6px}
+.two h3{font:500 12px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.two ul{margin:0;padding:0 0 0 18px;display:grid;gap:8px;font-size:15px}
+.two ul.next{list-style:none;padding:0}
+.two ul.next li::before{content:"→ ";color:var(--pink)}
+svg text{font-family:var(--m)}
+.pipe{width:100%;height:auto}
+.counter{position:fixed;right:28px;bottom:18px;font:400 12px var(--m);color:var(--muted);z-index:5}
+.hint{position:fixed;left:28px;bottom:18px;font:400 11px var(--m);color:#5E5E5E;z-index:5}
+@media (max-width:900px){
+  body{overflow:auto}main{height:auto;overflow:visible;scroll-snap-type:none}
+  section{grid-template-columns:1fr;padding:72px 20px 40px;gap:26px;min-height:auto}
+  .nums,.who{grid-template-columns:1fr 1fr}.five{grid-template-columns:1fr 1fr}.three,.two,.src,.walkers{grid-template-columns:1fr}
+  .ex .row{grid-template-columns:110px 1fr 56px}.hint{display:none}
+}
+@media print{body{overflow:visible}main{height:auto;overflow:visible}section{page-break-after:always;min-height:auto}header,.counter,.hint{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <a href="../"><span class="en">← Night Walk (live prototype)</span><span class="el">← Night Walk (το πρωτότυπο)</span></a>
+  <div class="langs"><button type="button" data-l="en">EN</button> <button type="button" data-l="el">ΕΛ</button></div>
+</header>
+<main id="deck">
+
+<!-- 1 COVER -->
+<section>
+  <div>
+    <p class="lab">Night Walk · <span class="en">How it works</span><span class="el">Πώς δουλεύει</span> · Eleni Karagianni, 2026</p>
+    <h1><span class="en">Safest,<br><span class="r">not shortest.</span></span><span class="el">Η ασφαλέστερη,<br><span class="r">όχι η συντομότερη.</span></span></h1>
+    <p class="lede"><span class="en">Map apps send you the quickest way home. Night Walk finds the way that stays lit, busy and open, and tells you what it costs in minutes.</span><span class="el">Οι εφαρμογές χαρτών σε στέλνουν από τον πιο γρήγορο δρόμο. Το Night Walk βρίσκει τον δρόμο που μένει φωτισμένος, με κόσμο και ανοιχτός, και σου λέει πόσα λεπτά κοστίζει.</span></p>
+    <p class="note"><span class="en">King's Cross to Camden, London. A design prototype, not safety advice.</span><span class="el">King's Cross – Camden, Λονδίνο. Πρωτότυπο σχεδιασμού, όχι συμβουλή ασφάλειας.</span></p>
+    <a class="btn p" href="../"><span class="en">Open the live prototype →</span><span class="el">Άνοιξε το πρωτότυπο →</span></a>
+  </div>
+  <div class="mapbox"><canvas id="cvHero"></canvas><div class="cap" id="heroCap"></div></div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="wide">
+  <div>
+    <p class="lab">01 · <span class="en">The problem</span><span class="el">Το πρόβλημα</span></p>
+    <p class="big"><span class="en">Navigation optimises for time. At night, many women choose their way home by other things: <span style="color:var(--pink)">light, people around, being seen, somewhere to ask for help.</span></span><span class="el">Η πλοήγηση βελτιστοποιεί τον χρόνο. Τη νύχτα, πολλές γυναίκες διαλέγουν τον δρόμο για το σπίτι με άλλα κριτήρια: <span style="color:var(--pink)">φως, κόσμο γύρω, να τις βλέπουν, κάπου να ζητήσουν βοήθεια.</span></span></p>
+    <p class="lede" style="color:#BDBDBD;max-width:820px"><span class="en">Those choices are made alone, from memory and instinct. No app shows them, and no city sees them. Night Walk makes them visible: for the person walking, and for the people who design the streets.</span><span class="el">Αυτές οι επιλογές γίνονται μοναχικά, από μνήμη και ένστικτο. Καμία εφαρμογή δεν τις δείχνει και καμία πόλη δεν τις βλέπει. Το Night Walk τις κάνει ορατές: για αυτή που περπατάει, και για όσους σχεδιάζουν τους δρόμους.</span></p>
+  </div>
+</section>
+
+<!-- 3 PIPELINE -->
+<section class="wide">
+  <div>
+    <p class="lab">02 · <span class="en">How it works, in one picture</span><span class="el">Πώς δουλεύει, σε μία εικόνα</span></p>
+    <svg class="pipe" viewBox="0 0 1200 330" role="img" aria-label="Pipeline diagram"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ECECEC"/></marker></defs><g fill="none" stroke="#ECECEC" stroke-width="1.2" marker-end="url(#ar)"><path d="M184 60H202"/><path d="M382 60H400"/><path d="M580 60H598"/><path d="M778 60H796"/><path d="M976 60H994"/><path d="M293 110V190Q293 220 323 220H400"/><path d="M580 230H598"/><path d="M778 230H796"/></g><g font-size="13"><rect x="6" y="10" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="18" y="34" fill="#8B8B8B" font-size="11">01</text><text x="18" y="60" fill="#ECECEC" font-weight="600"><tspan class="en">Open data</tspan><tspan class="el">Ανοιχτά δεδομένα</tspan></text><text x="18" y="80" fill="#8B8B8B" font-size="11">OpenStreetMap</text><text x="18" y="96" fill="#8B8B8B" font-size="11">police.uk</text><rect x="204" y="10" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="216" y="34" fill="#8B8B8B" font-size="11">02</text><text x="216" y="60" fill="#ECECEC" font-weight="600"><tspan class="en">Score streets</tspan><tspan class="el">Βαθμός δρόμων</tspan></text><text x="216" y="80" fill="#8B8B8B" font-size="11"><tspan class="en">8,165 segments</tspan><tspan class="el">8.165 τμήματα</tspan></text><text x="216" y="96" fill="#8B8B8B" font-size="11"><tspan class="en">5 scores, 0 to 1</tspan><tspan class="el">5 βαθμοί, 0 έως 1</tspan></text><rect x="402" y="10" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="414" y="34" fill="#8B8B8B" font-size="11">03</text><text x="414" y="60" fill="#ECECEC" font-weight="600"><tspan class="en">Four walkers</tspan><tspan class="el">Τέσσερις πεζοί</tspan></text><text x="414" y="80" fill="#8B8B8B" font-size="11"><tspan class="en">own weights</tspan><tspan class="el">δικά τους βάρη</tspan></text><text x="414" y="96" fill="#8B8B8B" font-size="11"><tspan class="en">= own cost per metre</tspan><tspan class="el">= δικό τους κόστος/μ.</tspan></text><rect x="600" y="10" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="612" y="34" fill="#8B8B8B" font-size="11">04</text><text x="612" y="60" fill="#ECECEC" font-weight="600"><tspan class="en">Best routes</tspan><tspan class="el">Διαδρομές</tspan></text><text x="612" y="80" fill="#8B8B8B" font-size="11">Dijkstra</text><text x="612" y="96" fill="#8B8B8B" font-size="11"><tspan class="en">8 candidates</tspan><tspan class="el">8 υποψήφιες</tspan></text><rect x="798" y="10" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="810" y="34" fill="#8B8B8B" font-size="11">05</text><text x="810" y="60" fill="#ECECEC" font-weight="600"><tspan class="en">Negotiate</tspan><tspan class="el">Διαπραγμάτευση</tspan></text><text x="810" y="80" fill="#8B8B8B" font-size="11">minimax regret</text><text x="810" y="96" fill="#8B8B8B" font-size="11"><tspan class="en">one route for all</tspan><tspan class="el">μία για όλες</tspan></text><rect x="996" y="10" width="198" height="100" fill="#E3495F"/><text x="1008" y="34" fill="#1B1B1B" font-size="11">→</text><text x="1008" y="60" fill="#1B1B1B" font-weight="700"><tspan class="en">Your route</tspan><tspan class="el">Η διαδρομή σου</tspan></text><text x="1008" y="80" fill="#1B1B1B" font-size="11"><tspan class="en">+ reasons</tspan><tspan class="el">+ γιατί</tspan></text><text x="1008" y="96" fill="#1B1B1B" font-size="11"><tspan class="en">+ cost in minutes</tspan><tspan class="el">+ κόστος σε λεπτά</tspan></text><text x="18" y="236" fill="#8B8B8B" font-size="11" letter-spacing="1"><tspan class="en">FOR THE CITY</tspan><tspan class="el">ΓΙΑ ΤΗΝ ΠΟΛΗ</tspan></text><rect x="402" y="180" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="414" y="204" fill="#8B8B8B" font-size="11">06</text><text x="414" y="230" fill="#ECECEC" font-weight="600"><tspan class="en">Simulate</tspan><tspan class="el">Προσομοίωση</tspan></text><text x="414" y="250" fill="#8B8B8B" font-size="11"><tspan class="en">2,560 walks</tspan><tspan class="el">2.560 διαδρομές</tspan></text><text x="414" y="266" fill="#8B8B8B" font-size="11"><tspan class="en">quick vs safe</tspan><tspan class="el">γρήγορη vs ασφαλής</tspan></text><rect x="600" y="180" width="178" height="100" fill="#1B1B1B" stroke="#ECECEC"/><text x="612" y="204" fill="#8B8B8B" font-size="11">07</text><text x="612" y="230" fill="#ECECEC" font-weight="600"><tspan class="en">Streets to fix</tspan><tspan class="el">Δρόμοι για αλλαγή</tspan></text><text x="612" y="250" fill="#8B8B8B" font-size="11"><tspan class="en">avoided by safe route</tspan><tspan class="el">που αποφεύγονται</tspan></text><text x="612" y="266" fill="#8B8B8B" font-size="11"><tspan class="en">ranked by use</tspan><tspan class="el">ταξινόμηση ανά χρήση</tspan></text><rect x="798" y="180" width="178" height="100" fill="#A3B58C"/><text x="810" y="204" fill="#1B1B1B" font-size="11">08</text><text x="810" y="230" fill="#1B1B1B" font-weight="700"><tspan class="en">Test the fix</tspan><tspan class="el">Τεστ της αλλαγής</tspan></text><text x="810" y="250" fill="#1B1B1B" font-size="11"><tspan class="en">improve in data,</tspan><tspan class="el">αλλαγή στα δεδομένα,</tspan></text><text x="810" y="266" fill="#1B1B1B" font-size="11"><tspan class="en">re-run all walks</tspan><tspan class="el">ξανατρέχουν όλες</tspan></text></g></svg>
+    <p class="note" style="margin-top:14px"><span class="en">Steps 01–02 run once in Python (build.py). Steps 03–05 run live in the browser for any start and end. Steps 06–08 run in Python (sim.py, fix.py) and feed the City map and Fix the city tabs.</span><span class="el">Τα βήματα 01–02 τρέχουν μία φορά σε Python (build.py). Τα 03–05 τρέχουν ζωντανά στον browser για οποιαδήποτε αφετηρία και προορισμό. Τα 06–08 τρέχουν σε Python (sim.py, fix.py) και τροφοδοτούν τις καρτέλες City map και Fix the city.</span></p>
+  </div>
+</section>
+
+<!-- 4 DATA -->
+<section>
+  <div>
+    <p class="lab">03 · <span class="en">The data</span><span class="el">Τα δεδομένα</span></p>
+    <h2><span class="en">Open, free,<br>public data.</span><span class="el">Ανοιχτά, δωρεάν,<br>δημόσια δεδομένα.</span></h2>
+    <div class="src">
+      <div><h3>OpenStreetMap</h3>
+        <p class="en">Every street, footpath, step and underpass. Lighting tags. Bars, takeaways, late shops, stations, bus stops. Pharmacies, police, hospitals. Parks.</p>
+        <p class="el">Κάθε δρόμος, πεζόδρομος, σκάλα και υπόγεια διάβαση. Ετικέτες φωτισμού. Μπαρ, take-away, μαγαζιά, σταθμοί, στάσεις. Φαρμακεία, αστυνομία, νοσοκομεία. Πάρκα.</p>
+        <p class="note">Overpass API export · ODbL</p></div>
+      <div><h3>police.uk</h3>
+        <p class="en">Street-level crime: 1,253 recorded incidents for August 2026, each with a category and an approximate location.</p>
+        <p class="el">Εγκληματικότητα σε επίπεδο δρόμου: 1.253 καταγεγραμμένα περιστατικά για τον Αύγουστο 2026, το καθένα με κατηγορία και κατά προσέγγιση θέση.</p>
+        <p class="note">Open Government Licence v3.0</p></div>
+    </div>
+    <div class="nums" style="grid-template-columns:repeat(3,1fr)">
+      <div><b>8,165</b><span class="en">street segments, split at every junction</span><span class="el">τμήματα δρόμου, σπασμένα σε κάθε διασταύρωση</span></div>
+      <div><b>683</b><span class="en">places with life at night</span><span class="el">σημεία με ζωή τη νύχτα</span></div>
+      <div><b>848</b><span class="en">incidents in the categories used</span><span class="el">περιστατικά στις κατηγορίες που μετράνε</span></div>
+    </div>
+  </div>
+  <div class="mapbox"><canvas id="cvData"></canvas>
+    <div class="cap"><i style="border-top:6px solid var(--red)"></i><span class="en">places open at night</span><span class="el">ανοιχτά τη νύχτα</span> &nbsp; <i style="border-top:6px solid var(--salmon);width:6px;border-radius:50%"></i><span class="en">recorded incidents</span><span class="el">περιστατικά</span> &nbsp; <i style="border-top:6px solid #fff;width:6px"></i><span class="en">help points</span><span class="el">σημεία βοήθειας</span></div>
+  </div>
+</section>
+
+<!-- 5 FIVE SCORES -->
+<section class="wide">
+  <div>
+    <p class="lab">04 · <span class="en">Step 02: scoring</span><span class="el">Βήμα 02: βαθμολόγηση</span></p>
+    <h2><span class="en">Every street gets five scores, 0 to 1.</span><span class="el">Κάθε δρόμος παίρνει πέντε βαθμούς, από 0 έως 1.</span></h2>
+    <div class="five" id="five"></div>
+    <p class="note" style="margin-top:16px"><span class="en">Bright = scores high. Each segment is sampled every 12 m and compared with nearby points using a spatial index (KD-tree).</span><span class="el">Φωτεινό = υψηλός βαθμός. Κάθε τμήμα δειγματίζεται ανά 12 μ. και συγκρίνεται με τα κοντινά σημεία μέσω χωρικού ευρετηρίου (KD-tree).</span></p>
+  </div>
+</section>
+
+<!-- 6 COST -->
+<section>
+  <div>
+    <p class="lab">05 · <span class="en">Steps 03–04: from scores to a route</span><span class="el">Βήματα 03–04: από βαθμούς σε διαδρομή</span></p>
+    <h2><span class="en">A weak street<br><span class="r">feels longer.</span></span><span class="el">Ένας κακός δρόμος<br><span class="r">«μετράει» μεγαλύτερος.</span></span></h2>
+    <p class="en">Each walker gives each of the five criteria a weight, and has a tolerance for extra walking. Together they turn every street into a cost. Dijkstra's algorithm then finds the cheapest path through the network.</p>
+    <p class="el">Κάθε πεζή δίνει ένα βάρος σε κάθε κριτήριο και έχει μια ανοχή για επιπλέον περπάτημα. Μαζί μετατρέπουν κάθε δρόμο σε κόστος. Μετά ο αλγόριθμος Dijkstra βρίσκει τη φθηνότερη διαδρομή μέσα στο δίκτυο.</p>
+  </div>
+  <div>
+    <div class="formula"><span class="en">cost = length × (1 + 3 × <b>tolerance</b> × Σ <b>weight</b> × (1 − score) ÷ 2.5)</span><span class="el">κόστος = μήκος × (1 + 3 × <b>ανοχή</b> × Σ <b>βάρος</b> × (1 − βαθμός) ÷ 2.5)</span></div>
+    <p class="note" style="margin-bottom:12px"><span class="en">Example: 100 m of unlit street (all other scores perfect) counts as…</span><span class="el">Παράδειγμα: 100 μ. αφώτιστου δρόμου (όλα τα άλλα τέλεια) μετράνε σαν…</span></p>
+    <div class="ex" id="ex"></div>
+    <p class="note" style="margin-top:12px"><span class="en">Shortest route: cost = length only. Step-free walkers: steps cost infinity.</span><span class="el">Συντομότερη διαδρομή: κόστος = μόνο μήκος. Για όσες χρειάζονται χωρίς σκαλιά: οι σκάλες κοστίζουν άπειρο.</span></p>
+  </div>
+</section>
+
+<!-- 7 WALKERS -->
+<section>
+  <div>
+    <p class="lab">06 · <span class="en">Step 03: four walkers</span><span class="el">Βήμα 03: τέσσερις πεζοί</span></p>
+    <h2><span class="en">Four walkers,<br><span class="r">four needs.</span></span><span class="el">Τέσσερις πεζοί,<br><span class="r">τέσσερις ανάγκες.</span></span></h2>
+    <p class="en">There is no single "safe". A nurse after a late shift, someone new to the city, a parent with a pram and someone alone after a night out want different things from the same street.</p>
+    <p class="el">Δεν υπάρχει ένα «ασφαλές». Μια νοσηλεύτρια μετά από βάρδια, κάποια καινούρια στην πόλη, μια μητέρα με καρότσι και κάποια μόνη μετά από έξοδο θέλουν διαφορετικά πράγματα από τον ίδιο δρόμο.</p>
+    <p class="note"><span class="en">These are hand-written weight profiles (personas), not trained models.</span><span class="el">Είναι προφίλ βαρών γραμμένα με το χέρι (περσόνες), όχι εκπαιδευμένα μοντέλα.</span></p>
+  </div>
+  <div class="walkers" id="walkers"></div>
+</section>
+
+<!-- 8 NEGOTIATION -->
+<section>
+  <div>
+    <p class="lab">07 · <span class="en">Step 05: negotiation</span><span class="el">Βήμα 05: διαπραγμάτευση</span></p>
+    <h2><span class="en">One route that works<br><span class="r">for all four.</span></span><span class="el">Μία διαδρομή που λειτουργεί<br><span class="r">και για τις τέσσερις.</span></span></h2>
+    <ol class="steps">
+      <li><span class="en">Each walker's own best route (4 candidates).</span><span class="el">Η καλύτερη διαδρομή κάθε πεζής (4 υποψήφιες).</span></li>
+      <li><span class="en">Four blended routes from their shared and top priorities, always step-free (4 more).</span><span class="el">Τέσσερις «μικτές» διαδρομές από τις κοινές και τις κορυφαίες προτεραιότητές τους, πάντα χωρίς σκαλιά (άλλες 4).</span></li>
+      <li><span class="en">For every candidate, each walker's regret: how much worse it is than her own best.</span><span class="el">Για κάθε υποψήφια, η «απώλεια» κάθε πεζής: πόσο χειρότερη είναι από τη δική της καλύτερη.</span></li>
+      <li><span class="en">Pick the route whose worst regret is smallest (minimax regret). Nobody gives up too much.</span><span class="el">Επιλέγεται η διαδρομή με τη μικρότερη μέγιστη απώλεια (minimax regret). Καμία δεν χάνει πολλά.</span></li>
+    </ol>
+  </div>
+  <div>
+    <p class="note" id="negCap" style="margin-bottom:8px"></p>
+    <div id="negTable"></div>
+  </div>
+</section>
+
+<!-- 9 CITY -->
+<section>
+  <div>
+    <p class="lab">08 · <span class="en">Step 06: the whole area</span><span class="el">Βήμα 06: όλη η περιοχή</span></p>
+    <h2><span class="en">2,560 simulated<br>walks home.</span><span class="el">2.560 προσομοιωμένες<br>διαδρομές.</span></h2>
+    <p class="note" style="margin-bottom:6px"><span class="en">160 random starting points × 16 destinations each, 600 m to 2.2 km apart. Each walk routed twice: shortest and negotiated safe.</span><span class="el">160 τυχαίες αφετηρίες × 16 προορισμοί η καθεμία, 600 μ. έως 2,2 χλμ. Κάθε διαδρομή υπολογίζεται δύο φορές: συντομότερη και ασφαλής.</span></p>
+    <div class="nums" style="grid-template-columns:1fr 1fr">
+      <div><b class="r">+1.2 min</b><span class="en">average cost of the safe route (6% longer)</span><span class="el">μέσο κόστος της ασφαλούς διαδρομής (6% μεγαλύτερη)</span></div>
+      <div><b>91%</b><span class="en">of walks: 3 min extra or less</span><span class="el">των διαδρομών: 3 λεπτά ή λιγότερο επιπλέον</span></div>
+      <div><b>73→93%</b><span class="en">of the walk on lit streets</span><span class="el">της διαδρομής σε φωτισμένους δρόμους</span></div>
+      <div><b>60→49%</b><span class="en">of walks pass an underpass</span><span class="el">των διαδρομών περνούν υπόγεια διάβαση</span></div>
+    </div>
+  </div>
+  <div class="mapbox"><canvas id="cvCity"></canvas>
+    <div class="cap"><i style="border-top:4px solid var(--sage)"></i><span class="en">safe corridors: streets most safe routes use</span><span class="el">ασφαλείς διάδρομοι: όπου περνούν οι περισσότερες ασφαλείς</span> &nbsp; <i style="border-top:4px solid var(--salmon)"></i><span class="en">streets the quick way uses, the safe way avoids</span><span class="el">δρόμοι που παίρνει η γρήγορη, αποφεύγει η ασφαλής</span></div>
+  </div>
+</section>
+
+<!-- 10 FIX -->
+<section>
+  <div>
+    <p class="lab">09 · <span class="en">Steps 07–08: fix the city</span><span class="el">Βήματα 07–08: διορθώνοντας την πόλη</span></p>
+    <h2><span class="en">Which street to fix first,<br><span style="color:var(--sage)">tested before building.</span></span><span class="el">Ποιος δρόμος να φτιαχτεί πρώτος,<br><span style="color:var(--sage)">με τεστ πριν χτιστεί.</span></span></h2>
+    <p class="en">Each problem street gets design moves (light, activate with late uses, open sightlines, fix the underpass). The improvement is written into the data and all 2,560 walks are re-run.</p>
+    <p class="el">Κάθε προβληματικός δρόμος παίρνει σχεδιαστικές κινήσεις (φωτισμός, ενεργοποίηση με νυχτερινές χρήσεις, ορατότητα, ανάπλαση υπόγειας διάβασης). Η βελτίωση γράφεται στα δεδομένα και ξανατρέχουν όλες οι 2.560 διαδρομές.</p>
+    <ul class="fixes" id="fixes"></ul>
+    <div class="nums" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <div><b style="color:var(--sage)">+87</b><span class="en">walks where the quick way becomes safe enough, fixing the top 3 (124 min of detours saved)</span><span class="el">διαδρομές όπου η γρήγορη γίνεται αρκετά ασφαλής, με τους 3 πρώτους (124 λεπτά παράκαμψης λιγότερα)</span></div>
+      <div><b>73→80%</b><span class="en">of quick walks on lit streets after the top 3 fixes</span><span class="el">των γρήγορων διαδρομών σε φως μετά τις 3 πρώτες αλλαγές</span></div>
+    </div>
+    <p class="note"><span class="en">"Safe enough" = at least 90% lit, no dark underpass, under 10% hidden paths.</span><span class="el">«Αρκετά ασφαλής» = τουλάχιστον 90% φωτισμένη, καμία σκοτεινή υπόγεια διάβαση, κάτω από 10% κρυφά μονοπάτια.</span></p>
+  </div>
+  <div class="mapbox"><canvas id="cvFix"></canvas><div class="cap"><span class="en">The top three: numbered. Salmon = problem street.</span><span class="el">Οι τρεις πρώτοι: αριθμημένοι. Σομόν = προβληματικός δρόμος.</span></div></div>
+</section>
+
+<!-- 11 NEW -->
+<section class="wide">
+  <div>
+    <p class="lab">10 · <span class="en">What's new</span><span class="el">Τι είναι καινούριο</span></p>
+    <div class="three">
+      <div><b>01</b><h3><span class="en">Different needs, negotiated.</span><span class="el">Διαφορετικές ανάγκες, σε διαπραγμάτευση.</span></h3>
+        <p class="en">Not one safety score for everyone. Four people with different needs agree on one route, and you can see who gives up what.</p>
+        <p class="el">Όχι ένας βαθμός ασφάλειας για όλους. Τέσσερις άνθρωποι με διαφορετικές ανάγκες συμφωνούν σε μία διαδρομή, και φαίνεται ποια χάνει τι.</p></div>
+      <div><b>02</b><h3><span class="en">Every route explains itself.</span><span class="el">Κάθε διαδρομή εξηγεί τον εαυτό της.</span></h3>
+        <p class="en">Reasons in plain words and a price in minutes, instead of a black box. The data gaps are shown, not hidden.</p>
+        <p class="el">Λόγοι σε απλά λόγια και τιμή σε λεπτά, αντί για μαύρο κουτί. Τα κενά των δεδομένων φαίνονται, δεν κρύβονται.</p></div>
+      <div><b>03</b><h3><span class="en">From navigation to urban design.</span><span class="el">Από την πλοήγηση στον αστικό σχεδιασμό.</span></h3>
+        <p class="en">The same data tells a city which street to fix first, and tests the fix on thousands of walks before anyone spends money.</p>
+        <p class="el">Τα ίδια δεδομένα λένε στην πόλη ποιον δρόμο να φτιάξει πρώτο, και δοκιμάζουν την αλλαγή σε χιλιάδες διαδρομές πριν ξοδευτεί οτιδήποτε.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 IMPACT -->
+<section class="wide">
+  <div>
+    <p class="lab">11 · <span class="en">What it can enable</span><span class="el">Τι μπορεί να κάνει δυνατό</span></p>
+    <p class="oneline"><span class="en">Night Walk can help cities make streets safer at night, by showing which street to fix first and how many walks home each fix makes safe.</span><span class="el">Το Night Walk μπορεί να βοηθήσει τις πόλεις να κάνουν τους δρόμους πιο ασφαλείς τη νύχτα, δείχνοντας ποιον δρόμο να φτιάξουν πρώτο και πόσες διαδρομές για το σπίτι γίνονται ασφαλείς με κάθε αλλαγή.</span></p>
+    <div class="who">
+      <div><h3><span class="en">People walking home</span><span class="el">Όσες γυρνούν με τα πόδια</span></h3><p class="en">A route they can trust, with the cost in minutes and the reasons.</p><p class="el">Μια διαδρομή που μπορούν να εμπιστευτούν, με το κόστος σε λεπτά και τους λόγους.</p></div>
+      <div><h3><span class="en">Councils and transport</span><span class="el">Δήμοι και συγκοινωνίες</span></h3><p class="en">A ranked, tested list of streets to fix, with rough cost and partners.</p><p class="el">Μια ταξινομημένη, δοκιμασμένη λίστα δρόμων προς βελτίωση, με κόστος και εταίρους.</p></div>
+      <div><h3><span class="en">Estates and developers</span><span class="el">Developers και ιδιοκτήτες περιοχών</span></h3><p class="en">Test lighting and late ground-floor uses on a masterplan before it is built.</p><p class="el">Τεστ φωτισμού και νυχτερινών χρήσεων ισογείου σε ένα masterplan πριν χτιστεί.</p></div>
+      <div><h3><span class="en">Safety and mobility apps</span><span class="el">Εφαρμογές ασφάλειας και μετακίνησης</span></h3><p class="en">A routing layer that can sit inside an existing product.</p><p class="el">Ένα επίπεδο δρομολόγησης που μπαίνει μέσα σε υπάρχον προϊόν.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 LIMITS & NEXT -->
+<section class="wide">
+  <div>
+    <p class="lab">12 · <span class="en">Honest limits, and what's next</span><span class="el">Ειλικρινή όρια και επόμενα βήματα</span></p>
+    <div class="two">
+      <div><h3><span class="en">Limits today</span><span class="el">Όρια σήμερα</span></h3>
+        <ul>
+          <li><span class="en">Scores are hand-set rules, not yet validated with women walking these streets.</span><span class="el">Οι βαθμοί είναι κανόνες που όρισα εγώ, δεν έχουν ελεγχθεί ακόμα με γυναίκες που περπατούν αυτούς τους δρόμους.</span></li>
+          <li><span class="en">No time of day: 9pm and 2am look the same.</span><span class="el">Δεν υπάρχει ώρα: 9 το βράδυ και 2 τα ξημερώματα φαίνονται ίδια.</span></li>
+          <li><span class="en">Thin data: lighting tagged on 59% of streets, one month of crime, and most harassment is never reported.</span><span class="el">Λίγα δεδομένα: φωτισμός σε 59% των δρόμων, ένας μήνας εγκληματικότητας, και οι περισσότερες παρενοχλήσεις δεν καταγράφονται.</span></li>
+          <li><span class="en">The walkers are weight profiles, not LLM agents.</span><span class="el">Οι πεζοί είναι προφίλ βαρών, όχι LLM agents.</span></li>
+        </ul></div>
+      <div><h3><span class="en">Next</span><span class="el">Επόμενα</span></h3>
+        <ul class="next">
+          <li><span class="en">Time of day from opening hours (9pm vs 2am).</span><span class="el">Ώρα της νύχτας από τα ωράρια (9 μ.μ. vs 2 π.μ.).</span></li>
+          <li><span class="en">Check the scores with women: walk-alongs and short surveys.</span><span class="el">Έλεγχος των βαθμών με γυναίκες: κοινές διαδρομές και σύντομα ερωτηματολόγια.</span></li>
+          <li><span class="en">Design drawings for the top three fixes, with Camden and the Canal & River Trust.</span><span class="el">Σχέδια για τις τρεις πρώτες παρεμβάσεις, με τον Δήμο Camden και το Canal & River Trust.</span></li>
+          <li><span class="en">Real LLM agents with tools, measured against this baseline.</span><span class="el">Πραγματικοί LLM agents με εργαλεία, συγκρινόμενοι με αυτή τη βάση.</span></li>
+          <li><span class="en">A night-perception score learned from street images, checked for bias.</span><span class="el">Βαθμός «νυχτερινής αίσθησης» από εικόνες δρόμων, με έλεγχο για bias.</span></li>
+        </ul></div>
+    </div>
+    <p class="note" style="margin-top:30px">Data © OpenStreetMap contributors (ODbL) · police.uk (OGL v3.0) · <span class="en">Built with Python (NumPy, SciPy), plain JavaScript and SVG/Canvas.</span><span class="el">Φτιαγμένο με Python (NumPy, SciPy), JavaScript και SVG/Canvas.</span> · <a href="../">eleni-karagianni.com/nightwalk</a></p>
+  </div>
+</section>
+</main>
+<div class="counter" id="ctr"></div>
+<div class="hint"><span class="en">← → or scroll</span><span class="el">← → ή scroll</span></div>
+
+<script>
+const $=s=>document.querySelector(s);
+// ---------- language ----------
+function setLang(l){document.documentElement.dataset.lang=l;document.documentElement.lang=l;document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+  const u=new URL(location);u.searchParams.set("lang",l);history.replaceState(null,"",u);if(window.G)renderDynamic()}
+document.querySelector(".langs").onclick=e=>{const b=e.target.closest("[data-l]");if(b)setLang(b.dataset.l)};
+setLang(new URLSearchParams(location.search).get("lang")==="el"?"el":"en");
+const L=()=>document.documentElement.dataset.lang;
+const T=(en,el)=>L()==="el"?el:en;
+const nf=n=>n.toLocaleString(L()==="el"?"el-GR":"en-GB");
+
+// ---------- slide nav ----------
+const deck=$("#deck"),secs=[...document.querySelectorAll("section")];
+function cur(){const y=deck.scrollTop+innerHeight/2;let k=0;secs.forEach((s,i)=>{if(s.offsetTop<=y)k=i});return k}
+function ctr(){$("#ctr").textContent=String(cur()+1).padStart(2,"0")+" / "+String(secs.length).padStart(2,"0")}
+deck.addEventListener("scroll",()=>requestAnimationFrame(ctr));ctr();
+addEventListener("keydown",e=>{const k=cur();
+  if(["ArrowDown","ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();secs[Math.min(secs.length-1,k+1)].scrollIntoView()}
+  if(["ArrowUp","ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();secs[Math.max(0,k-1)].scrollIntoView()}});
+
+// ---------- model (same as the live prototype) ----------
+const K=3;
+const WALKERS=[
+ {name:"Maya",en:"night-shift nurse",el:"νοσηλεύτρια νυχτερινής βάρδιας",nen:"Finishing at 1am and tired. Wants it lit and not too long.",nel:"Τελειώνει στη 1 π.μ. κουρασμένη. Θέλει φως και όχι πολύ μεγάλη διαδρομή.",col:"#8F7B58",w:[.9,.2,.3,.1,.4],tol:.45},
+ {name:"Sam",en:"new to London",el:"καινούρια στο Λονδίνο",nen:"First month here. Wants busy streets and places to ask for help.",nel:"Πρώτος μήνας εδώ. Θέλει δρόμους με κόσμο και μέρη να ζητήσει βοήθεια.",col:"#6A7C88",w:[.4,.9,.5,.9,.4],tol:1.6},
+ {name:"Leila",en:"pushing a pram",el:"με καρότσι",nen:"Needs step-free pavements and open, visible routes. Steps are a no.",nel:"Χρειάζεται πεζοδρόμια χωρίς σκαλιά και ανοιχτές, ορατές διαδρομές. Σκάλες αποκλείονται.",col:"#76866A",w:[.5,.3,.8,.3,.3],tol:1.1,step:true},
+ {name:"Jo",en:"alone after a night out",el:"μόνη μετά από έξοδο",nen:"Will walk further to stay around people and light.",nel:"Περπατάει παραπάνω για να μένει κοντά σε κόσμο και φως.",col:"#8A7A70",w:[.9,.9,.9,.6,.9],tol:3.4}];
+const CRIT=[
+ {en:"Lighting",el:"Φωτισμός",ren:"OSM 'lit' tag (yes 1, no 0). Untagged, by street type: main road 0.85, pedestrian street 0.8, service road 0.5, path 0.35. Unlit park paths at most 0.2.",rel:"Ετικέτα 'lit' του OSM (ναι 1, όχι 0). Χωρίς ετικέτα, από τον τύπο: κεντρικός 0.85, πεζόδρομος 0.8, δρόμος εξυπηρέτησης 0.5, μονοπάτι 0.35. Αφώτιστα μονοπάτια πάρκων έως 0.2."},
+ {en:"People around",el:"Κόσμος γύρω",ren:"Places open at night within 35 m (pubs, bars, takeaways, late shops, stations, bus stops), per 60 m of street. Main roads get a bonus.",rel:"Μέρη ανοιχτά τη νύχτα σε 35 μ. (παμπ, μπαρ, take-away, μαγαζιά, σταθμοί, στάσεις), ανά 60 μ. δρόμου. Οι κεντρικοί δρόμοι παίρνουν μπόνους."},
+ {en:"Sightlines",el:"Ορατότητα",ren:"By street type: street 1, footway 0.8, service road 0.6, steps 0.55, path 0.4, park path 0.3, underpass 0.1.",rel:"Από τον τύπο: δρόμος 1, πεζοδρόμιο 0.8, εξυπηρέτησης 0.6, σκάλες 0.55, μονοπάτι 0.4, μονοπάτι πάρκου 0.3, υπόγεια διάβαση 0.1."},
+ {en:"Help nearby",el:"Βοήθεια κοντά",ren:"Distance to the nearest station, pharmacy, police, hospital, 24-hour shop or late venue: 1 within 50 m, falling to 0 at 250 m.",rel:"Απόσταση από σταθμό, φαρμακείο, αστυνομία, νοσοκομείο, 24ωρο ή νυχτερινό μαγαζί: 1 μέχρι 50 μ., πέφτει στο 0 στα 250 μ."},
+ {en:"Recorded incidents",el:"Περιστατικά",ren:"Police records within 45 m, per 100 m. Weighted: violence, robbery, weapons 1; theft from the person, public order 0.6; antisocial behaviour, drugs, damage 0.3. Score = 1 − rate.",rel:"Καταγραφές αστυνομίας σε 45 μ., ανά 100 μ. Βάρη: βία, ληστεία, όπλα 1· κλοπή από άτομο, δημόσια τάξη 0.6· αντικοινωνική συμπεριφορά, ναρκωτικά, φθορές 0.3. Βαθμός = 1 − ρυθμός."}];
+let G,CITY,FX,adj,A,B,res;
+function ecost(e,w,tol,step){if(step&&e[8])return Infinity;let p=0;for(let k=0;k<5;k++)p+=w[k]*(1-e[3+k]);return e[2]*(1+K*tol*p/2.5)}
+function hpush(h,x){h.push(x);let i=h.length-1;while(i){const p=(i-1)>>1;if(h[p][0]<=h[i][0])break;[h[p],h[i]]=[h[i],h[p]];i=p}}
+function hpop(h){const t=h[0],l=h.pop();if(h.length){h[0]=l;let i=0;for(;;){const a=2*i+1,b=a+1;let m=i;if(a<h.length&&h[a][0]<h[m][0])m=a;if(b<h.length&&h[b][0]<h[m][0])m=b;if(m===i)break;[h[m],h[i]]=[h[i],h[m]];i=m}}return t}
+function dijkstra(cf){const n=G.V.length,d=new Float64Array(n).fill(Infinity),pv=new Int32Array(n).fill(-1),pe=new Int32Array(n).fill(-1),h=[[0,A]];d[A]=0;
+  while(h.length){const [du,u]=hpop(h);if(du>d[u])continue;if(u===B)break;for(const i of adj[u]){const e=G.E[i],v=e[0]===u?e[1]:e[0],c=cf(e);if(c===Infinity)continue;const nd=du+c;if(nd<d[v]){d[v]=nd;pv[v]=u;pe[v]=i;hpush(h,[nd,v])}}}
+  if(d[B]===Infinity)return null;const r=[];let u=B;while(u!==A){r.push(pe[u]);u=pv[u]}return r.reverse()}
+const rc=(r,w)=>r.reduce((s,i)=>s+ecost(G.E[i],w.w,w.tol,w.step),0);
+function rstats(r){let L=0,lit=0,tun=0,pt=0;for(const i of r){const e=G.E[i];L+=e[2];if(e[3]>=.8)lit+=e[2];if(e[9]&&!pt)tun++;pt=e[9]}return {L,min:L/80,lit:lit/L,tun}}
+
+// ---------- drawing ----------
+let BB;
+function prep(cv,ratio){const w=cv.clientWidth,h=Math.round(w*ratio),dpr=Math.min(2,devicePixelRatio||1);cv.width=w*dpr;cv.height=h*dpr;cv.style.height=h+"px";
+  const c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);const pad=10,s=Math.min((w-2*pad)/(BB[2]-BB[0]),(h-2*pad)/(BB[3]-BB[1]));
+  const ox=(w-(BB[2]-BB[0])*s)/2,oy=(h-(BB[3]-BB[1])*s)/2;c.P=p=>[ox+(p[0]-BB[0])*s,oy+(BB[3]-p[1])*s];c.s=s;c.W=w;c.H=h;c.lineCap="round";c.lineJoin="round";return c}
+function seg(c,e){const pts=[G.V[e[0]],...e[11],G.V[e[1]]];c.moveTo(...c.P(pts[0]));for(let i=1;i<pts.length;i++)c.lineTo(...c.P(pts[i]))}
+function net(c,style){for(const e of G.E){const st=style(e);if(!st)continue;c.beginPath();seg(c,e);c.strokeStyle=st[0];c.lineWidth=st[1];c.stroke()}}
+function parks(c){c.fillStyle="rgba(140,90,60,.18)";for(const p of G.parks){if(p.length<3)continue;c.beginPath();c.moveTo(...c.P(p[0]));for(const q of p)c.lineTo(...c.P(q));c.fill()}}
+function route(c,r,col,w,dash){c.beginPath();for(const i of r)seg(c,G.E[i]);c.strokeStyle=col;c.lineWidth=w;c.setLineDash(dash||[]);c.stroke();c.setLineDash([])}
+function dot(c,p,r,col){c.beginPath();c.arc(...c.P(p),r,0,7);c.fillStyle=col;c.fill()}
+function sq(c,p,r,col){const [x,y]=c.P(p);c.fillStyle=col;c.fillRect(x-r,y-r,2*r,2*r)}
+const ramp=v=>`rgba(239,230,216,${(.06+.9*v*v).toFixed(3)})`;
+
+function drawHero(){const c=prep($("#cvHero"),.72);parks(c);
+  net(c,e=>e[3]>=.8?["rgba(239,230,216,.30)",.8]:["rgba(239,230,216,.08)",.6]);
+  route(c,res.short,"#fff",2.4,[1,5]);route(c,res.pick.r,"#E3495F",3.6);
+  dot(c,G.V[A],6,"#D9D9D9");dot(c,G.V[B],6,"#E3495F");
+  const s0=rstats(res.short),s1=rstats(res.pick.r),dm=Math.round(s1.min-s0.min);
+  $("#heroCap").innerHTML=T(`Camden Market → Granary Square, computed from the data on this page. <i style="border-top:2px dotted #fff"></i>shortest: ${Math.round(s0.min)} min, ${Math.round(s0.lit*100)}% lit, ${s0.tun} underpass${s0.tun===1?"":"es"}. <i style="border-top:3px solid #E3495F"></i>agreed safe route: ${Math.round(s1.min)} min, ${Math.round(s1.lit*100)}% lit, ${s1.tun} underpass${s1.tun===1?"":"es"}.`,
+   `Camden Market → Granary Square, υπολογισμένο από τα δεδομένα αυτής της σελίδας. <i style="border-top:2px dotted #fff"></i>συντομότερη: ${Math.round(s0.min)}′, ${Math.round(s0.lit*100)}% φωτισμένη, ${s0.tun} υπόγειες διαβάσεις. <i style="border-top:3px solid #E3495F"></i>ασφαλής (συμφωνημένη): ${Math.round(s1.min)}′, ${Math.round(s1.lit*100)}% φωτισμένη, ${s1.tun} υπόγειες διαβάσεις.`)}
+function drawData(){const c=prep($("#cvData"),.78);parks(c);net(c,()=>["rgba(239,230,216,.16)",.6]);
+  for(const p of G.crime)dot(c,p,1.6+p[2]*1.4,"rgba(232,120,94,.75)");
+  for(const p of G.act)sq(c,p,1.6,"rgba(224,65,47,.9)");
+  for(const p of G.help)sq(c,p,2.6,"#fff")}
+function drawFive(){$("#five").innerHTML=CRIT.map((k,i)=>`<div><canvas data-k="${i}"></canvas><h3>${T(k.en,k.el)}</h3><p>${T(k.ren,k.rel)}</p></div>`).join("");
+  document.querySelectorAll("#five canvas").forEach(cv=>{const k=+cv.dataset.k,c=prep(cv,.85);net(c,e=>[ramp(e[3+k]),.7])})}
+function drawEx(){const rows=WALKERS.map(w=>{const v=100*(1+K*w.tol*w.w[0]/2.5);return {w,v}}),mx=500;
+  $("#ex").innerHTML=`<div class="row"><span>${T("Shortest","Συντομότερη")}</span><div class="bar"><i style="width:${100/mx*100}%;background:#fff"></i></div><span>100 ${T("m","μ.")}</span></div>`+
+   rows.map(({w,v})=>`<div class="row"><span>${w.name}</span><div class="bar"><i style="width:${v/mx*100}%;background:${w.col}"></i><span class="base" style="left:${100/mx*100}%"></span></div><span>${Math.round(v)} ${T("m","μ.")}</span></div>`).join("")}
+function drawWalkers(){const CN=CRIT.map(k=>T(k.en,k.el));
+  $("#walkers").innerHTML=WALKERS.map(w=>`<div class="wk"><h3><i style="border-color:${w.col}"></i>${w.name}, ${T(w.en,w.el)}</h3><p>${T(w.nen,w.nel)}</p><div class="wbars">${w.w.map((v,k)=>`<span>${CN[k]}</span><div class="b"><i style="width:${v*100}%;background:${w.col}"></i></div>`).join("")}<span>${T("Extra walking","Επιπλέον περπάτημα")}</span><div class="b"><i style="width:${w.tol/3.4*100}%;background:#ECECEC"></i></div></div></div>`).join("")}
+function drawNeg(){const lab=c=>c.own!==undefined?T(`${WALKERS[c.own].name}'s own`,`Της ${WALKERS[c.own].name}`):T(c.en,c.el);
+  let h=`<table><tr><th>${T("Candidate route","Υποψήφια διαδρομή")}</th>${WALKERS.map(w=>`<th style="color:${w.col}">${w.name}</th>`).join("")}<th>${T("worst","χειρότερη")}</th><th>${T("min","λεπτά")}</th></tr>`;
+  const seen=new Map();
+  for(const c of res.cands){if(!c.r)continue;const key=c.r.join(",");const dup=seen.get(key);if(!dup)seen.set(key,c);
+    h+=`<tr class="${c===res.pick?"pick":""}"><td>${lab(c)}${dup?` <span style="color:var(--muted)">= ${lab(dup)}</span>`:""}</td>${c.reg.map(v=>`<td class="${v===c.max&&v>0?"worst":""}">${v===Infinity?"✕":"+"+Math.round(v*100)+"%"}</td>`).join("")}<td>${c.max===Infinity?"✕":Math.round(c.max*100)+"%"}</td><td>${Math.round(rstats(c.r).min)}</td></tr>`}
+  $("#negTable").innerHTML=h+"</table>";
+  $("#negCap").innerHTML=T(`Live, Camden Market → Granary Square. Each cell: how much worse that route is for that walker than her own best. ✕ = has steps, ruled out for Leila. <span style="color:var(--pink)">Pink row = chosen.</span>`,
+   `Ζωντανά, Camden Market → Granary Square. Κάθε κελί: πόσο χειρότερη είναι η διαδρομή για την πεζή σε σχέση με τη δική της καλύτερη. ✕ = έχει σκάλες, αποκλείεται για τη Leila. <span style="color:var(--pink)">Ροζ γραμμή = η επιλογή.</span>`)}
+function drawCity(){const c=prep($("#cvCity"),.78);parks(c);net(c,()=>["rgba(239,230,216,.10)",.6]);
+  G.E.forEach((e,i)=>{const v=CITY.safe[i];if(v>.04){c.beginPath();seg(c,e);c.strokeStyle="rgba(163,181,140,.9)";c.lineWidth=.6+v*5;c.stroke()}});
+  G.E.forEach((e,i)=>{const v=CITY.avoid[i];if(v>.04){c.beginPath();seg(c,e);c.strokeStyle="rgba(232,120,94,.95)";c.lineWidth=.6+v*5;c.stroke()}})}
+function drawFix(){const c=prep($("#cvFix"),.78);parks(c);net(c,()=>["rgba(239,230,216,.12)",.6]);
+  FX.fixes.forEach((f,k)=>{c.beginPath();for(const i of f.ids)seg(c,G.E[i]);c.strokeStyle=k<3?"#E8785E":"rgba(232,120,94,.45)";c.lineWidth=k<3?3.4:1.8;c.stroke()});
+  FX.fixes.slice(0,3).forEach((f,k)=>{let x=0,y=0,n=0;for(const i of f.ids){const p=c.P(G.V[G.E[i][0]]);x+=p[0];y+=p[1];n++}x/=n;y/=n;c.fillStyle="#fff";c.fillRect(x-10,y-10,20,20);c.fillStyle="#1B1B1B";c.font="700 11px 'Roboto Mono',monospace";c.textAlign="center";c.fillText(k+1,x,y+4)});
+  const MV={Light:["light","φως"],Underpass:["underpass","υπόγεια διάβαση"],Activate:["late uses","νυχτερινές χρήσεις"],Sightlines:["sightlines","ορατότητα"],Help:["help point","σημείο βοήθειας"],"Step-free":["step-free","χωρίς σκαλιά"]};
+  $("#fixes").innerHTML=FX.fixes.slice(0,3).map((f,k)=>`<li><span class="n">${k+1}</span><b>${f.name}</b><em>${Math.round(f.after.uses/CITY.stats.trips*100)}% ${T("of quick walks","των γρήγορων")}</em><span class="d">${f.moves.map(m=>(MV[m[0]]||[m[0],m[0]])[L()==="el"?1:0]).join(" · ")} · ${f.cost}${f.after.flipped?` · +${f.after.flipped} ${T("safe enough","αρκετά ασφαλείς")}`:""}</span></li>`).join("")}
+function renderDynamic(){drawHero();drawFive();drawEx();drawWalkers();drawNeg();drawData();drawCity();drawFix()}
+
+Promise.all(["../graph.json","../city.json","../fixes.json"].map(u=>fetch(u).then(r=>r.json()))).then(([g,c,f])=>{
+  G=g;CITY=c;FX=f;window.G=g;
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(const v of G.V){x0=Math.min(x0,v[0]);x1=Math.max(x1,v[0]);y0=Math.min(y0,v[1]);y1=Math.max(y1,v[1])}BB=[x0,y0,x1,y1];
+  adj=G.V.map(()=>[]);G.E.forEach((e,i)=>{adj[e[0]].push(i);adj[e[1]].push(i)});
+  // step-free component (same as the prototype), then snap the two places
+  const comp=new Int32Array(G.V.length).fill(-1);let cid=0,sizes=[];
+  for(let s0=0;s0<G.V.length;s0++){if(comp[s0]>=0||!adj[s0].length)continue;let n=0;const st=[s0];comp[s0]=cid;while(st.length){const u=st.pop();n++;for(const i of adj[u]){const e=G.E[i];if(e[8])continue;const v=e[0]===u?e[1]:e[0];if(comp[v]<0){comp[v]=cid;st.push(v)}}}sizes.push(n);cid++}
+  const big=sizes.indexOf(Math.max(...sizes));
+  const P=(lat,lon)=>[(lon-G.origin[1])*G.kx,(lat-G.origin[0])*G.ky];
+  const snap=p=>{let b=0,bd=1e18;G.V.forEach((v,i)=>{if(comp[i]!==big)return;const d=(v[0]-p[0])**2+(v[1]-p[1])**2;if(d<bd){bd=d;b=i}});return b};
+  A=snap(P(51.5413,-0.1458));B=snap(P(51.5354,-0.1253));
+  const short=dijkstra(e=>e[2]),own=WALKERS.map(w=>dijkstra(e=>ecost(e,w.w,w.tol,w.step)));
+  const mean=[0,1,2,3,4].map(k=>WALKERS.reduce((s,w)=>s+w.w[k],0)/4),mx=[0,1,2,3,4].map(k=>Math.max(...WALKERS.map(w=>w.w[k])));
+  const cands=own.map((r,i)=>({r,own:i}));
+  for(const [w,t,en,el] of [[mean,2,"Shared priorities","Κοινές προτεραιότητες"],[mx,2.4,"Everyone's top priorities","Οι κορυφαίες όλων"],[mean,1.5,"Shared, shorter","Κοινές, πιο σύντομη"],[mx,3.2,"Top priorities, longer","Κορυφαίες, πιο μεγάλη"]])cands.push({r:dijkstra(e=>ecost(e,w,t,true)),en,el});
+  const best=WALKERS.map((w,i)=>rc(own[i],w));let pick=null;
+  for(const c of cands){if(!c.r)continue;c.reg=WALKERS.map((w,i)=>rc(c.r,w)/best[i]-1);c.max=Math.max(...c.reg);if(!pick||c.max<pick.max-1e-9)pick=c}
+  res={short,own,cands,pick};renderDynamic();
+  let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(renderDynamic,200)});
+});
+</script>
+</body>
+</html>
