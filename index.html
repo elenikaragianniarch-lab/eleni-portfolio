@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Eleni Karagianni</title>
-<meta name="description" content="Eleni Karagianni: architectural engineer and computational designer in London. I design spaces, and build the tools that test them.">
+<meta name="description" content="Eleni Karagianni. Every system leaves something out. I build tools that find it: AI agents that push back, prototypes and 3D. Trained as an architect, London.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Eleni Karagianni">
-<meta property="og:title" content="Eleni Karagianni · architectural engineer and computational designer">
-<meta property="og:description" content="AI agents, data pipelines and 3D systems that read cities. London.">
+<meta property="og:title" content="Eleni Karagianni · Every system leaves something out">
+<meta property="og:description" content="I build tools that find it, lately AI agents that push back. Design technologist, London.">
 <meta property="og:url" content="https://www.eleni-karagianni.com/"><meta property="og:image" content="https://www.eleni-karagianni.com/og/home.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -276,6 +276,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .k-hrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
 .k-hrow p{font-size:15px}
 .k-claim{font-family:var(--f-display);font-size:clamp(19px,1.7vw,25px)!important;line-height:1.3;letter-spacing:-.015em;font-weight:350;max-width:32ch}.k-claim b{font-weight:600}
+.k-now a{text-decoration:underline;text-underline-offset:2px}.k-now a:hover{color:var(--red)}
 .k-hrow a{text-decoration:none}.k-hrow a:hover{color:var(--red)}
 .k-copy{font:inherit;font-family:var(--f-mono);font-size:13px;background:none;border:0;padding:0;cursor:pointer;color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .k-copy:hover{color:var(--red)}
@@ -508,7 +509,7 @@ footer:not(.k-foot){display:none}
     <nav aria-label="Main"><a href="#" class="on">Index</a><a href="#works">Works</a><a href="#lab">Lab</a><a href="#about">About</a></nav>
     <a class="msg" href="#contact">Contact ↗</a>
   </header>
-  <main id="view"></main>
+  <main id="view"><section class="k-hero"><h1 class="k-name">Every system leaves something out. I build tools that find it.</h1><p>Eleni Karagianni. Most AI is built to agree with you. I build the kind that pushes back. Trained as an architect, MArch at the Bartlett, London. Looking for a product or design role at a startup.</p><p>Work: <a href="#nine-acts">Nine Acts of Ostranenie</a> (nine AI agents that argue, Best Computation Prize) · <a href="nightwalk/">Night Walk</a> (which dark streets to fix first, tested on 2,560 simulated walks) · <a href="#unseen-city">The Unseen City</a> (thesis, Theory Report Prize).</p><p><a href="https://www.linkedin.com/in/elenikaragiannii/">LinkedIn</a> · eleni.karagianni.arch@gmail.com</p></section></main>
 </div>
 <div class="theatre" id="theatre" role="dialog" aria-modal="true" aria-label="Demo">
   <div class="th-bar"><span class="tt" id="th-t"></span><span class="sp"></span><a id="th-open" href="#" target="_blank" rel="noopener">Open in new tab ↗</a><button type="button" id="th-close">← Back</button></div>
@@ -730,50 +731,32 @@ const FR={"Archive map":"archive_1.jpg","Agent discussion":"discussion_1.jpg","L
 const CAT={"night-walk":"ai","nine-acts":"ai","turin-machine":"ai","unseen-city":"ai","under-common-care":"arch","mind-the-gap":"arch","the-bus":"film","interview-dimitris":"film"};
 let demo=0,qi=0,filt="all";
 const num=p=>p.n.replace("W","");
-const UC_INFO=`<span class="k-info"><span class="f-k dark">04 · 2026 · Thesis · Theory Report Prize</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span></span>`;
+const UC_INFO=`<span class="k-info"><span class="f-k dark">2026 · Thesis · Theory Report Prize</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span></span>`;
 const ht=(p,cls="")=>p&&p.id==="unseen-city"?`<span class="k-dots" aria-hidden="true"></span>${UC_INFO}`:p&&p.thumb?`<img src="${IMG+(cls==="lg"&&p.id==="turin-machine"?"w02_lg.png":p.thumb)}" alt="" loading="lazy">${p.col?`<img class="col" src="${IMG+p.col}" alt="" loading="lazy">`:""}`:`<span class="k-dots" aria-hidden="true"></span>`;
 const sh=(n,t,right="")=>`<div class="k-sh"><span class="k-n">${n}</span><h2>${t}</h2><span class="k-r">${right}</span></div>`;
 function wcard(p,i){return `<a class="k-wc" href="#${p.id}" data-i="${i}" data-cat="${CAT[p.id]}"><span class="k-pic">${ht(p)}</span><span class="k-cap"><span class="k-no">${num(p)}</span><span class="k-tt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)} · ${p.y}</span></span></a>`}
 function demoFrame(){const [t,u]=DEMOS[demo];return CAN_EMBED?`<iframe src="${u}" title="${esc(t)}" loading="lazy" allow="fullscreen"></iframe>`:`<a class="k-fb" href="${u}" target="_blank" rel="noopener"><img src="${IMG}lab/${FR[t]}" alt=""><span class="btn">Open live ↗</span></a>`}
 const MAIL="eleni.karagianni.arch@gmail.com";
+const LI="https://www.linkedin.com/in/elenikaragiannii/";
 function foot(){return `<footer class="k-foot">
   <p class="lab">Get in touch</p>
-  <a class="k-mail" href="mailto:${MAIL}">Let's talk<span class="k-arr">→</span></a>
-  <div class="k-fl"><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><a href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/elenikaragianniarch-lab" target="_blank" rel="noopener">GitHub ↗</a><span>London <span class="clk"></span></span></div>
+  <a class="k-mail" href="${LI}" target="_blank" rel="noopener">Message me on LinkedIn<span class="k-arr">→</span></a>
+  <div class="k-fl"><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/elenikaragianniarch-lab" target="_blank" rel="noopener">GitHub ↗</a><span>London <span class="clk"></span></span></div>
 </footer>`}
 function stage(){
-  const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),tu=byId("turin-machine"),uc=byId("unseen-city"),nw=byId("night-walk"),rest=P.filter(p=>CAT[p.id]!=="ai");
+  const byId=id=>P.find(p=>p.id===id),na=byId("nine-acts"),uc=byId("unseen-city"),more=P.filter(p=>!["nine-acts","night-walk","unseen-city"].includes(p.id));
   return `<section class="k-hero">
-    <div class="k-ht"><span>Portfolio · 2026</span><span>Architectural engineer · computational designer</span><span>London, UK <span class="clk"></span></span></div>
-    <h1 class="k-name" id="nm" aria-label="I design spaces, and build the tools that test them."><span class="w">I</span> <span class="w">design</span> <span class="w">spaces,</span><br class="hb"> <span class="w">and</span> <span class="w">build</span> <span class="w">the</span> <span class="w">tools</span><br class="hb"> <span class="w">that</span> <span class="w">test</span> <span class="w">them.</span></h1>
+    <div class="k-ht"><span>Portfolio · 2026</span><span>Design technologist · AI agents · 3D</span><span>London, UK <span class="clk"></span></span></div>
+    <h1 class="k-name" id="nm" aria-label="Every system leaves something out. I build tools that find it."><span class="w">Every</span> <span class="w">system</span> <span class="w">leaves</span><br class="hb"> <span class="w">something</span> <span class="w">out.</span><br class="hb"> <span class="w">I</span> <span class="w">build</span> <span class="w">tools</span> <span class="w">that</span><br class="hb"> <span class="w">find</span> <span class="w">it.</span></h1>
     <div class="k-hrow">
-      <p class="k-claim"><b>Eleni Karagianni.</b> Architectural engineer and computational designer in London. MArch Urban Design, the Bartlett, UCL.</p>
-      <div><p class="lab">Now</p><p>Open to roles in applied AI, computational design and creative technology.</p><div class="btns" style="margin-top:14px"><a class="btn" href="#nine-acts">See the main project</a><a class="btn ghost" href="#night-walk">Try Night Walk</a></div></div>
-      <div><p class="lab">Contact</p><p><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button><br><a href="https://www.linkedin.com/in/elenikaragiannii/" target="_blank" rel="noopener">LinkedIn ↗</a> &nbsp;<a href="https://www.instagram.com/eleni_karagianni_arch/" target="_blank" rel="noopener">Instagram ↗</a></p></div>
+      <p class="k-claim"><b>Eleni Karagianni.</b> Most AI is built to agree with you. I build the kind that pushes back. Trained as an architect, MArch at the Bartlett.</p>
+      <div><p class="lab">Now</p><p>Looking for a product or design role at a startup. London or remote.</p><div class="btns" style="margin-top:14px"><button type="button" class="btn" data-scroll="s-work">See the work ↓</button><a class="btn ghost" href="nightwalk/">Try Night Walk ↗</a></div></div>
+      <div><p class="lab">Contact</p><p><a href="${LI}" target="_blank" rel="noopener">Message me on LinkedIn ↗</a><br><button type="button" class="k-copy" data-copy="${MAIL}">${MAIL}</button></p></div>
     </div>
   </section>
 
-  <section class="k-s">
-    ${sh("01","Selected works",`<span class="ctrl2"><button type="button" id="cprev" aria-label="Previous work">←</button><span id="ccount">01 / 0${P.length}</span><button type="button" id="cnext" aria-label="Next work">→</button></span>`)}
-    <div class="k-rail" id="rail">${P.map(wcard).join("")}</div>
-    <p class="k-under">Drag, scroll or use the arrows. <a href="#works">See all works as a grid →</a></p>
-  </section>
-
-  <section class="k-s">
-    ${sh("02","New: Night Walk",`<a href="#night-walk">How it works →</a>`)}
-    <div class="k-fx">
-      <div class="k-fx-t">
-        <p class="f-k dark">2026 · prototype · open data · route optimisation · agents</p>
-        <p class="k-big">Safety apps send women around the dark street. Nobody fixes it. Night Walk finds which streets to fix first, tests each fix on 2,560 simulated walks, and turns them into design proposals.</p>
-      </div>
-      <div class="k-nums" style="margin-top:0"><div><b>+1.2 min</b><span>average cost of walking the safe way</span></div><div><b>73→93%</b><span>of the walk on lit streets, quick way vs safe way</span></div><div><b>91%</b><span>of trips: 3 extra minutes or less</span></div><div><b>+87</b><span>walks no longer need a detour if 3 streets are fixed</span></div></div>
-    </div>
-      <div class="k-frame k-nw">${CAN_EMBED?`<iframe src="nightwalk/" title="Night Walk" loading="lazy"></iframe>`:""}<a class="k-mob" href="nightwalk/"><video src="${IMG}v/nw-walk.mp4" poster="${IMG}c08.jpg" muted loop playsinline autoplay preload="metadata" style="display:block;width:100%"></video></a></div>
-    <p class="k-under">Pick two stations or click the map inside. <button type="button" class="k-copy" data-theatre="Night Walk" data-href="nightwalk/">Open full screen ⤢</button></p>
-  </section>
-
-  <section class="k-s">
-    ${sh("03","Featured: Nine Acts of Ostranenie",`<a href="#nine-acts">Open project →</a>`)}
+  <section class="k-s" id="s-work">
+    ${sh("01","Nine Acts: agents that argue",`<a href="#nine-acts">The full project →</a>`)}
     <div class="k-fx">
       <div class="k-fx-t">
         <p class="f-k dark">2026 · with Ruijia Zheng · Best Computation Prize, Bartlett</p>
@@ -783,23 +766,44 @@ function stage(){
       <a class="k-fx-i" href="#nine-acts" aria-label="Nine Acts of Ostranenie">${ht(na)}</a>
     </div>
     <div class="k-try">
-      <div class="k-tryh"><p class="lab">Try it here, it's live</p><span class="k-tabs">${DEMOS.map((d,i)=>`<button type="button" data-demo="${i}" class="${i===demo?"on":""}">${d[0]}</button>`).join("")}</span></div>
+      <div class="k-tryh"><p class="lab">It's live, try it here</p><span class="k-tabs">${DEMOS.map((d,i)=>`<button type="button" data-demo="${i}" class="${i===demo?"on":""}">${d[0]}</button>`).join("")}</span></div>
       <div class="k-frame" id="lbf">${demoFrame()}</div>
       <div class="k-tryh"><p id="lbd">${DEMOS[demo][2]}</p><span class="k-tabs"><button type="button" id="lbfull">Full screen ⤢</button><a href="#lab">All 18 live pieces →</a></span></div>
     </div>
   </section>
 
   <section class="k-s">
-    ${sh("04","Language, form and the city")}
-    <div class="k-pair">
-      <a class="k-pc" href="#${tu.id}"><span class="k-pic wide">${ht(tu,"lg")}</span><span class="f-k dark">${tu.y} · ${esc(tu.kind)}</span><span class="k-pt">${esc(tu.t)}</span><span>${esc(tu.lede)}</span><span class="k-more">See the pipeline →</span></a>
-      <a class="k-pc k-box" href="#${uc.id}"><span class="f-k dark">${num(uc)} · ${uc.y} · Thesis · Theory Report Prize</span><span class="k-pt">${esc(uc.t)}</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">A thesis on the politics of noise: what thresholds, datasets and evaluation leave out, tested on MIT's Streetscore and on my own agents.</span><span class="k-more">Read the argument →</span></a>
+    ${sh("02","Night Walk: the street nobody fixes",`<a href="nightwalk/">Open Night Walk ↗</a>`)}
+    <div class="k-fx">
+      <div class="k-fx-t">
+        <p class="f-k dark">2026 · prototype · open data · route optimisation · agents</p>
+        <p class="k-big">Safety apps send women around the dark street. Map apps send them down it. Night Walk works out which streets to fix first, and tests each fix on 2,560 simulated walks before anyone spends money on it.</p>
+        <div class="btns" style="margin-top:22px"><a class="btn" href="nightwalk/">Open Night Walk ↗</a><a class="btn ghost" href="#night-walk">How it works</a></div>
+      </div>
+      <div class="k-nums" style="margin-top:0"><div><b>+1.2 min</b><span>average cost of walking the safe way</span></div><div><b>73→93%</b><span>of the walk on lit streets, quick way vs safe way</span></div><div><b>91%</b><span>of trips: 3 extra minutes or less</span></div><div><b>+87</b><span>walks no longer need a detour if 3 streets are fixed</span></div></div>
+    </div>
+    <div class="k-frame k-nw">${CAN_EMBED?`<iframe src="nightwalk/" title="Night Walk" loading="lazy"></iframe>`:""}<a class="k-mob" href="nightwalk/"><video src="${IMG}v/nw-walk.mp4" poster="${IMG}c08.jpg" muted loop playsinline autoplay preload="metadata" style="display:block;width:100%"></video></a></div>
+    <p class="k-under">Pick two stations or click the map. <button type="button" class="k-copy" data-theatre="Night Walk" data-href="nightwalk/">Full screen ⤢</button></p>
+  </section>
+
+  <section class="k-s">
+    ${sh("03","The Unseen City: what the data throws away",`<a href="#unseen-city">Read the argument →</a>`)}
+    <a class="k-pc k-box" href="#${uc.id}" style="max-width:none"><span class="f-k dark">${uc.y} · Thesis · Theory Report Prize, the Bartlett</span><span class="k-bq">"Every system that measures a city has already decided what doesn't count."</span><span class="k-bd">My thesis on the politics of noise: what thresholds, datasets and evaluation quietly leave out. Tested on MIT's Streetscore and on my own agents.</span><span class="k-more">Read the argument →</span></a>
+  </section>
+
+  <section class="k-s">
+    ${sh("04","Now")}
+    <div class="k-tools k-now">
+      <div><p class="lab">Building</p><p>A twin of one Camden street where three agents argue about which retrofits are safe to fund now. <a href="https://elenikaragianniarch-lab.github.io/arlington-road-twin/" target="_blank" rel="noopener">Live demo ↗</a></p></div>
+      <div><p class="lab">Taught</p><p>Designing with Disagreement, the Bartlett, Oct 2026. 23 students, most new to code, built agents that argue.</p></div>
+      <div><p class="lab">Recognised</p><p>Best Computation Prize and Theory Report Prize, the Bartlett 2026. Honourable Mention, SCI-Arc Playing Models.</p></div>
+      <div><p class="lab">Writing</p><p>Short posts on AI that agrees too easily. <a href="${LI}" target="_blank" rel="noopener">On LinkedIn ↗</a></p></div>
     </div>
   </section>
 
   <section class="k-s">
-    ${sh("05","Architecture and film")}
-    <div class="k-list">${rest.map(p=>`<a class="k-row" href="#${p.id}"><span class="k-pic sm">${ht(p)}</span><span class="k-no">${num(p)}</span><span class="k-rt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)}</span><span class="k-yr">${p.y} →</span></a>`).join("")}</div>
+    ${sh("05","More work",`<a href="#works">All works as a grid →</a>`)}
+    <div class="k-list">${more.map(p=>`<a class="k-row" href="#${p.id}"><span class="k-pic sm">${ht(p)}</span><span class="k-no">${num(p)}</span><span class="k-rt">${esc(p.t)}</span><span class="k-kd">${esc(p.kind)}</span><span class="k-yr">${p.y} →</span></a>`).join("")}</div>
   </section>
 
   <section class="k-s">
@@ -827,9 +831,10 @@ function aboutPage(){return `<section class="k-pg">
   <div class="k-pgh"><h1 class="k-pgt">About</h1></div>
   <div class="k-ab">
     <div>
-      <p class="k-big">I'm an architectural engineer from Greece, licensed with the Technical Chamber of Greece, and I've just finished the MArch in Urban Design at the Bartlett, UCL.</p>
-      <p class="k-body">I build working systems: archives, agents and pipelines that turn data into images, films and spaces. Most of my work asks how places are lived, seen and remembered, and by whom. I've co-taught a Bartlett workshop on agents that disagree, worked on an AI safety startup, and drawn real buildings in Greece.</p>
-      <p class="k-body"><b>Open to roles in applied AI, computational design and creative technology in London.</b></p>
+      <p class="k-big">Every system leaves something out. A map hides the dark street. A dataset drops the odd photo. A model gives you one confident answer when there should have been an argument.</p>
+      <p class="k-body">Most AI is built to agree with you. I build the kind that pushes back.</p>
+      <p class="k-body">I trained as an architect and started building my own tools to find those gaps. Now I design AI agents that disagree with each other, because the disagreement is where the real answer usually is.</p>
+      <p class="k-body">Architectural engineer, licensed in Greece (TEE). MArch Urban Design, the Bartlett, UCL. <b>Looking for a product or design role at a startup, in London or remote.</b> <a href="${LI}" target="_blank" rel="noopener">Message me on LinkedIn ↗</a></p>
       <p class="k-body"><a href="files/Eleni_Karagianni_CV.pdf">Download CV (PDF)</a></p>
     </div>
     <span class="k-pic"><img src="${IMG}about.jpg" alt="Eleni Karagianni"></span>
@@ -1014,7 +1019,7 @@ function renderView(h){
   const pg=p?"works":h==="contact"?"about":["lab","works","about"].includes(h)?h:"";
   document.querySelectorAll(".frame-top nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+pg));
   $("#view").innerHTML=p?projectV(p)+foot():h==="lab"?lab()+foot():h==="works"?works():pg==="about"?aboutPage():stage();
-  document.title=p?`${p.t} · Eleni Karagianni`:pg?pg[0].toUpperCase()+pg.slice(1)+" · Eleni Karagianni":"Eleni Karagianni · AI agents, computational design";
+  document.title=p?`${p.t} · Eleni Karagianni`:pg?pg[0].toUpperCase()+pg.slice(1)+" · Eleni Karagianni":"Eleni Karagianni · Every system leaves something out";
   k=1;drawSeq();tickClock();window.scrollTo(0,0);
   if(h==="contact")setTimeout(()=>$("#contact").scrollIntoView(),40);
   requestAnimationFrame(()=>{nameMount();queueDots();railMark()});
@@ -1046,6 +1051,7 @@ document.addEventListener("pointermove",e=>{
   if(!htRaf)htRaf=requestAnimationFrame(()=>{htRaf=0;nameTick()});
 },{passive:true});
 let rz=0;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{nameMeasure();queueDots();railMark()},150)});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-scroll]");if(!b)return;const t=document.getElementById(b.dataset.scroll);if(t)t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})});
 window.addEventListener("hashchange",route);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{nameMeasure();railMark()});
 route();
